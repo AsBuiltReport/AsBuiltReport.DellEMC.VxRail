@@ -13,6 +13,9 @@ Style -Name 'Heading 3' -Size 12 -Color '00447C'
 Style -Name 'Heading 4' -Size 11 -Color '00447C' 
 Style -Name 'Heading 5' -Size 10 -Color '00447C'
 Style -Name 'Normal' -Size 10 -Color '565656' -Default
+Style -Name 'Caption' -Size 10 -Color '565656' -Italic -Align Center
+Style -Name 'Header' -Size 10 -Color '565656' -Align Center
+Style -Name 'Footer' -Size 10 -Color '565656' -Align Center
 Style -Name 'TOC' -Size 16 -Color '00447C' 
 Style -Name 'TableDefaultHeading' -Size 10 -Color 'FAFAFA' -BackgroundColor '0076CE'
 Style -Name 'TableDefaultRow' -Size 10 -Color '565656'
@@ -28,6 +31,8 @@ $TableDefaultProperties = @{
     RowStyle = 'TableDefaultRow'
     BorderColor = '0076CE'
     Align = 'Left'
+    CaptionStyle = 'Caption'
+    CaptionLocation = 'Below' 
     BorderWidth = 0.25
     PaddingTop = 1
     PaddingBottom = 1.5
@@ -36,23 +41,45 @@ $TableDefaultProperties = @{
 }
 
 TableStyle @TableDefaultProperties -Default
-TableStyle -Id 'Borderless' -BorderWidth 0
+TableStyle -Id 'Borderless' -HeaderStyle Normal -RowStyle Normal -BorderWidth 0
 
 # Dell EMC Cover Page Layout
+# Header & Footer
+if ($ReportConfig.Report.ShowHeaderFooter) {
+    Header -Default {
+        Paragraph -Style Header "$($ReportConfig.Report.Name) - v$($ReportConfig.Report.Version)"
+    }
+
+    Footer -Default {
+        Paragraph -Style Footer 'Page <!# PageNumber #!>'
+    }
+}
+
 # Set position of report titles and information based on page orientation
+# DELL EMC DO NOT PERMIT THE USE OF THEIR LOGO WITHOUT AUTHORIZATION
+#if (!($ReportConfig.Report.ShowCoverPageImage)) {
+#    $LineCount = 5
+#}
 if ($Orientation -eq 'Portrait') {
     BlankLine -Count 11
-    $LineCount = 30
+    $LineCount = 32 + $LineCount
 } else {
     BlankLine -Count 7
-    $LineCount = 20
+    $LineCount = 15 + $LineCount
 }
+
+# DELL EMC Logo Image
+
+#if ($ReportConfig.Report.ShowCoverPageImage) {
+#    Image -Text 'DELL EMC Logo' -Align 'Center' -Percent 5 -Base64 ""
+#}
 
 # Add Report Name
 Paragraph -Style Title $ReportConfig.Report.Name
 
 if ($AsBuiltConfig.Company.FullName) {
     # Add Company Name if specified
+    BlankLine -Count 2
     Paragraph -Style Title2 $AsBuiltConfig.Company.FullName
     BlankLine -Count $LineCount
 } else {
@@ -60,11 +87,13 @@ if ($AsBuiltConfig.Company.FullName) {
 }
 Table -Name 'Cover Page' -List -Style Borderless -Width 0 -Hashtable ([Ordered] @{
         'Author:' = $AsBuiltConfig.Report.Author
-        'Date:' = Get-Date -Format 'dd MMMM yyyy'
+        'Date:' = (Get-Date).ToLongDateString()
         'Version:' = $ReportConfig.Report.Version
     })
 PageBreak
 
-# Add Table of Contents
-TOC -Name 'Table of Contents'
-PageBreak
+if ($ReportConfig.Report.ShowTableOfContents) {
+    # Add Table of Contents
+    TOC -Name 'Table of Contents'
+    PageBreak
+}
