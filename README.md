@@ -119,8 +119,8 @@ The **Cluster** schema is used to configure health checks for VxRail clusters.
 
 | Sub-Schema                  | Setting      | Default | Description                                                                                | Highlight                                                                                                                                     |
 |-----------------------------|--------------|---------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Health                   | true / false | true    | Highlights VxRail clusters which report an error                           | ![Critical](https://placehold.it/15/FEDDD7/000000?text=+) VxRail cluster is in an error state
-| VMPowerState                   | true / false | true    | Highlights VxRail cluster VMs which are powered off                           | ![Warning](https://placehold.it/15/FFF4C7/000000?text=+) VxRail cluster VM is powered off 
+| Health                   | true / false | true    | Highlights VxRail clusters which report an error                           | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) VxRail cluster is in an error state
+| VMPowerState                   | true / false | true    | Highlights VxRail cluster VMs which are powered off                           | ![Warning](https://placehold.it/15/FEF3B5/000000?text=+) VxRail cluster VM is powered off 
 
 #### Appliance
 The **Appliance** schema is used to configure health checks for VxRail appliances.
@@ -128,16 +128,17 @@ The **Appliance** schema is used to configure health checks for VxRail appliance
 
 | Sub-Schema                  | Setting      | Default | Description                                                                                | Highlight                                                                                                                                     |
 |-----------------------------|--------------|---------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Health                   | true / false | true    | Highlights VxRail appliances which report an issue                           | ![Warning](https://placehold.it/15/FFF4C7/000000?text=+) VxRail appliance is reporting a warning<br>![Critical](https://placehold.it/15/FEDDD7/000000?text=+) VxRail appliance is reporting an error
-| PowerState                   | true / false | true    | Highlights VxRail appliances which are powered off                           | ![Critical](https://placehold.it/15/FEDDD7/000000?text=+) VxRail appliance is powered off 
-| BootDevice                   | true / false | true    | Highlights VxRail boot devices which report less than 100% health                           | ![Warning](https://placehold.it/15/FFF4C7/000000?text=+) Boot device reports <100% health 
-| NetworkLinkStatus                  | true / false | true    | Highlights VxRail network adpaters with a link status of `Down`                           | ![Critical](https://placehold.it/15/FEDDD7/000000?text=+) Network adapter link status is `Down`
-| Disk                  | true / false | true    | Highlights VxRail disks which report a status which is not equal to `OK`                           | ![Critical](https://placehold.it/15/FEDDD7/000000?text=+) Disk status is not `OK`
-| PowerSupply                  | true / false | true    | Highlights VxRail power supplies which are not `Healthy`                           | ![Critical](https://placehold.it/15/FEDDD7/000000?text=+) Power supply is not `Healthy`
+| Health                   | true / false | true    | Highlights VxRail appliances which report an issue                           | ![Warning](https://placehold.it/15/FEF3B5/000000?text=+) VxRail appliance is reporting a warning<br>![Critical](https://placehold.it/15/F5DBD9/000000?text=+) VxRail appliance is reporting an error
+| PowerState                   | true / false | true    | Highlights VxRail appliances which are powered off                           | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) VxRail appliance is powered off 
+| BootDevice                   | true / false | true    | Highlights VxRail boot devices which report less than 100% health                           | ![Warning](https://placehold.it/15/FEF3B5/000000?text=+) Boot device reports <100% health 
+| NetworkLinkStatus                  | true / false | true    | Highlights VxRail network adpaters with a link status of `Down`                           | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) Network adapter link status is `Down`
+| Disk                  | true / false | true    | Highlights VxRail disks which report a status which is not equal to `OK`                           | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) Disk status is not `OK`
+| PowerSupply                  | true / false | true    | Highlights VxRail power supplies which are not `Healthy`                           | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) Power supply is not `Healthy`
 
 ## :computer: Examples 
 
-:exclamation: :exclamation: :exclamation: The `Target` parameter **MUST** specify the vCenter Server IP/FQDN. **DO NOT** specify the VxRail Manager IP/FQDN. :exclamation: :exclamation: :exclamation:
+:exclamation: The `Target` parameter **MUST** specify the vCenter Server IP/FQDN which manages the VxRail cluster. The `Username`, `Password` and `Credential` parameters must also use relevant vCenter Server credentials. 
+
 
 ```powershell
 # Generate a VxRail As Built Report for VxRail cluster 'vxrail-01.corp.local' using specified vCenter Server credentials. The VxRail cluster is managed by vCenter Server 'vcenter-01.corp.local'. Export report to HTML & DOCX formats. Use default report style. Append timestamp to report filename. Save reports to 'C:\Users\Tim\Documents'
