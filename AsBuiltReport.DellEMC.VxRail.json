@@ -1,9 +1,9 @@
 {
     "Report": {
-        "Filename": "",
         "Name": "Dell EMC VxRail As Built Report",
         "Version": "1.0",
         "Status": "Released",
+        "ShowCoverPageImage": true,
         "ShowTableOfContents": true,
         "ShowHeaderFooter": true,
         "ShowTableCaptions": true
@@ -12,18 +12,23 @@
 
     },
     "InfoLevel": {
-        "_comment_": "0 = Disabled, 1 = Enabled",
+        "_comment_": "0 = Disabled, 1 = Enabled / Summary, 2 = Detailed",
         "Cluster": 1,
-        "Appliances": 1,
+        "Appliance": 1,
         "Network": 1
     },
     "HealthCheck": {
         "Cluster": {
-            "Health": true
-        },
-        "Host": {
             "Health": true,
-            "PowerState": true
+            "VMPowerState": true
+        },
+        "Appliance": {
+            "Health": true,
+            "PowerState": true,
+            "BootDevice": true,
+            "NetworkLinkStatus": true,
+            "Disk": true,
+            "PowerSupply": true
         }
     }
 }

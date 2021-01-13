@@ -6,6 +6,12 @@ function Get-VxRailApi {
             Mandatory = $true
         )]
         [ValidateNotNullOrEmpty()]
+        [Int] $Version,
+        
+        [Parameter(
+            Mandatory = $true
+        )]
+        [ValidateNotNullOrEmpty()]
         [String] $Uri
     )
 
@@ -47,7 +53,8 @@ function Get-VxRailApi {
         $username = $Credential.UserName
         $password = $Credential.GetNetworkCredential().Password
         $auth = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($username + ":" + $password ))
-        $api = "https://" + $($VxRailMgr.Name) + "/rest/vxm/v1"
+        $api_v1 = "https://" + $($VxRailMgrHostName) + "/rest/vxm/v1"
+        $api_v2 = "https://" + $($VxRailMgrHostName) + "/rest/vxm/v2"
         $headers = @{
             'Accept'        = 'application/json'
             'Authorization' = "Basic $auth" 
@@ -57,7 +64,10 @@ function Get-VxRailApi {
 
     Process {
         Try {
-            Invoke-RestMethod -Method Get -Uri ($api + $uri) -Headers $headers
+            Switch ($Version) {
+                '1' { Invoke-RestMethod -Method Get -Uri ($api_v1 + $uri) -Headers $headers }
+                '2' { Invoke-RestMethod -Method Get -Uri ($api_v2 + $uri) -Headers $headers }
+            }
         } Catch {
             Write-Verbose -Message "Error with API reference call to $(($URI).TrimStart('/'))"
             Write-Verbose -Message $_

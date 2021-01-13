@@ -31,7 +31,7 @@ Below are the instructions on how to install, configure and generate a Dell EMC 
 ## :floppy_disk: Supported Versions
 
 ### VxRail Manager
-To be determined
+* To be determined
 
 ### PowerShell
 This report is compatible with the following PowerShell versions;
@@ -49,14 +49,16 @@ Each of these modules can be easily downloaded and installed via the PowerShell 
 - [AsBuiltReport.DellEMC.VxRail Module](https://www.powershellgallery.com/packages/AsBuiltReport.DellEMC.VxRail/)
 
 ### :closed_lock_with_key: Required Privileges
-To be determined
+* To be determined
 
 ## :package: Module Installation
 
 Open a Windows PowerShell terminal window and install the required module. 
 
+:warning: VMware PowerCLI 12.1 or higher is required. Please ensure older PowerCLI versions have been uninstalled.
+
 ```powershell
-install-module VMware.PowerCLI -MinimumVersion 10.0 -AllowClobber
+install-module VMware.PowerCLI -MinimumVersion 12.1 -AllowClobber
 install-module AsBuiltReport.DellEMC.VxRail
 ```
 
@@ -82,6 +84,7 @@ The **Report** schema provides configuration of the VxRail Manager report inform
 | Name                | User defined | Dell VxRail As Built Report | The name of the As Built Report                     |
 | Version             | User defined | 1.0                         | The report version                                  |
 | Status              | User defined | Released                    | The report release status                           |
+| ShowCoverPageImage  | true / false | true                           | Toggle to enable/disable the display of the cover page image |
 | ShowTableOfContents | true / false | true                        | Toggle to enable/disable table of contents          |
 | ShowHeaderFooter    | true / false | true                        | Toggle to enable/disable document headers & footers |
 | ShowTableCaptions   | true / false | true                        | Toggle to enable/disable table captions/numbering   |
@@ -96,17 +99,60 @@ There are 2 levels (0-1) of detail granularity for each section as follows;
 
 | Setting | InfoLevel | Description                                 |
 |:-------:|-----------|---------------------------------------------|
-|    0    | Disabled  | does not collect or display any information |
-|    1    | Enabled   | collect or display information              |
+|    0    | Disabled          | Does not collect or display any information                                                                                                |
+|    1    | Enabled / Summary | Provides summarised information for a collection of objects                                                                                |
+|    2    | Detailed          | Provides detailed information for individual objects                                                                                       |
 
-
-The following sections can be set
+The table below outlines the default and maximum **InfoLevel** settings for each section.
 
 | Sub-Schema | Default Setting | Maximum Setting |
 |------------|:---------------:|:---------------:|
-| Cluster    |        1        |        1        |
-| Appliances |        1        |        1        |
+| Cluster    |        1        |        2        |
+| Appliance  |        1        |        2        |
 | Network    |        1        |        1        |
 
 ### Healthcheck
 The **Healthcheck** schema is used to toggle health checks on or off.
+
+#### Cluster
+The **Cluster** schema is used to configure health checks for VxRail clusters.
+
+| Sub-Schema                  | Setting      | Default | Description                                                                                | Highlight                                                                                                                                     |
+|-----------------------------|--------------|---------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| Health                   | true / false | true    | Highlights VxRail clusters which report an error                           | ![Critical](https://placehold.it/15/FEDDD7/000000?text=+) VxRail cluster is in an error state
+| VMPowerState                   | true / false | true    | Highlights VxRail cluster VMs which are powered off                           | ![Warning](https://placehold.it/15/FFF4C7/000000?text=+) VxRail cluster VM is powered off 
+
+#### Appliance
+The **Appliance** schema is used to configure health checks for VxRail appliances.
+
+
+| Sub-Schema                  | Setting      | Default | Description                                                                                | Highlight                                                                                                                                     |
+|-----------------------------|--------------|---------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| Health                   | true / false | true    | Highlights VxRail appliances which report an issue                           | ![Warning](https://placehold.it/15/FFF4C7/000000?text=+) VxRail appliance is reporting a warning<br>![Critical](https://placehold.it/15/FEDDD7/000000?text=+) VxRail appliance is reporting an error
+| PowerState                   | true / false | true    | Highlights VxRail appliances which are powered off                           | ![Critical](https://placehold.it/15/FEDDD7/000000?text=+) VxRail appliance is powered off 
+| BootDevice                   | true / false | true    | Highlights VxRail boot devices which report less than 100% health                           | ![Warning](https://placehold.it/15/FFF4C7/000000?text=+) Boot device reports <100% health 
+| NetworkLinkStatus                  | true / false | true    | Highlights VxRail network adpaters with a link status of `Down`                           | ![Critical](https://placehold.it/15/FEDDD7/000000?text=+) Network adapter link status is `Down`
+| Disk                  | true / false | true    | Highlights VxRail disks which report a status which is not equal to `OK`                           | ![Critical](https://placehold.it/15/FEDDD7/000000?text=+) Disk status is not `OK`
+| PowerSupply                  | true / false | true    | Highlights VxRail power supplies which are not `Healthy`                           | ![Critical](https://placehold.it/15/FEDDD7/000000?text=+) Power supply is not `Healthy`
+
+## :computer: Examples 
+
+:exclamation: :exclamation: :exclamation: The `Target` parameter **MUST** specify the vCenter Server IP/FQDN. **DO NOT** specify the VxRail Manager IP/FQDN. :exclamation: :exclamation: :exclamation:
+
+```powershell
+# Generate a VxRail As Built Report for VxRail cluster 'vxrail-01.corp.local' using specified vCenter Server credentials. The VxRail cluster is managed by vCenter Server 'vcenter-01.corp.local'. Export report to HTML & DOCX formats. Use default report style. Append timestamp to report filename. Save reports to 'C:\Users\Tim\Documents'
+PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local' -Username 'administrator@vsphere.local' -Password 'VMware1!' -Format Html,Word -OutputFolderPath 'C:\Users\Tim\Documents' -Timestamp
+
+# Generate a VxRail As Built Report for VxRail cluster 'vxrail-01.corp.local' using specified vCenter Server credentials and VxRail report configuration file. The VxRail cluster is managed by vCenter Server 'vcenter-01.corp.local'. Export report to Text, HTML & DOCX formats. Use default report style. Save reports to 'C:\Users\Tim\Documents'. Display verbose messages to the console.
+PS C:\> New-AsBuiltReport -Report -Report DellEMC.VxRail -Target 'vcenter-01.corp.local' -Username 'administrator@vsphere.local' -Password 'VMware1!' -Format Text,Html,Word -OutputFolderPath 'C:\Users\Tim\Documents' -Verbose
+
+# Generate a VxRail As Built Report for VxRail cluster 'vxrail-01.corp.local' using stored vCenter Server credentials. The VxRail cluster is managed by vCenter Server 'vcenter-01.corp.local'. Export report to HTML & Text formats. Use default report style. Highlight environment issues within the report. Save reports to 'C:\Users\Tim\Documents'.
+PS C:\> $Creds = Get-Credential # Store vCenter Server credentials
+PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local' -Credential $Creds -Format Html,Text -OutputFolderPath 'C:\Users\Tim\Documents' -EnableHealthCheck
+
+# Generate a single VxRail As Built Report for VxRail clusters 'vxrail-01.corp.local' and 'vxrail-02.corp.local'. The VxRail clusters are managed by two individual vCenter Servers 'vcenter-01.corp.local' and 'vcenter-02.corp.local'. Report exports to WORD format by default. Apply custom style to the report. Reports are saved to the user profile folder by default.
+PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local','vcenter-02.corp.local' -Username 'administrator@vsphere.local' -Password 'VMware1!' -StyleFilePath 'C:\Scripts\Styles\MyCustomStyle.ps1'
+
+# Generate a VxRail As Built Report for VxRail cluster 'vxrail-01.corp.local' using specified credentials. he VxRail cluster is managed by vCenter Server 'vcenter-01.corp.local'. Export report to HTML & DOCX formats. Use default report style. Reports are saved to the user profile folder by default. Attach and send reports via e-mail.
+PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local' -Username 'administrator@vsphere.local' -Password 'VMware1!' -Format Html,Word -OutputFolderPath 'C:\Users\Tim\Documents' -SendEmail
+```
