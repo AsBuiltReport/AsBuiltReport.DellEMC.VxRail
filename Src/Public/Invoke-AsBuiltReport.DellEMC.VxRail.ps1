@@ -151,18 +151,17 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                         #region Available ESXi Hosts
                         if ($VxmAvailableHosts) {
                             Section -Style Heading3 'Available ESXi Hosts' {
-                                $VxmAvailbleHostInfo = foreach ($VxmAvailableHost in ($VxmAvailableHosts | Sort-Object host_name)) {
+                                $VxmAvailableHostInfo = foreach ($VxmAvailableHost in ($VxmAvailableHosts | Sort-Object serial_number)) {
                                     [PSCustomObject]@{
                                         'Service Tag' = $VxmAvailableHost.serial_number
-                                        'Appliance ID' = $VxmAvailableHost.psnt
-                                        'Model' = $VxmAvailableHost.Model
-                                        'ESXi Host Management IP' = ($VxmAvailableHost.ip_set).management_ip
-                                        'Hostname' = $VxmAvailableHost.host_name                            
+                                        'Appliance ID' = $VxmAvailableHost.appliance_id
+                                        'Model' = $VxmAvailableHost.model
+                                        'Discovered Date' = (ConvertFrom-epoch $VxmAvailableHost.discovered_date).ToLocalTime()                            
                                     }
                                 }
                                 $TableParams = @{
                                     Name = "Available ESXi Host Specifications - $($VxRailMgrHostName)"
-                                    ColumnWidths = 15, 20, 20, 20, 25
+                                    ColumnWidths = 25, 25, 25, 25
                                 }
                                 if ($Report.ShowTableCaptions) {
                                     $TableParams['Caption'] = "- $($TableParams.Name)"
