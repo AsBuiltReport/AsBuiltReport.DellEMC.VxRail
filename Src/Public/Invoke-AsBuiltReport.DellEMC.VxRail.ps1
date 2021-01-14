@@ -5,7 +5,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
     .DESCRIPTION
         Documents the configuration of Dell EMC VxRail Manager in Word/HTML/Text formats using PScribo.
     .NOTES
-        Version:        0.1.0
+        Version:        0.1.002
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -586,7 +586,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                             }
                             #endregion Proxy Server Section
                         }
-                        #endregion Genera;l Network Section
+                        #endregion General Network Section
 
                         #region Network Pools
                         if ($VxmClusterNetPools) {
@@ -594,11 +594,14 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                                 #region Management Network Pool
                                 Section -Style Heading4 'Management' {
                                     $VxmMgmtNetPool = [PSCustomObject]@{
-                                        'Network Pool' = "$($VxmClusterNetPools.management.pools.minIp) - $($VxmClusterNetPools.management.pools.maxIp)"
+                                        'Network Pool' = foreach ($VxmMgmtNetPool in $VxmClusterNetPools.management.pools) {
+                                            "$($VxmMgmtNetPool.minIp) - $($VxmMgmtNetPool.maxIp)"
+                                        }
                                         'Subnet Mask' = $VxmClusterNetPools.management.subnetmask
                                         'Gateway' = $VxmClusterNetPools.gateway
                                         'Total' = $VxmClusterNetPools.management.total
                                         'Used' = $VxmClusterNetPools.management.used
+                                        'Available' = ($VxmClusterNetPools.management.total) - ($VxmClusterNetPools.management.used)
                                         'VLAN ID' = $VxmClusterNetPools.management.vlan_id
                                     }
                                     $TableParams = @{
@@ -616,11 +619,14 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                                 #region vMotion Network Pool
                                 Section -Style Heading4 'vMotion' {
                                     $VxmVmotionNetPool = [PSCustomObject]@{
-                                        'Network Pool' = "$($VxmClusterNetPools.vmotion.pools.minIp) - $($VxmClusterNetPools.vmotion.pools.maxIp)"
+                                        'Network Pool' = foreach ($VxmVmotionNetPool in $VxmClusterNetPools.vmotion.pools) {
+                                            "$($VxmVmotionNetPool.minIp) - $($VxmVmotionNetPool.maxIp)"
+                                        }
                                         'Subnet Mask' = $VxmClusterNetPools.vmotion.subnetmask
                                         'Gateway' = $VxmClusterNetPools.gateway
                                         'Total' = $VxmClusterNetPools.vmotion.total
                                         'Used' = $VxmClusterNetPools.vmotion.used
+                                        'Available' = ($VxmClusterNetPools.vmotion.total) - ($VxmClusterNetPools.vmotion.used)
                                         'VLAN ID' = $VxmClusterNetPools.vmotion.vlan_id
                                     }
                                     $TableParams = @{
@@ -638,11 +644,14 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                                 #region vSAN Network Pool
                                 Section -Style Heading4 'vSAN' {
                                     $VxmVsanNetPool = [PSCustomObject]@{
-                                        'Network Pool' = "$($VxmClusterNetPools.vsan.pools.minIp) - $($VxmClusterNetPools.vsan.pools.maxIp)"
+                                        'Network Pool' = foreach ($VxmVsanNetPool in $VxmClusterNetPools.vsan.pools) {
+                                            "$($VxmVsanNetPool.minIp) - $($VxmVsanNetPool.maxIp)"
+                                        }
                                         'Subnet Mask' = $VxmClusterNetPools.vsan.subnetmask
                                         'Gateway' = $VxmClusterNetPools.gateway
                                         'Total' = $VxmClusterNetPools.vsan.total
                                         'Used' = $VxmClusterNetPools.vsan.used
+                                        'Available' = ($VxmClusterNetPools.vsan.total) - ($VxmClusterNetPools.vsan.used)
                                         'VLAN ID' = $VxmClusterNetPools.vsan.vlan_id
                                     }
                                     $TableParams = @{
