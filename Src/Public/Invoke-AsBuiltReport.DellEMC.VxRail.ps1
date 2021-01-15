@@ -5,7 +5,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
     .DESCRIPTION
         Documents the configuration of Dell EMC VxRail Manager in Word/HTML/Text formats using PScribo.
     .NOTES
-        Version:        0.1.002
+        Version:        0.1.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -427,26 +427,69 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
 
                                 #region iDRAC Section
                                 $VxmHostiDRACNetwork = Get-VxRailApi -Version 1 -Uri ('/hosts/' + $VxmHost.sn + '/idrac/network')
+                                $VxmHostiDRACUsers = Get-VxRailApi -Version 1 -Uri ('/hosts/' + $VxmHost.sn + '/idrac/users')
                                 Section -Style Heading4 'iDRAC' {
-                                    $VxmHostiDRAC = [PSCustomObject]@{
-                                        'DHCP' = Switch ($VxmHostiDRACNetwork.dhcp_enabled) {
-                                            $true { 'Enabled' }
-                                            $False { 'Disabled' }
+                                    Section -Style Heading5 'IPv4 Settings' {
+                                        $VxmHostiDRACIpv4 = [PSCustomObject]@{
+                                            'DHCP' = Switch ($VxmHostiDRACNetwork.dhcp_enabled) {
+                                                $true { 'Enabled' }
+                                                $False { 'Disabled' }
+                                            }
+                                            'IPv4 Address' = $VxmHostiDRACNetwork.ip.ip_address
+                                            'Subnet Mask' = $VxmHostiDRACNetwork.ip.netmask
+                                            'Gateway' = $VxmHostiDRACNetwork.ip.Gateway
                                         }
-                                        'IP Address' = $VxmHostiDRACNetwork.ip.ip_address
-                                        'Subnet Mask' = $VxmHostiDRACNetwork.ip.netmask
-                                        'Default Gateway' = $VxmHostiDRACNetwork.ip.Gateway
-                                        'VLAN ID' = $VxmHostiDRACNetwork.vlan.vlan_id
+                                        $TableParams = @{
+                                            Name = "iDRAC IPv4 Specifications - $($VxmHost.hostname)"
+                                            List = $true
+                                            ColumnWidths = 50, 50
+                                        }
+                                        if ($Report.ShowTableCaptions) {
+                                            $TableParams['Caption'] = "- $($TableParams.Name)"
+                                        }
+                                        $VxmHostiDRACIpv4 | Table @TableParams
                                     }
-                                    $TableParams = @{
-                                        Name = "iDRAC Specifications - $($VxmHost.hostname)"
-                                        List = $true
-                                        ColumnWidths = 50, 50
+
+                                    Section -Style Heading5 'VLAN Settings' {
+                                        $VxmHostiDRACVlan = [PSCustomObject]@{
+                                            'VLAN' = Switch ($VxmHostiDRACNetwork.vlan.vlan_id -eq '0') {
+                                                $true { 'Disabled' }
+                                                $false { 'Enabled' }
+                                            }
+                                            'VLAN ID' = $VxmHostiDRACNetwork.vlan.vlan_id
+                                            'VLAN Priority' = $VxmHostiDRACNetwork.vlan.vlan_priority
+                                        }
+                                        $TableParams = @{
+                                            Name = "iDRAC VLAN Specifications - $($VxmHost.hostname)"
+                                            List = $true
+                                            ColumnWidths = 50, 50
+                                        }
+                                        if ($Report.ShowTableCaptions) {
+                                            $TableParams['Caption'] = "- $($TableParams.Name)"
+                                        }
+                                        $VxmHostiDRACVlan | Table @TableParams
                                     }
-                                    if ($Report.ShowTableCaptions) {
-                                        $TableParams['Caption'] = "- $($TableParams.Name)"
+
+                                    Section -Style Heading5 'Users' {
+                                        $VxmHostiDRACUserInfo = foreach ($VxmHostiDRACUser in $VxmHostiDRACUsers) {
+                                            [PSCustomObject]@{
+                                                'ID' = $VxmHostiDRACUser.id
+                                                'User Name' = $VxmHostiDRACUser.name
+                                                'Privilege' = Switch ($VxmHostiDRACUser.privilege) {
+                                                    'ADMIN' { 'Administrator' }
+                                                    default { $VxmHostiDRACUser.privilege }
+                                                }
+                                            }
+                                        }
+                                        $TableParams = @{
+                                            Name = "iDRAC User Specifications - $($VxmHost.hostname)"
+                                            ColumnWidths = 33, 34, 33
+                                        }
+                                        if ($Report.ShowTableCaptions) {
+                                            $TableParams['Caption'] = "- $($TableParams.Name)"
+                                        }
+                                        $VxmHostiDRACUserInfo | Table @TableParams
                                     }
-                                    $VxmHostiDRAC | Table @TableParams
                                 }
                                 #endregion iDRAC Section
 
@@ -594,9 +637,12 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                                 #region Management Network Pool
                                 Section -Style Heading4 'Management' {
                                     $VxmMgmtNetPool = [PSCustomObject]@{
-                                        'Network Pool' = foreach ($VxmMgmtNetPool in $VxmClusterNetPools.management.pools) {
-                                            "$($VxmMgmtNetPool.minIp) - $($VxmMgmtNetPool.maxIp)"
-                                        }
+                                        'Network Pool' = & {
+											$VxmMgmtNetPoolObj = foreach ($VxmMgmtNetPool in $VxmClusterNetPools.management.pools) {
+												"$($VxmMgmtNetPool.minIp) - $($VxmMgmtNetPool.maxIp)"
+											} 
+											$VxmMgmtNetPoolObj -join ', '
+										}
                                         'Subnet Mask' = $VxmClusterNetPools.management.subnetmask
                                         'Gateway' = $VxmClusterNetPools.gateway
                                         'Total' = $VxmClusterNetPools.management.total
@@ -619,9 +665,12 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                                 #region vMotion Network Pool
                                 Section -Style Heading4 'vMotion' {
                                     $VxmVmotionNetPool = [PSCustomObject]@{
-                                        'Network Pool' = foreach ($VxmVmotionNetPool in $VxmClusterNetPools.vmotion.pools) {
-                                            "$($VxmVmotionNetPool.minIp) - $($VxmVmotionNetPool.maxIp)"
-                                        }
+                                        'Network Pool' = & {
+											$VxmVmotionNetPoolObj = foreach ($VxmVmotionNetPool in $VxmClusterNetPools.vmotion.pools) {
+												"$($VxmVmotionNetPool.minIp) - $($VxmVmotionNetPool.maxIp)"
+											} 
+											$VxmVmotionNetPoolObj -join ', '
+										}
                                         'Subnet Mask' = $VxmClusterNetPools.vmotion.subnetmask
                                         'Gateway' = $VxmClusterNetPools.gateway
                                         'Total' = $VxmClusterNetPools.vmotion.total
@@ -644,9 +693,12 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                                 #region vSAN Network Pool
                                 Section -Style Heading4 'vSAN' {
                                     $VxmVsanNetPool = [PSCustomObject]@{
-                                        'Network Pool' = foreach ($VxmVsanNetPool in $VxmClusterNetPools.vsan.pools) {
-                                            "$($VxmVsanNetPool.minIp) - $($VxmVsanNetPool.maxIp)"
-                                        }
+                                        'Network Pool' = & {
+											$VxmVsanNetPoolObj = foreach ($VxmVsanNetPool in $VxmClusterNetPools.vsan.pools) {
+												"$($VxmVsanNetPool.minIp) - $($VxmVsanNetPool.maxIp)"
+											} 
+											$VxmVsanNetPoolObj -join ', '
+										}
                                         'Subnet Mask' = $VxmClusterNetPools.vsan.subnetmask
                                         'Gateway' = $VxmClusterNetPools.gateway
                                         'Total' = $VxmClusterNetPools.vsan.total
