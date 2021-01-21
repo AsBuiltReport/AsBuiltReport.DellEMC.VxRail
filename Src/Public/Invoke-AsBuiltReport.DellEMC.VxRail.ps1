@@ -5,7 +5,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
     .DESCRIPTION
         Documents the configuration of Dell EMC VxRail Manager in Word/HTML/Text formats using PScribo.
     .NOTES
-        Version:        0.2.0
+        Version:        0.2.1
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman

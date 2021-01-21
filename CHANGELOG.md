@@ -1,7 +1,9 @@
 # :arrows_counterclockwise: Dell EMC VxRail As Built Report Changelog
 
-## [0.2.0] - 2021-01-20
+## [0.2.1] - 2021-01-21
 
+### Added
+* GitHub Actions workflow for PSScriptAnalyzer
 ### Changed
 * New module structure. Script split into private functions.
 ## [0.1.1] - 2021-01-15
