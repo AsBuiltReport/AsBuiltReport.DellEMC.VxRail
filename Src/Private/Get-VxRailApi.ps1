@@ -7,7 +7,7 @@ function Get-VxRailApi {
         )]
         [ValidateNotNullOrEmpty()]
         [Int] $Version,
-        
+
         [Parameter(
             Mandatory = $true
         )]
@@ -29,12 +29,12 @@ function Get-VxRailApi {
             {
                 if(ServicePointManager.ServerCertificateValidationCallback ==null)
                 {
-                    ServicePointManager.ServerCertificateValidationCallback += 
+                    ServicePointManager.ServerCertificateValidationCallback +=
                         delegate
                         (
-                            Object obj, 
-                            X509Certificate certificate, 
-                            X509Chain chain, 
+                            Object obj,
+                            X509Certificate certificate,
+                            X509Chain chain,
                             SslPolicyErrors errors
                         )
                         {
@@ -49,7 +49,7 @@ function Get-VxRailApi {
     [ServerCertificateValidationCallback]::Ignore()
     [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
     #endregion Workaround for SelfSigned Cert an force TLS 1.2
-    
+
         $username = $Credential.UserName
         $password = $Credential.GetNetworkCredential().Password
         $auth = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($username + ":" + $password ))
@@ -57,7 +57,7 @@ function Get-VxRailApi {
         $api_v2 = "https://" + $($VxRailMgrHostName) + "/rest/vxm/v2"
         $headers = @{
             'Accept'        = 'application/json'
-            'Authorization' = "Basic $auth" 
+            'Authorization' = "Basic $auth"
             'Content-Type'  = 'application/json'
         }
     }

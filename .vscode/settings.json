@@ -10,11 +10,12 @@
     "powershell.codeFormatting.openBraceOnSameLine": true,
     "powershell.codeFolding.enable": true,
     "powershell.codeFormatting.alignPropertyValuePairs": false,
-    "powershell.bugReporting.project": "https://github.com/AsBuiltReport/AsBuiltReport.VMware.NSXv/",
+    "powershell.scriptAnalysis.settingsPath": ".github/workflows/PSScriptAnalyzerSettings.psd1",
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,
     "editor.rulers": [
         115
-    ]
+    ],
+    "files.trimTrailingWhitespace": true
 }

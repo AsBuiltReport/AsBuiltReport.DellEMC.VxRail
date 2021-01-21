@@ -79,15 +79,15 @@ The following provides information of how to configure each schema within the re
 ### Report
 The **Report** schema provides configuration of the VxRail Manager report information
 
-| Sub-Schema          | Setting      | Default                     | Description                                         |
-|---------------------|--------------|-----------------------------|-----------------------------------------------------|
-| Name                | User defined | Dell VxRail As Built Report | The name of the As Built Report                     |
-| Version             | User defined | 1.0                         | The report version                                  |
-| Status              | User defined | Released                    | The report release status                           |
-| ShowCoverPageImage  | true / false | true                           | Toggle to enable/disable the display of the cover page image |
-| ShowTableOfContents | true / false | true                        | Toggle to enable/disable table of contents          |
-| ShowHeaderFooter    | true / false | true                        | Toggle to enable/disable document headers & footers |
-| ShowTableCaptions   | true / false | true                        | Toggle to enable/disable table captions/numbering   |
+| Sub-Schema          | Setting      | Default                     | Description                                                  |
+|---------------------|--------------|-----------------------------|--------------------------------------------------------------|
+| Name                | User defined | Dell VxRail As Built Report | The name of the As Built Report                              |
+| Version             | User defined | 1.0                         | The report version                                           |
+| Status              | User defined | Released                    | The report release status                                    |
+| ShowCoverPageImage  | true / false | true                        | Toggle to enable/disable the display of the cover page image |
+| ShowTableOfContents | true / false | true                        | Toggle to enable/disable table of contents                   |
+| ShowHeaderFooter    | true / false | true                        | Toggle to enable/disable document headers & footers          |
+| ShowTableCaptions   | true / false | true                        | Toggle to enable/disable table captions/numbering            |
 
 ### Options
 The **Options** schema allows certain options within the report to be toggled on or off.
@@ -97,11 +97,11 @@ The **InfoLevel** schema allows configuration of each section of the report at a
 
 There are 2 levels (0-1) of detail granularity for each section as follows;
 
-| Setting | InfoLevel | Description                                 |
-|:-------:|-----------|---------------------------------------------|
-|    0    | Disabled          | Does not collect or display any information                                                                                                |
-|    1    | Enabled / Summary | Provides summarised information for a collection of objects                                                                                |
-|    2    | Detailed          | Provides detailed information for individual objects                                                                                       |
+| Setting | InfoLevel         | Description                                                 |
+|:-------:|-------------------|-------------------------------------------------------------|
+|    0    | Disabled          | Does not collect or display any information                 |
+|    1    | Enabled / Summary | Provides summarised information for a collection of objects |
+|    2    | Detailed          | Provides detailed information for individual objects        |
 
 The table below outlines the default and maximum **InfoLevel** settings for each section.
 
@@ -109,6 +109,7 @@ The table below outlines the default and maximum **InfoLevel** settings for each
 |------------|:---------------:|:---------------:|
 | Cluster    |        1        |        2        |
 | Appliance  |        1        |        2        |
+| Support    |        1        |        1        |
 | Network    |        1        |        1        |
 
 ### Healthcheck
@@ -117,23 +118,32 @@ The **Healthcheck** schema is used to toggle health checks on or off.
 #### Cluster
 The **Cluster** schema is used to configure health checks for VxRail clusters.
 
-| Sub-Schema                  | Setting      | Default | Description                                                                                | Highlight                                                                                                                                     |
-|-----------------------------|--------------|---------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Health                   | true / false | true    | Highlights VxRail clusters which report an error                           | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) VxRail cluster is in an error state
-| VMPowerState                   | true / false | true    | Highlights VxRail cluster VMs which are powered off                           | ![Warning](https://placehold.it/15/FEF3B5/000000?text=+) VxRail cluster VM is powered off 
+| Sub-Schema    | Setting      | Default | Description                                         | Highlight                                                                                     |
+|---------------|--------------|---------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| HealthStatus  | true / false | true    | Highlights VxRail clusters which report an error    | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) VxRail cluster is in an error state |
+| VMPowerStatus | true / false | true    | Highlights VxRail cluster VMs which are powered off | ![Warning](https://placehold.it/15/FEF3B5/000000?text=+) VxRail cluster VM is powered off     |
 
 #### Appliance
 The **Appliance** schema is used to configure health checks for VxRail appliances.
 
 
-| Sub-Schema                  | Setting      | Default | Description                                                                                | Highlight                                                                                                                                     |
-|-----------------------------|--------------|---------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Health                   | true / false | true    | Highlights VxRail appliances which report an issue                           | ![Warning](https://placehold.it/15/FEF3B5/000000?text=+) VxRail appliance is reporting a warning<br>![Critical](https://placehold.it/15/F5DBD9/000000?text=+) VxRail appliance is reporting an error
-| PowerState                   | true / false | true    | Highlights VxRail appliances which are powered off                           | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) VxRail appliance is powered off 
-| BootDevice                   | true / false | true    | Highlights VxRail boot devices which report less than 100% health                           | ![Warning](https://placehold.it/15/FEF3B5/000000?text=+) Boot device reports <100% health 
-| NetworkLinkStatus                  | true / false | true    | Highlights VxRail network adpaters with a link status of `Down`                           | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) Network adapter link status is `Down`
-| Disk                  | true / false | true    | Highlights VxRail disks which report a status which is not equal to `OK`                           | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) Disk status is not `OK`
-| PowerSupply                  | true / false | true    | Highlights VxRail power supplies which are not `Healthy`                           | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) Power supply is not `Healthy`
+| Sub-Schema        | Setting      | Default | Description                                                              | Highlight                                                                                                                                                                                            |
+|-------------------|--------------|---------|--------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| HealthStatus      | true / false | true    | Highlights VxRail appliances which report an issue                       | ![Warning](https://placehold.it/15/FEF3B5/000000?text=+) VxRail appliance is reporting a warning<br>![Critical](https://placehold.it/15/F5DBD9/000000?text=+) VxRail appliance is reporting an error |
+| PowerStatus       | true / false | true    | Highlights VxRail appliances which are powered off                       | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) VxRail appliance is powered off                                                                                                            |
+| BootDevice        | true / false | true    | Highlights VxRail boot devices which report less than 100% health        | ![Warning](https://placehold.it/15/FEF3B5/000000?text=+) Boot device reports <100% health                                                                                                            |
+| NetworkLinkStatus | true / false | true    | Highlights VxRail network adpaters with a link status of `Down`          | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) Network adapter link status is `Down`                                                                                                      |
+| DiskStatus        | true / false | true    | Highlights VxRail disks which report a status which is not equal to `OK` | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) Disk status is not `OK`                                                                                                                    |
+| PowerSupply       | true / false | true    | Highlights VxRail power supplies which are not `Healthy`                 | ![Critical](https://placehold.it/15/F5DBD9/000000?text=+) Power supply is not `Healthy`                                                                                                              |
+
+#### Support
+The **Support** schema is used to configure health checks for the VxRail support configuration.
+
+
+| Sub-Schema     | Setting      | Default | Description                                   | Highlight                                                                              |
+|----------------|--------------|---------|-----------------------------------------------|----------------------------------------------------------------------------------------|
+| EsrsStatus     | true / false | true    | Highlights when ESRS is not `Registered`      | ![Warning](https://placehold.it/15/FEF3B5/000000?text=+) ESRS is not `Registered`      |
+| EsrsConnection | true / false | true    | Highlights when ESRS connection is `Disabled` | ![Warning](https://placehold.it/15/FEF3B5/000000?text=+) ESRS connection is `Disabled` |
 
 ## :computer: Examples 
 
