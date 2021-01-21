@@ -15,4 +15,4 @@ jobs:
         failOnWarnings: true
         failOnInfos: false
         repoToken: ${{ secrets.GITHUB_TOKEN }}
-        settingsPath: pssa_settings.psd1
+        settingsPath: github/workflows/pssa_settings.psd1
