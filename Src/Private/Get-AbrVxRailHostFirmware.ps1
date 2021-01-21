@@ -4,16 +4,16 @@ function Get-AbrVxRailHostFirmware {
     .SYNOPSIS
     Used by As Built Report to retrieve Dell EMC VxRail firmware information from the VxRail Manager API
     .DESCRIPTION
-    
+
     .NOTES
         Version:        0.1.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
     .EXAMPLE
-    
+
     .LINK
-        
+
     #>
     [CmdletBinding()]
     param (

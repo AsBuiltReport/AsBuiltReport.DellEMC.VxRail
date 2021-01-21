@@ -1,6 +1,6 @@
 function Invoke-AsBuiltReport.DellEMC.VxRail {
     <#
-    .SYNOPSIS  
+    .SYNOPSIS
         PowerShell script to document the configuration of Dell EMC VxRail Manager in Word/HTML/Text formats
     .DESCRIPTION
         Documents the configuration of Dell EMC VxRail Manager in Word/HTML/Text formats using PScribo.
@@ -10,7 +10,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
         Twitter:        @tpcarman
         Github:         tpcarman
         Credits:        Iain Brighton (@iainbrighton) - PScribo module
-                        
+
     .LINK
         https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail
     #>
@@ -64,7 +64,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
 
                         # Cluster Components
                         Get-AbrVxRailClusterComponents
-                    }  
+                    }
                 }
             }
             #endregion Cluster Section
@@ -80,7 +80,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                         $esxcli = Get-EsxCLI -VMHost $VMHost -V2 -Server $vCenter
                         Section -Style Heading3 "$($VxrHost.hostname)" {
                             # Hardware
-                            Get-AbrVxRailHostHardware -VxrHost $VxrHost 
+                            Get-AbrVxRailHostHardware -VxrHost $VxrHost
 
                             # Firmware
                             Get-AbrVxRailHostFirmware -VxrHost $VxrHost
@@ -89,7 +89,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                             Get-AbrVxRailHostComponent -VxrHost $VxrHost
 
                             # Boot Devices
-                            Get-AbrVxRailHostBootDevice -VxrHost $VxrHost 
+                            Get-AbrVxRailHostBootDevice -VxrHost $VxrHost
 
                             # Disks
                             Get-AbrVxRailHostDisk -VxrHost $VxrHost
@@ -123,7 +123,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
             }
             #endregion Appliance Section
 
-            # Cluster Support 
+            # Cluster Support
             Write-PScriboMessage "Support InfoLevel set at $($InfoLevel.Support)."
             if ($InfoLevel.Support -gt 0) {
                 Get-AbrVxRailClusterSupport

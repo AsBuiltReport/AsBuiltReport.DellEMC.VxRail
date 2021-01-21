@@ -3,7 +3,7 @@ function Get-AbrVxRailHostIdracUser {
     .SYNOPSIS
     Used by As Built Report to retrieve Dell EMC VxRail iDRAC user information from the VxRail Manager API
     .DESCRIPTION
-    
+
     .NOTES
         Version:        0.1.0
         Author:         Tim Carman
@@ -21,8 +21,8 @@ function Get-AbrVxRailHostIdracUser {
         [Object]$VxrHost
     )
 
-    begin {     
-        Write-PscriboMessage "Collecting $($VxrHost.hostname) iDRAC user information." 
+    begin {
+        Write-PscriboMessage "Collecting $($VxrHost.hostname) iDRAC user information."
     }
 
     process {

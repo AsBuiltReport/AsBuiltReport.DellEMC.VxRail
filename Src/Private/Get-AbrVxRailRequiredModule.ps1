@@ -10,9 +10,9 @@ function Get-AbrVxRailRequiredModule {
         Twitter:        @tpcarman
         Github:         tpcarman
     .EXAMPLE
-    
+
     .LINK
-        
+
     #>
 
     $RequiredVersion = '12.1'

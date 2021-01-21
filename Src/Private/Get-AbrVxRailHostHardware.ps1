@@ -10,9 +10,9 @@ function Get-AbrVxRailHostHardware {
         Twitter:        @tpcarman
         Github:         tpcarman
     .EXAMPLE
-    
+
     .LINK
-        
+
     #>
     [CmdletBinding()]
     param (
@@ -35,7 +35,7 @@ function Get-AbrVxRailHostHardware {
                     'Serial Number' = $VxrHost.sn
                     'Appliance ID' = $VxrHost.psnt
                     'Slot' = $VxrHost.slot
-                    'Power Status' = $TextInfo.ToTitleCase($VxrHost.power_status)              
+                    'Power Status' = $TextInfo.ToTitleCase($VxrHost.power_status)
                     'Connected' = Switch ($VxrHost.missing) {
                         $true { 'No' }
                         $false { 'Yes' }

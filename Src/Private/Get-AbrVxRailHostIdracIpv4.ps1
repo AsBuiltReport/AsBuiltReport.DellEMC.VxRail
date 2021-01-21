@@ -3,16 +3,16 @@ function Get-AbrVxRailHostIdracIPv4 {
     .SYNOPSIS
     Used by As Built Report to retrieve Dell EMC VxRail iDRAC IPv4 information from the VxRail Manager API
     .DESCRIPTION
-    
+
     .NOTES
         Version:        0.1.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
     .EXAMPLE
-    
+
     .LINK
-        
+
     #>
     [CmdletBinding()]
     param (
@@ -22,7 +22,7 @@ function Get-AbrVxRailHostIdracIPv4 {
     )
 
     begin {
-        Write-PscriboMessage "Collecting $($VxrHost.hostname) iDRAC information." 
+        Write-PscriboMessage "Collecting $($VxrHost.hostname) iDRAC information."
     }
 
     process {

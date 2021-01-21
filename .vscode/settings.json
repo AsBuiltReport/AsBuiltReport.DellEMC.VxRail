@@ -16,5 +16,6 @@
     "editor.detectIndentation": false,
     "editor.rulers": [
         115
-    ]
+    ],
+    "files.trimTrailingWhitespace": true
 }

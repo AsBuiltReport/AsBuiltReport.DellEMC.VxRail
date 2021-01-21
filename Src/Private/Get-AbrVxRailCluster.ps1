@@ -10,16 +10,16 @@ function Get-AbrVxRailCluster {
         Twitter:        @tpcarman
         Github:         tpcarman
     .EXAMPLE
-    
+
     .LINK
-        
+
     #>
     [CmdletBinding()]
     param (
     )
 
-    begin { 
-        Write-PscriboMessage "Collecting VxRail cluster information."     
+    begin {
+        Write-PscriboMessage "Collecting VxRail cluster information."
     }
 
     process {

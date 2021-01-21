@@ -3,16 +3,16 @@ function Get-AbrVxRailClusterNetwork {
     .SYNOPSIS
     Used by As Built Report to retrieve Dell EMC VxRail cluster network information from the VxRail Manager API
     .DESCRIPTION
-    
+
     .NOTES
         Version:        0.1.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
     .EXAMPLE
-    
+
     .LINK
-        
+
     #>
     [CmdletBinding()]
     param (
@@ -86,7 +86,7 @@ function Get-AbrVxRailClusterNetwork {
                                 'Network Pool' = & {
                                     $VxrMgmtNetPoolObj = foreach ($VxrMgmtNetPool in $VxrClusterNetPools.management.pools) {
                                         "$($VxrMgmtNetPool.minIp) - $($VxrMgmtNetPool.maxIp)"
-                                    } 
+                                    }
                                     $VxrMgmtNetPoolObj -join ', '
                                 }
                                 'Subnet Mask' = $VxrClusterNetPools.management.subnetmask
@@ -114,7 +114,7 @@ function Get-AbrVxRailClusterNetwork {
                                 'Network Pool' = & {
                                     $VxrVmotionNetPoolObj = foreach ($VxrVmotionNetPool in $VxrClusterNetPools.vmotion.pools) {
                                         "$($VxrVmotionNetPool.minIp) - $($VxrVmotionNetPool.maxIp)"
-                                    } 
+                                    }
                                     $VxrVmotionNetPoolObj -join ', '
                                 }
                                 'Subnet Mask' = $VxrClusterNetPools.vmotion.subnetmask
@@ -142,7 +142,7 @@ function Get-AbrVxRailClusterNetwork {
                                 'Network Pool' = & {
                                     $VxrVsanNetPoolObj = foreach ($VxrVsanNetPool in $VxrClusterNetPools.vsan.pools) {
                                         "$($VxrVsanNetPool.minIp) - $($VxrVsanNetPool.maxIp)"
-                                    } 
+                                    }
                                     $VxrVsanNetPoolObj -join ', '
                                 }
                                 'Subnet Mask' = $VxrClusterNetPools.vsan.subnetmask

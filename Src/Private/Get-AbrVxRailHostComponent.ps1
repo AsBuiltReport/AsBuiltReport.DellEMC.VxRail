@@ -11,9 +11,9 @@ function Get-AbrVxRailHostComponent {
         Twitter:        @tpcarman
         Github:         tpcarman
     .EXAMPLE
-    
+
     .LINK
-        
+
     #>
     [CmdletBinding()]
     param (
@@ -22,7 +22,7 @@ function Get-AbrVxRailHostComponent {
         [Object]$VxrHost
     )
 
-    begin {        
+    begin {
         Write-PscriboMessage "Collecting $($VxrHost.hostname) component information."
     }
 

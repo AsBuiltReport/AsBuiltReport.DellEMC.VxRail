@@ -4,16 +4,16 @@ function Get-AbrVxRailClusterHost {
     Used by As Built Report to retrieve Dell EMC VxRail cluster host information from the VxRail Manager API
     .DESCRIPTION
     .EXAMPLE
-    
+
     .NOTES
         Version:        0.1.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
     .LINK
-        
+
     #>
-    
+
     $VxrClusterHosts = Get-VxRailApi -Version 1 -Uri '/system/cluster-hosts'
     if ($VxrClusterHosts) {
         Section -Style Heading4 "ESXi Hosts" {
@@ -23,7 +23,7 @@ function Get-AbrVxRailClusterHost {
                     'Appliance ID' = $VxrClusterHost.psnt
                     'Model' = $VxrClusterHost.Model
                     'ESXi Host Management IP' = ($VxrClusterHost.ip_set).management_ip
-                    'Hostname' = $VxrClusterHost.host_name                            
+                    'Hostname' = $VxrClusterHost.host_name
                 }
             }
             $TableParams = @{

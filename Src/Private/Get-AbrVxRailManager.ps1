@@ -3,16 +3,16 @@ function Get-AbrVxRailManager {
     .SYNOPSIS
     Used by As Built Report to retrieve Dell EMC VxRail Manager information from the VxRail Manager API
     .DESCRIPTION
-    
+
     .NOTES
         Version:        0.1.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
     .EXAMPLE
-    
+
     .LINK
-        
+
     #>
 
     try {
@@ -28,7 +28,7 @@ function Get-AbrVxRailManager {
 
         $si = Get-View ServiceInstance -Server $vCenter
         $extMgr = Get-View -Id $si.Content.ExtensionManager -Server $vCenter
-        $VxRailMgr = $extMgr.ExtensionList | Where-Object { $_.Key -eq 'com.vmware.vxrail' } | 
+        $VxRailMgr = $extMgr.ExtensionList | Where-Object { $_.Key -eq 'com.vmware.vxrail' } |
         Select-Object @{
             N = 'Name';
             E = { ($_.Server | Where-Object { $_.Type -eq 'HTTPS' } | Select-Object -ExpandProperty Url).Split('/')[2].Split(':')[0] }

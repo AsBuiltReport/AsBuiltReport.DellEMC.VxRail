@@ -10,16 +10,16 @@ function Get-AbrVxRailAvailableHost {
         Twitter:        @tpcarman
         Github:         tpcarman
     .EXAMPLE
-    
+
     .LINK
-        
+
     #>
     [CmdletBinding()]
     param (
     )
 
-    begin { 
-        Write-PscriboMessage "Collecting VxRail available host information."     
+    begin {
+        Write-PscriboMessage "Collecting VxRail available host information."
     }
 
     process {
@@ -31,7 +31,7 @@ function Get-AbrVxRailAvailableHost {
                         'Service Tag' = $VxrAvailableHost.serial_number
                         'Appliance ID' = $VxrAvailableHost.appliance_id
                         'Model' = $VxrAvailableHost.model
-                        'Discovered Date' = (ConvertFrom-epoch $VxrAvailableHost.discovered_date).ToLocalTime()                            
+                        'Discovered Date' = (ConvertFrom-epoch $VxrAvailableHost.discovered_date).ToLocalTime()
                     }
                 }
                 $TableParams = @{
@@ -48,5 +48,5 @@ function Get-AbrVxRailAvailableHost {
 
     end {
     }
-    
+
 }
