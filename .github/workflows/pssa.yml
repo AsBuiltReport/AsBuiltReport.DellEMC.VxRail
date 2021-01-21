@@ -9,7 +9,7 @@ jobs:
     - name: lint
       uses: devblackops/github-action-psscriptanalyzer@master
       with:
-        rootPath: MyModule
+        #rootPath: MyModule
         sendComment: true
         failOnErrors: true
         failOnWarnings: true
