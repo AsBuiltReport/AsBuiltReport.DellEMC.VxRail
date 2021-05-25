@@ -17,7 +17,7 @@ function Get-AbrVxRailManager {
 
     try {
         Write-PScriboMessage "Connecting to vCenter Server '$VIServer'."
-        $vCenter = Connect-VIServer $VIServer -Credential $Credential -ErrorAction Stop
+        $global:vCenter = Connect-VIServer $VIServer -Credential $Credential -ErrorAction Stop
     } catch {
         throw
     }
@@ -33,9 +33,9 @@ function Get-AbrVxRailManager {
             N = 'Name';
             E = { ($_.Server | Where-Object { $_.Type -eq 'HTTPS' } | Select-Object -ExpandProperty Url).Split('/')[2].Split(':')[0] }
         }
-        $VxRailMgrHostName = (Resolve-DnsName -Name $VxRailMgr.Name).NameHost
+        $global:VxRailMgrHostName = (Resolve-DnsName -Name $VxRailMgr.Name).NameHost
         if (!$VxRailMgrHostName) {
-            $VxRailMgrHostName = $VxRailMgr.Name
+            $global:VxRailMgrHostName = $VxRailMgr.Name
         }
     }
 

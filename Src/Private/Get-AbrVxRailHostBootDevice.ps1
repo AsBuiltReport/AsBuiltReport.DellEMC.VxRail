@@ -27,12 +27,13 @@ function Get-AbrVxRailHostBootDevice {
     }
 
     process {
-        $VxrHostBootDevices = $VxrHost.boot_devices | Sort-Object slot
+        $VxrHostBootDevices = $VxrHost.boot_devices
         if ($VxrHostBootDevices) {
             Section -Style Heading4 "Boot Devices" {
+                $VxrHostBootDeviceSlot = 0
                 $VxrHostBootDeviceInfo = foreach ($VxrHostBootDevice in $VxrHostBootDevices) {
                     [PSCustomObject]@{
-                        'Boot Device' = $VxrHostBootDevice.slot
+                        'Boot Device' = $VxrHostBootDeviceSlot++
                         'Device Type' = $VxrHostBootDevice.bootdevice_type
                         'Serial Number' = $VxrHostBootDevice.sn
                         'Model' = $VxrHostBootDevice.device_model
@@ -63,7 +64,7 @@ function Get-AbrVxRailHostBootDevice {
                     $TableParams = @{
                         Name = "Boot Device Specifications - $($VxrHost.hostname)"
                         Columns = 'Boot Device', 'Device Type', 'SATA Type', 'Capacity', 'Health', 'Firmware'
-                        ColumnWidths = 16, 17, 16, 17, 17, 17
+                        #ColumnWidths = 20, 20, 20, 20, 20
                     }
                     if ($Report.ShowTableCaptions) {
                         $TableParams['Caption'] = "- $($TableParams.Name)"

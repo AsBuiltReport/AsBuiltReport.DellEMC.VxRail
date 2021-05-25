@@ -33,6 +33,7 @@ function Get-AbrVxRailClusterComponents {
                         'Description' = $VxrComponent.description
                         'Version' = $VxrComponent.current_version
                         'Upgrade Status' = Switch ($VxrComponent.upgrade_status) {
+                            'Err_Download' { 'Download Error' }
                             'Has_Newer' { 'Upgrade Available' }
                             default { $TextInfo.ToTitleCase($VxrComponent.upgrade_status.ToLower()) }
                         }

@@ -43,7 +43,7 @@ function Get-AbrVxRailHostNic {
                 }
                 $TableParams = @{
                     Name = "NIC Specifications - $($VxrHost.hostname)"
-                    ColumnWidths = 20, 20, 20, 20, 20
+                    ColumnWidths = 15, 25, 20, 20, 20
                 }
                 if ($Report.ShowTableCaptions) {
                     $TableParams['Caption'] = "- $($TableParams.Name)"

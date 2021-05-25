@@ -31,7 +31,10 @@ function Get-AbrVxRailClusterSupport {
             Section -Style Heading2 'Support' {
                 Section -Style Heading3 'Dell EMC Secure Remote Service (ESRS)' {
                     $SupportInfo = [PSCustomObject]@{
-                        'ESRS Status' = $TextInfo.ToTitleCase($VxrCallHomeInfo.status)
+                        'ESRS Status' = Switch ($VxrCallHomeInfo.status) {
+                            'Not_Configured' { 'Not Configured' }
+                            default { $TextInfo.ToTitleCase($VxrCallHomeInfo.status) }
+                        }
                         'ESRS Type' = Switch ($VxrCallHomeInfo.integrated) {
                             $true { 'Internal ESRS' }
                             $false { 'External ESRS' }

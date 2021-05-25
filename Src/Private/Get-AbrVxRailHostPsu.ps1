@@ -44,7 +44,7 @@ function Get-AbrVxRailHostPsu {
                 }
                 $TableParams = @{
                     Name = "PSU Specifications - $($VxrHost.hostname)"
-                    ColumnWidths = 13, 17, 21, 21, 14, 14
+                    ColumnWidths = 8, 18, 24, 22, 14, 14
                 }
                 if ($Report.ShowTableCaptions) {
                     $TableParams['Caption'] = "- $($TableParams.Name)"
