@@ -23,6 +23,7 @@ function Get-AbrVxRailClusterComponents {
     }
 
     process {
+        Write-PScriboMessage "Performing API reference call to path /system"
         $VxrSystem = Get-VxRailApi -Version 1 -Uri '/system'
         $VxrComponents = $VxrSystem.installed_components | Sort-Object Name
         if ($VxrComponents) {

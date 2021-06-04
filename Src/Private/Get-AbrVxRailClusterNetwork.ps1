@@ -23,8 +23,11 @@ function Get-AbrVxRailClusterNetwork {
     }
 
     process {
+        Write-PScriboMessage "Performing API reference call to path /system/proxy"
         $VxrProxy = Get-VxRailApi -Version 1 -Uri  '/system/proxy'
+        Write-PScriboMessage "Performing API reference call to path /system/internet-mode"
         $VxrInternetMode = Get-VxRailApi -Version 1 -Uri '/system/internet-mode'
+        Write-PScriboMessage "Performing API reference call to path /cluster/network/pools"
         $VxrClusterNetPools = (Get-VxRailApi -Version 2 -Uri '/cluster/network/pools').data
 
         if ($VxrInternetMode) {

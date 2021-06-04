@@ -38,9 +38,11 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
         Get-AbrVxRailManager
 
         # API Calls
-        Write-PScriboMessage "Performing API reference calls"
+        Write-PScriboMessage "Performing API reference call to path /hosts"
         $VxrHosts = Get-VxRailApi -Version 1 -Uri '/hosts'
+        Write-PScriboMessage "Performing API reference call to path /chassis"
         $VxrChassis = Get-VxRailApi -Version 1 -Uri '/chassis'
+        Write-PScriboMessage "Performing API reference call to path /system/cluster-hosts"
         $VxrClusterHosts = Get-VxRailApi -Version 1 -Uri '/system/cluster-hosts'
 
         #region VxRail Section

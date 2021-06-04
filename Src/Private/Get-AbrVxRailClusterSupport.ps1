@@ -23,8 +23,11 @@ function Get-AbrVxRailClusterSupport {
     }
 
     process {
+        Write-PScriboMessage "Performing API reference call to path /callhome/mode"
         $VxrCallHomeMode = Get-VxRailApi -Version 1 -Uri  '/callhome/mode'
+        Write-PScriboMessage "Performing API reference call to path /callhome/info"
         $VxrCallHomeInfo = Get-VxRailApi -Version 1 -Uri '/callhome/info'
+        Write-PScriboMessage "Performing API reference call to path /support/account"
         $VxrSupportAccount = Get-VxRailApi -Version 1 -Uri '/support/account'
 
         if (($VxrCallHomeMode) -and ($VxrCallHomeInfo)) {

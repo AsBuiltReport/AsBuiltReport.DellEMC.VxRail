@@ -37,6 +37,7 @@ function Get-AbrVxRailManager {
         if (!$VxRailMgrHostName) {
             $global:VxRailMgrHostName = $VxRailMgr.Name
         }
+        Write-PScriboMessage "Connecting to VxRail Manager $VxRailMgrHostName"
     }
 
 }

@@ -23,6 +23,7 @@ function Get-AbrVxRailClusterVMs {
     }
 
     process {
+        Write-PScriboMessage "Performing API reference call to path /cluster/system-virtual-machines"
         $VxrClusterVMs = Get-VxRailApi -Version 1 -Uri '/cluster/system-virtual-machines'
         if ($VxrClusterVMs) {
             Section -Style Heading3 'Virtual Machines' {

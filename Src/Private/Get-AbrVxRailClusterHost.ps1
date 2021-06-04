@@ -13,7 +13,7 @@ function Get-AbrVxRailClusterHost {
     .LINK
 
     #>
-
+    Write-PScriboMessage "Performing API reference call to path /system/cluster-hosts"
     $VxrClusterHosts = Get-VxRailApi -Version 1 -Uri '/system/cluster-hosts'
     if ($VxrClusterHosts) {
         Section -Style Heading4 "ESXi Hosts" {

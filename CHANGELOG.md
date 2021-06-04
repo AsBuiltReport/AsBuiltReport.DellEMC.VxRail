@@ -1,9 +1,13 @@
 # :arrows_counterclockwise: Dell EMC VxRail As Built Report Changelog
 
+## [0.2.3] - 2021-06-04
+### Added
+* Improved verbose logging
 ## [0.2.2] - 2021-05-25
 
 ### Added
 * Updated for compatibility with VxRail 7.x
+* Improved verbose logging
 ## [0.2.1] - 2021-01-21
 
 ### Added

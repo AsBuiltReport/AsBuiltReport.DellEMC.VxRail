@@ -23,6 +23,7 @@ function Get-AbrVxRailAvailableHost {
     }
 
     process {
+        Write-PScriboMessage "Performing API reference call to path /system/available-hosts"
         $VxrAvailableHosts = Get-VxRailApi -Version 1 -Uri '/system/available-hosts'
         if ($VxrAvailableHosts) {
             Section -Style Heading3 'Available ESXi Hosts' {
