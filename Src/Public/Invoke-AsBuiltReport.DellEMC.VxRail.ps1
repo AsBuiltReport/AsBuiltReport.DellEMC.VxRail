@@ -5,7 +5,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
     .DESCRIPTION
         Documents the configuration of Dell EMC VxRail Manager in Word/HTML/Text formats using PScribo.
     .NOTES
-        Version:        0.2.1
+        Version:        0.3.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -21,7 +21,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
     )
 
     # Check if the required version of VMware PowerCLI is installed
-    Get-AbrVxRailRequiredModule
+    Get-AbrVxRailRequiredModule -Name 'VMware.PowerCLI' -Version '12.3'
 
     # Import Report Configuration
     $Report = $ReportConfig.Report
@@ -84,6 +84,9 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                             # Hardware
                             Get-AbrVxRailHostHardware -VxrHost $VxrHost
 
+                            # ESXi
+                            Get-AbrVxRailHostEsxi -VxrClusterHost $VxrClusterHost
+
                             # Firmware
                             Get-AbrVxRailHostFirmware -VxrHost $VxrHost
 
@@ -99,6 +102,9 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                             # NICs
                             Get-AbrVxRailHostNic -VxrHost $VxrHost
 
+                            # Power Supplies
+                            Get-AbrVxRailHostPsu -VxrHostChassis $VxrHostChassis
+
                             #region iDRAC
                             if ($VMHost.ConnectionState -eq 'Connected') {
                                 Section -Style Heading4 'iDRAC' {
@@ -113,12 +119,6 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                                 }
                             }
                             #endregion iDRAC
-
-                            # Power Supplies
-                            Get-AbrVxRailHostPsu -VxrHostChassis $VxrHostChassis
-
-                            # ESXi
-                            Get-AbrVxRailHostEsxi -VxrClusterHost $VxrClusterHost
                         }
                     }
                 }

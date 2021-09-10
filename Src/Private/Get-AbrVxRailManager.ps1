@@ -5,7 +5,7 @@ function Get-AbrVxRailManager {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.1.1
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -33,7 +33,9 @@ function Get-AbrVxRailManager {
             N = 'Name';
             E = { ($_.Server | Where-Object { $_.Type -eq 'HTTPS' } | Select-Object -ExpandProperty Url).Split('/')[2].Split(':')[0] }
         }
-        $global:VxRailMgrHostName = (Resolve-DnsName -Name $VxRailMgr.Name).NameHost
+        if ($PSVersionTable.PSEdition -ne 'Core') {
+            $global:VxRailMgrHostName = (Resolve-DnsName -Name $($VxRailMgr.Name)).NameHost
+        }
         if (!$VxRailMgrHostName) {
             $global:VxRailMgrHostName = $VxRailMgr.Name
         }

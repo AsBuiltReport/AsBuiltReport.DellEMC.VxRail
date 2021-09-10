@@ -5,7 +5,7 @@ function Get-AbrVxRailCluster {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.1.1
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -51,6 +51,7 @@ function Get-AbrVxRailCluster {
             if ($Healthcheck.Cluster.HealthStatus) {
                 $VxrCluster | Where-Object { $_.'Health Status' -eq 'Warning' } | Set-Style -Style Warning -Property 'Health Status'
                 $VxrCluster | Where-Object { $_.'Health Status' -eq 'Error' } | Set-Style -Style Critical -Property 'Health Status'
+                $VxrCluster | Where-Object { $_.'Health Status' -eq 'Critical' } | Set-Style -Style Critical -Property 'Health Status'
             }
             $TableParams = @{
                 Name = "VxRail Cluster Specifications - $($VxRailMgrHostName)"

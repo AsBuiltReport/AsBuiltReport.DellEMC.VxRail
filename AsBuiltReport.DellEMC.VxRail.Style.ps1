@@ -71,7 +71,11 @@ if ($Orientation -eq 'Portrait') {
 # DELL EMC Logo Image
 # DELL EMC DO NOT PERMIT THE USE OF THEIR LOGO WITHOUT AUTHORIZATION
 #if ($ReportConfig.Report.ShowCoverPageImage) {
-#    Image -Text 'DELL EMC Logo' -Align 'Center' -Percent 5 -Base64 ""
+#    Try {
+#        Image -Text 'DELL EMC Logo' -Align 'Center' -Percent 5 -Base64 ""
+#    } Catch {
+#        Write-PScriboMessage -Message ".NET Core is required for cover page image support. Please install .NET Core or disable 'ShowCoverPageImage' in the report JSON configuration file."
+#    }
 #}
 
 # Add Report Name

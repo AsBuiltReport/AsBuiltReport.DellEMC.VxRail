@@ -1,5 +1,17 @@
 # :arrows_counterclockwise: Dell EMC VxRail As Built Report Changelog
 
+## [[0.3.0](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.3.0)] - 2021-09-10
+### Added
+* PowerShell 7 compatibility
+* Support Account & Contact information
+- Include release and issue links in `CHANGELOG.md`
+- Release GitHub Action workflow
+
+### Fixed
+- Display issues with highlights in `README.md`
+
+### Changed
+- Update `README.md`
 ## [0.2.3] - 2021-06-04
 ### Added
 * Improved verbose logging

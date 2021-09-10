@@ -63,14 +63,26 @@ function Get-VxRailApi {
     }
 
     Process {
-        Try {
-            Switch ($Version) {
-                '1' { Invoke-RestMethod -Method Get -Uri ($api_v1 + $uri) -Headers $headers }
-                '2' { Invoke-RestMethod -Method Get -Uri ($api_v2 + $uri) -Headers $headers }
+        If ($PSVersionTable.PSEdition -eq 'Core') {
+            Try {
+                Switch ($Version) {
+                    '1' { Invoke-RestMethod -Method Get -Uri ($api_v1 + $uri) -Headers $headers -SkipCertificateCheck }
+                    '2' { Invoke-RestMethod -Method Get -Uri ($api_v2 + $uri) -Headers $headers -SkipCertificateCheck }
+                }
+            } Catch {
+                Write-Verbose -Message "Error with API reference call to $(($URI).TrimStart('/'))"
+                Write-Verbose -Message $_
             }
-        } Catch {
-            Write-Verbose -Message "Error with API reference call to $(($URI).TrimStart('/'))"
-            Write-Verbose -Message $_
+        } else {
+            Try {
+                Switch ($Version) {
+                    '1' { Invoke-RestMethod -Method Get -Uri ($api_v1 + $uri) -Headers $headers }
+                    '2' { Invoke-RestMethod -Method Get -Uri ($api_v2 + $uri) -Headers $headers }
+                }
+            } Catch {
+                Write-Verbose -Message "Error with API reference call to $(($URI).TrimStart('/'))"
+                Write-Verbose -Message $_
+            }
         }
     }
 

@@ -1,29 +1,34 @@
 function Get-AbrVxRailRequiredModule {
-    <#
+<#
     .SYNOPSIS
-    Used by As Built Report to check the required 3rd party modules are installed
+    Function to check if the required version of VMware PowerCLI is installed
     .DESCRIPTION
-
-    .NOTES
-        Version:        0.1.0
-        Author:         Tim Carman
-        Twitter:        @tpcarman
-        Github:         tpcarman
-    .EXAMPLE
-
-    .LINK
-
+    Function to check if the required version of VMware PowerCLI is installed
+    .PARAMETER Name
+    The name of the required PowerShell module
+    .PARAMETER Version
+    The version of the required PowerShell module
     #>
+    [CmdletBinding()]
 
-    $RequiredVersion = '12.1'
-    $RequiredModule = Get-Module -ListAvailable -Name 'VMware.PowerCLI' | Sort-Object -Property Version -Descending | Select-Object -First 1
+    Param
+    (
+        [Parameter(Mandatory = $true, ValueFromPipeline = $false)]
+        [ValidateNotNullOrEmpty()]
+        [String]$Name,
+
+        [Parameter(Mandatory = $true, ValueFromPipeline = $false)]
+        [ValidateNotNullOrEmpty()]
+        [String]$Version
+    )
+
+    # Check if the required version of VMware PowerCLI is installed
+    $RequiredModule = Get-Module -ListAvailable -Name $Name | Sort-Object -Property Version -Descending | Select-Object -First 1
     $ModuleVersion = "$($RequiredModule.Version.Major)" + "." + "$($RequiredModule.Version.Minor)"
-    if ($null -eq $ModuleVersion) {
-        Write-Warning -Message "VMware PowerCLI $RequiredVersion or higher is required to run the Dell EMC VxRail As Built Report. Run 'Install-Module -Name VMware.PowerCLI -MinimumVersion $RequiredVersion' to install the required modules."
-        break
-    } elseif ($ModuleVersion -lt $RequiredVersion) {
-        Write-Warning -Message "VMware PowerCLI $RequiredVersion or higher is required to run the Dell EMC VxRail As Built Report. Run 'Update-Module -Name VMware.PowerCLI -MinimumVersion $RequiredVersion' to update PowerCLI."
-        break
+    if ($ModuleVersion -eq ".")  {
+        throw "VMware PowerCLI $Version or higher is required to run the Dell EMC VxRail As Built Report. Run 'Install-Module -Name $Name -MinimumVersion $Version' to install the required modules."
     }
-
+    if ($ModuleVersion -lt $Version) {
+        throw "VMware PowerCLI $Version or higher is required to run the Dell EMC VxRail As Built Report. Run 'Update-Module -Name $Name -MinimumVersion $Version' to update the required modules."
+    }
 }
