@@ -152,8 +152,8 @@ The **Cluster** schema is used to configure health checks for VxRail clusters.
 
 | Sub-Schema    | Setting      | Default | Description                                         | Highlight                                                                                     |
 |---------------|--------------|---------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| HealthStatus  | true / false | true    | Highlights VxRail clusters which report an error    | ![Critical](http://placehold.it/15/F5DBD9/000000?text=+) VxRail cluster is in an error state |
-| VMPowerStatus | true / false | true    | Highlights VxRail cluster VMs which are powered off | ![Warning](http://placehold.it/15/FEF3B5/000000?text=+) VxRail cluster VM is powered off     |
+| HealthStatus  | true / false | true    | Highlights VxRail clusters which report an error    | ![Critical](http://placehold.it/15/F5DBD9/F5DBD9.png) VxRail cluster is in an error state |
+| VMPowerStatus | true / false | true    | Highlights VxRail cluster VMs which are powered off | ![Warning](http://placehold.it/15/FEF3B5/FEF3B5.png) VxRail cluster VM is powered off     |
 
 #### Appliance
 The **Appliance** schema is used to configure health checks for VxRail appliances.
@@ -161,12 +161,12 @@ The **Appliance** schema is used to configure health checks for VxRail appliance
 
 | Sub-Schema        | Setting      | Default | Description                                                              | Highlight                                                                                                                                                                                            |
 |-------------------|--------------|---------|--------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| HealthStatus      | true / false | true    | Highlights VxRail appliances which report an issue                       | ![Warning](http://placehold.it/15/FEF3B5/000000?text=+) VxRail appliance is reporting a warning<br>![Critical](http://placehold.it/15/F5DBD9/000000?text=+) VxRail appliance is reporting an error |
-| PowerStatus       | true / false | true    | Highlights VxRail appliances which are powered off                       | ![Critical](http://placehold.it/15/F5DBD9/000000?text=+) VxRail appliance is powered off                                                                                                            |
-| BootDevice        | true / false | true    | Highlights VxRail boot devices which report less than 100% health        | ![Warning](http://placehold.it/15/FEF3B5/000000?text=+) Boot device reports <100% health                                                                                                            |
-| NetworkLinkStatus | true / false | true    | Highlights VxRail network adpaters with a link status of `Down`          | ![Critical](http://placehold.it/15/F5DBD9/000000?text=+) Network adapter link status is `Down`                                                                                                      |
-| DiskStatus        | true / false | true    | Highlights VxRail disks which report a status which is not equal to `OK` | ![Critical](http://placehold.it/15/F5DBD9/000000?text=+) Disk status is not `OK`                                                                                                                    |
-| PowerSupply       | true / false | true    | Highlights VxRail power supplies which are not `Healthy`                 | ![Critical](http://placehold.it/15/F5DBD9/000000?text=+) Power supply is not `Healthy`                                                                                                              |
+| HealthStatus      | true / false | true    | Highlights VxRail appliances which report an issue                       | ![Warning](http://placehold.it/15/FEF3B5/FEF3B5.png) VxRail appliance is reporting a warning<br>![Critical](http://placehold.it/15/F5DBD9/F5DBD9.png) VxRail appliance is reporting an error |
+| PowerStatus       | true / false | true    | Highlights VxRail appliances which are powered off                       | ![Critical](http://placehold.it/15/F5DBD9/F5DBD9.png) VxRail appliance is powered off                                                                                                            |
+| BootDevice        | true / false | true    | Highlights VxRail boot devices which report less than 100% health        | ![Warning](http://placehold.it/15/FEF3B5/FEF3B5.png) Boot device reports <100% health                                                                                                            |
+| NetworkLinkStatus | true / false | true    | Highlights VxRail network adpaters with a link status of `Down`          | ![Critical](http://placehold.it/15/F5DBD9/F5DBD9.png) Network adapter link status is `Down`                                                                                                      |
+| DiskStatus        | true / false | true    | Highlights VxRail disks which report a status which is not equal to `OK` | ![Critical](http://placehold.it/15/F5DBD9/F5DBD9.png) Disk status is not `OK`                                                                                                                    |
+| PowerSupply       | true / false | true    | Highlights VxRail power supplies which are not `Healthy`                 | ![Critical](http://placehold.it/15/F5DBD9/F5DBD9.png) Power supply is not `Healthy`                                                                                                              |
 
 #### Support
 The **Support** schema is used to configure health checks for the VxRail support configuration.
@@ -174,8 +174,8 @@ The **Support** schema is used to configure health checks for the VxRail support
 
 | Sub-Schema     | Setting      | Default | Description                                   | Highlight                                                                              |
 |----------------|--------------|---------|-----------------------------------------------|----------------------------------------------------------------------------------------|
-| EsrsStatus     | true / false | true    | Highlights when ESRS is `Not Configured`      | ![Warning](http://placehold.it/15/FEF3B5/000000?text=+) ESRS is `Not Configured`      |
-| EsrsConnection | true / false | true    | Highlights when ESRS connection is `Disabled` | ![Warning](http://placehold.it/15/FEF3B5/000000?text=+) ESRS connection is `Disabled` |
+| EsrsStatus     | true / false | true    | Highlights when ESRS is `Not Configured`      | ![Warning](http://placehold.it/15/FEF3B5/FEF3B5.png) ESRS is `Not Configured`      |
+| EsrsConnection | true / false | true    | Highlights when ESRS connection is `Disabled` | ![Warning](http://placehold.it/15/FEF3B5/FEF3B5.png) ESRS connection is `Disabled` |
 
 ## :computer: Examples
 
