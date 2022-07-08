@@ -41,7 +41,7 @@ function Get-AbrVxRailHostFirmware {
                     }
                     'HBA' = Switch ($VxrHostFw.hba_version) {
                         $null { '--' }
-                        default { $VxrHostFw.hba_revision }
+                        default { $VxrHostFw.hba_version }
                     }
                     'Expander Back Plane' = Switch ($VxrHostFw.expander_bpf_version) {
                         $null { '--' }
