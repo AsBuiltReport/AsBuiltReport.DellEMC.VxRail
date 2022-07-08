@@ -1,4 +1,12 @@
-# :arrows_counterclockwise: Dell EMC VxRail As Built Report Changelog
+# :arrows_clockwise: Dell EMC VxRail As Built Report Changelog
+
+## [[0.3.1](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.3.1)] - 2022-07-08
+### Added
+- Added sample Dell EMC VxRail As Built Report
+### Fixed
+- Fixed GitHub Release workflow
+### Changed
+- Improved report formatting
 
 ## [[0.3.0](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.3.0)] - 2021-09-10
 ### Added

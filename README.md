@@ -23,6 +23,10 @@
             <img src="https://img.shields.io/twitter/follow/AsBuiltReport.svg?style=social"/></a>
 </p>
 
+<p align="center">
+    <a href='https://ko-fi.com/B0B7DDGZ7' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+</p>
+
 # Dell EMC VxRail As Built Report
 
 Dell EMC VxRail As Built Report is a PowerShell module which works in conjunction with [AsBuiltReport.Core](https://github.com/AsBuiltReport/AsBuiltReport.Core).
@@ -31,7 +35,13 @@ Dell EMC VxRail As Built Report is a PowerShell module which works in conjunctio
 
 The Dell EMC VxRail As Built Report module is used to generate as built documentation for Dell EMC VxRail hyperconverged infrastructure.
 
-Please refer to the AsBuiltReport [website](https://www.asbuiltreport.com) for more detailed information about this project.
+## :books: Sample Reports
+### Sample Report - Default Style
+Sample Dell EMC VxRail As Built Report with health checks, using default report style.
+
+![Sample Dell EMC VxRail As Built Report](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/blob/master/Samples/Sample%20Dell%20EMC%20VxRail%20As%20Built%20Report.jpg "Sample Dell EMC VxRail As Built Report")
+
+Sample Dell EMC VxRail As Built Report HTML file: [Sample Dell EMC VxRail As Built Report.html](https://htmlpreview.github.io/?https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/blob/master/Samples/Sample%20Dell%20EMC%20VxRail%20As%20Built%20Report.html "Sample Dell EMC VxRail As Built Report")
 
 # :beginner: Getting Started
 Below are the instructions on how to install, configure and generate a Dell EMC VxRail As Built Report.
@@ -50,7 +60,7 @@ This report is compatible with the following PowerShell versions;
 ## :wrench: System Requirements
 PowerShell 5.1 or PowerShell 7, and the following PowerShell modules are required for generating a Dell EMC VxRail As Built report.
 
-Each of these modules can be easily downloaded and installed via the PowerShell Gallery
+Install the following modules by following the [module installation](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail#package-module-installation) procedure.
 
 - [VMware PowerCLI Module](https://www.powershellgallery.com/packages/VMware.PowerCLI/)
 - [AsBuiltReport.DellEMC.VxRail Module](https://www.powershellgallery.com/packages/AsBuiltReport.DellEMC.VxRail/)
@@ -148,8 +158,8 @@ The **Cluster** schema is used to configure health checks for VxRail clusters.
 
 | Sub-Schema    | Setting      | Default | Description                                         | Highlight                                                                                     |
 |---------------|--------------|---------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| HealthStatus  | true / false | true    | Highlights VxRail clusters which report an error    | ![Critical](http://placehold.it/15/F5DBD9/000000?text=+) VxRail cluster is in an error state |
-| VMPowerStatus | true / false | true    | Highlights VxRail cluster VMs which are powered off | ![Warning](http://placehold.it/15/FEF3B5/000000?text=+) VxRail cluster VM is powered off     |
+| HealthStatus  | true / false | true    | Highlights VxRail clusters which report an error    | ![Critical](https://via.placeholder.com/15/F5DBD9/F5DBD9.png) VxRail cluster is in an error state |
+| VMPowerStatus | true / false | true    | Highlights VxRail cluster VMs which are powered off | ![Warning](https://via.placeholder.com/15/FEF3B5/FEF3B5.png) VxRail cluster VM is powered off     |
 
 #### Appliance
 The **Appliance** schema is used to configure health checks for VxRail appliances.
@@ -157,12 +167,12 @@ The **Appliance** schema is used to configure health checks for VxRail appliance
 
 | Sub-Schema        | Setting      | Default | Description                                                              | Highlight                                                                                                                                                                                            |
 |-------------------|--------------|---------|--------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| HealthStatus      | true / false | true    | Highlights VxRail appliances which report an issue                       | ![Warning](http://placehold.it/15/FEF3B5/000000?text=+) VxRail appliance is reporting a warning<br>![Critical](http://placehold.it/15/F5DBD9/000000?text=+) VxRail appliance is reporting an error |
-| PowerStatus       | true / false | true    | Highlights VxRail appliances which are powered off                       | ![Critical](http://placehold.it/15/F5DBD9/000000?text=+) VxRail appliance is powered off                                                                                                            |
-| BootDevice        | true / false | true    | Highlights VxRail boot devices which report less than 100% health        | ![Warning](http://placehold.it/15/FEF3B5/000000?text=+) Boot device reports <100% health                                                                                                            |
-| NetworkLinkStatus | true / false | true    | Highlights VxRail network adpaters with a link status of `Down`          | ![Critical](http://placehold.it/15/F5DBD9/000000?text=+) Network adapter link status is `Down`                                                                                                      |
-| DiskStatus        | true / false | true    | Highlights VxRail disks which report a status which is not equal to `OK` | ![Critical](http://placehold.it/15/F5DBD9/000000?text=+) Disk status is not `OK`                                                                                                                    |
-| PowerSupply       | true / false | true    | Highlights VxRail power supplies which are not `Healthy`                 | ![Critical](http://placehold.it/15/F5DBD9/000000?text=+) Power supply is not `Healthy`                                                                                                              |
+| HealthStatus      | true / false | true    | Highlights VxRail appliances which report an issue                       | ![Warning](https://via.placeholder.com/15/FEF3B5/FEF3B5.png) VxRail appliance is reporting a warning<br>![Critical](https://via.placeholder.com/15/F5DBD9/F5DBD9.png) VxRail appliance is reporting an error |
+| PowerStatus       | true / false | true    | Highlights VxRail appliances which are powered off                       | ![Critical](https://via.placeholder.com/15/F5DBD9/F5DBD9.png) VxRail appliance is powered off                                                                                                            |
+| BootDevice        | true / false | true    | Highlights VxRail boot devices which report less than 100% health        | ![Warning](https://via.placeholder.com/15/FEF3B5/FEF3B5.png) Boot device reports <100% health                                                                                                            |
+| NetworkLinkStatus | true / false | true    | Highlights VxRail network adpaters with a link status of `Down`          | ![Critical](https://via.placeholder.com/15/F5DBD9/F5DBD9.png) Network adapter link status is `Down`                                                                                                      |
+| DiskStatus        | true / false | true    | Highlights VxRail disks which report a status which is not equal to `OK` | ![Critical](https://via.placeholder.com/15/F5DBD9/F5DBD9.png) Disk status is not `OK`                                                                                                                    |
+| PowerSupply       | true / false | true    | Highlights VxRail power supplies which are not `Healthy`                 | ![Critical](https://via.placeholder.com/15/F5DBD9/F5DBD9.png) Power supply is not `Healthy`                                                                                                              |
 
 #### Support
 The **Support** schema is used to configure health checks for the VxRail support configuration.
@@ -170,8 +180,8 @@ The **Support** schema is used to configure health checks for the VxRail support
 
 | Sub-Schema     | Setting      | Default | Description                                   | Highlight                                                                              |
 |----------------|--------------|---------|-----------------------------------------------|----------------------------------------------------------------------------------------|
-| EsrsStatus     | true / false | true    | Highlights when ESRS is `Not Configured`      | ![Warning](http://placehold.it/15/FEF3B5/000000?text=+) ESRS is `Not Configured`      |
-| EsrsConnection | true / false | true    | Highlights when ESRS connection is `Disabled` | ![Warning](http://placehold.it/15/FEF3B5/000000?text=+) ESRS connection is `Disabled` |
+| EsrsStatus     | true / false | true    | Highlights when ESRS is `Not Configured`      | ![Warning](https://via.placeholder.com/15/FEF3B5/FEF3B5.png) ESRS is `Not Configured`      |
+| EsrsConnection | true / false | true    | Highlights when ESRS connection is `Disabled` | ![Warning](https://via.placeholder.com/15/FEF3B5/FEF3B5.png) ESRS connection is `Disabled` |
 
 ## :computer: Examples
 

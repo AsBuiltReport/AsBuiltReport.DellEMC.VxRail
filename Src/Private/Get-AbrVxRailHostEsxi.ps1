@@ -22,7 +22,7 @@ function Get-AbrVxRailHostEsxi {
     )
 
     begin {
-        Write-PscriboMessage "Collecting $($VxrHost.hostname) NIC information."
+        Write-PscriboMessage "Collecting $($VxrHost.hostname) ESXi information."
     }
 
     process {

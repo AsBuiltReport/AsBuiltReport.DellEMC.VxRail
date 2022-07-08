@@ -28,7 +28,7 @@ function Get-AbrVxRailHostIdracVlan {
     process {
         $VxrHostiDRACNetwork = Get-VxRailApi -Version 1 -Uri ('/hosts/' + $VxrHost.sn + '/idrac/network')
         if ($VxrHostiDRACNetwork) {
-            Section -Style Heading5 'VLAN Settings' {
+            Section -Style Heading5 -ExcludeFromTOC 'VLAN Settings' {
                 $VxrHostiDRACVlan = [PSCustomObject]@{
                     'VLAN' = Switch ($VxrHostiDRACNetwork.vlan.vlan_id -eq '0') {
                         $true { 'Disabled' }

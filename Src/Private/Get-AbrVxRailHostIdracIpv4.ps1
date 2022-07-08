@@ -28,7 +28,7 @@ function Get-AbrVxRailHostIdracIPv4 {
     process {
         $VxrHostiDRACNetwork = Get-VxRailApi -Version 1 -Uri ('/hosts/' + $VxrHost.sn + '/idrac/network')
         if ($VxrHostiDRACNetwork) {
-            Section -Style Heading5 'IPv4 Settings' {
+            Section -Style Heading5 -ExcludeFromTOC 'IPv4 Settings' {
                 $VxrHostiDRACIpv4 = [PSCustomObject]@{
                     'DHCP' = Switch ($VxrHostiDRACNetwork.dhcp_enabled) {
                         $true { 'Enabled' }

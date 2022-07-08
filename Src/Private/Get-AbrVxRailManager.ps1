@@ -5,7 +5,7 @@ function Get-AbrVxRailManager {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.1
+        Version:        0.1.2
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -16,14 +16,14 @@ function Get-AbrVxRailManager {
     #>
 
     try {
-        Write-PScriboMessage "Connecting to vCenter Server '$VIServer'."
+        Write-PScriboMessage "Connecting to vCenter Server '$($VIServer)'."
         $global:vCenter = Connect-VIServer $VIServer -Credential $Credential -ErrorAction Stop
     } catch {
         throw
     }
 
     if ($vCenter) {
-        Write-PScriboMessage "Collecting VxRail Manager Information"
+        Write-PScriboMessage "Collecting VxRail Manager Information."
         $global:vCenterServer = (Get-AdvancedSetting -Entity $vCenter | Where-Object { $_.name -eq 'VirtualCenter.FQDN' }).Value
 
         $si = Get-View ServiceInstance -Server $vCenter
@@ -33,13 +33,13 @@ function Get-AbrVxRailManager {
             N = 'Name';
             E = { ($_.Server | Where-Object { $_.Type -eq 'HTTPS' } | Select-Object -ExpandProperty Url).Split('/')[2].Split(':')[0] }
         }
-        if ($PSVersionTable.PSEdition -ne 'Core') {
-            $global:VxRailMgrHostName = (Resolve-DnsName -Name $($VxRailMgr.Name)).NameHost
-        }
-        if (!$VxRailMgrHostName) {
+        # Resolve DNS name for VxRail Manager
+        $global:VxRailMgrHostName = (Resolve-DnsName -Name $($VxRailMgr.Name) -ErrorAction SilentlyContinue).NameHost
+        # If DNS name is not resolved, use VxRail Manager IP address
+        if (-not $VxRailMgrHostName) {
             $global:VxRailMgrHostName = $VxRailMgr.Name
         }
-        Write-PScriboMessage "Connecting to VxRail Manager $VxRailMgrHostName"
+        Write-PScriboMessage "Connecting to VxRail Manager $($VxRailMgrHostName)."
     }
 
 }

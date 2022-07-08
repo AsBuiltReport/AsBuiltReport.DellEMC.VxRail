@@ -35,10 +35,19 @@ function Get-AbrVxRailHostComponent {
                 $VxRailVib = $esxcli.software.vib.get.invoke() | Where-Object {$_.name -eq 'platform-service'}
                 $VMwareEsxi = $esxcli.system.version.get.invoke()
                 $VxrHostComponent = [PSCustomObject]@{
-                    'Dell PtAgent' = $DellPtAgent.version
-                    'HBA Driver' = $HbaDriver.version
-                    'VMware ESXi' = "$($VMwareEsxi.version)-$(($VMwareEsxi.build).TrimStart('Releasebuild-'))"
-                    'VxRail VIB' = $VxRailVib.version
+                    'Dell PtAgent' = Switch ($DellPtAgent.version) {
+                        $null { '--' }
+                        default { ($DellPtAgent.version) }
+                    }
+                    'HBA Driver' = Switch ($HbaDriver.version) {
+                        $null { '--' }
+                        default { ($HbaDriver.version) }
+                    }
+                    'VMware ESXi' = "$($VMwareEsxi.version)-$((($VMwareESXi.build).Split('-')[1]))"
+                    'VxRail VIB' = Switch ($VxRailVib.version) {
+                        $null { '--' }
+                        default { ($VxRailVib.version) }
+                    }
                 }
                 $TableParams = @{
                     Name = "Component Versions - $($VxrHost.hostname)"
