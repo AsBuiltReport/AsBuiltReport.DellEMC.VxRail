@@ -30,8 +30,10 @@ function Get-AbrVxRailHostComponent {
         if ($esxcli) {
             Section -Style Heading4 "Components" {
                 $DellPtAgent = $esxcli.software.vib.get.invoke() | Where-Object {$_.name -eq 'dellptagent'}
-                $HbaDevice = $esxcli.hardware.pci.list.invoke() | where-object {$_.modulename -match 'lsi_msgpt3'}
+                $HbaDevice = $esxcli.hardware.pci.list.invoke() | Where-object {$_.modulename -eq 'lsi_msgpt3'}
                 $HbaDriver = $esxcli.system.module.get.invoke(@{module = $HbaDevice.modulename})
+                $NicDevice = $esxcli.hardware.pci.list.invoke() | Where-Object {$_.VMkernelName -eq 'vmnic0'}
+                $NicDriver = $esxcli.system.module.get.invoke(@{module = $NicDevice.modulename})
                 $VxRailVib = $esxcli.software.vib.get.invoke() | Where-Object {$_.name -eq 'platform-service'}
                 $VMwareEsxi = $esxcli.system.version.get.invoke()
                 $VxrHostComponent = [PSCustomObject]@{
@@ -42,6 +44,10 @@ function Get-AbrVxRailHostComponent {
                     'HBA Driver' = Switch ($HbaDriver.version) {
                         $null { '--' }
                         default { ($HbaDriver.version) }
+                    }
+                    'NIC Driver' = Switch ($NicDriver.version) {
+                        $null { '--' }
+                        default { ($NicDriver.version) }
                     }
                     'VMware ESXi' = "$($VMwareEsxi.version)-$((($VMwareESXi.build).Split('-')[1]))"
                     'VxRail VIB' = Switch ($VxRailVib.version) {

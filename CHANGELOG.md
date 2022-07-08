@@ -1,5 +1,11 @@
 # :arrows_clockwise: Dell EMC VxRail As Built Report Changelog
 
+## [[0.3.1.1](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.3.1.1)] - 2022-07-08
+### Added
+- Added VxRail Appliance NIC driver information
+### Fixed
+- Fixed VxRail Appliance HBA firmware information
+
 ## [[0.3.1](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.3.1)] - 2022-07-08
 ### Added
 - Added sample Dell EMC VxRail As Built Report
