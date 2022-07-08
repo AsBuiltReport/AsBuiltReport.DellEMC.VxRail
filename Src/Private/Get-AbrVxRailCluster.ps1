@@ -23,9 +23,9 @@ function Get-AbrVxRailCluster {
     }
 
     process {
-        Write-PScriboMessage "Performing API reference call to path /system"
+        Write-PScriboMessage "Performing API reference call to path /system."
         $VxrSystem = Get-VxRailApi -Version 1 -Uri '/system'
-        Write-PScriboMessage "Performing API reference call to path /vc/mode"
+        Write-PScriboMessage "Performing API reference call to path /vc/mode."
         $VxrVcMode = Get-VxRailApi -Version 1 -Uri '/vc/mode'
         if ($VxrSystem) {
             $VxrCluster = [PSCustomObject]@{

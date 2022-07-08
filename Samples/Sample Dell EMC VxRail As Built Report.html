@@ -1,0 +1,996 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Sample Dell EMC VxRail As Built Report</title>
+<style type="text/css">
+html { height: 100%; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; background: #e6e6e6; }
+page { background: white; display: block; margin-top: 1rem; margin-left: auto; margin-right: auto; margin-bottom: 1rem; border-style: solid; border-width: 1px; border-color: #c6c6c6; }
+@media print { body, page { margin: 0; box-shadow: 0; } }
+hr { margin-top: 1.0rem; }
+ .portrait { background: white; width: 210mm; display: block; margin-top: 1rem; margin-left: auto; margin-right: auto; margin-bottom: 1rem; position: relative; border-style: solid; border-width: 1px; border-color: #c6c6c6; }
+ .landscape { background: white; width: 297mm; display: block; margin-top: 1rem; margin-left: auto; margin-right: auto; margin-bottom: 1rem; position: relative; border-style: solid; border-width: 1px; border-color: #c6c6c6; }
+ .Warning { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #000000; background-color: #fef3b5; }
+ .Heading5 { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #00447c; }
+ .Title2 { font-family: 'Arial'; font-size: 1.50rem; text-align: center; font-weight: normal; color: #00447c; }
+ .Title3 { font-family: 'Arial'; font-size: 1.00rem; text-align: left; font-weight: normal; color: #00447c; }
+ .Critical { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #000000; background-color: #f5dbd9; }
+ .Header { font-family: 'Arial'; font-size: 0.83rem; text-align: center; font-weight: normal; color: #565656; }
+ .TableDefaultHeading { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #fafafa; background-color: #0076ce; }
+ .Caption { font-family: 'Arial'; font-size: 0.83rem; text-align: center; font-weight: normal; font-style: italic; color: #565656; }
+ .Info { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #000000; background-color: #e1f1f6; }
+ .Normal { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #565656; }
+ .Heading2 { font-family: 'Arial'; font-size: 1.17rem; text-align: left; font-weight: normal; color: #00447c; }
+ .OK { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #000000; background-color: #dff0d0; }
+ .Heading6 { font-family: 'Calibri','Candara','Segoe','Segoe UI','Optima','Arial','Sans-Serif'; font-size: 0.92rem; text-align: left; font-weight: normal; color: #1f3763; }
+ .TableDefaultAltRow { font-family: 'Calibri','Candara','Segoe','Segoe UI','Optima','Arial','Sans-Serif'; font-size: 0.92rem; text-align: left; font-weight: normal; color: #000000; background-color: #d0ddee; }
+ .Title { font-family: 'Arial'; font-size: 2.00rem; text-align: center; font-weight: normal; color: #0076ce; }
+ .Heading3 { font-family: 'Arial'; font-size: 1.00rem; text-align: left; font-weight: normal; color: #00447c; }
+ .TOC { font-family: 'Arial'; font-size: 1.33rem; text-align: left; font-weight: normal; color: #00447c; }
+ .Heading1 { font-family: 'Arial'; font-size: 1.33rem; text-align: left; font-weight: normal; color: #00447c; }
+ .TableDefaultRow { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #565656; }
+ .Heading4 { font-family: 'Arial'; font-size: 0.92rem; text-align: left; font-weight: normal; color: #00447c; }
+ .Footer { font-family: 'Arial'; font-size: 0.83rem; text-align: center; font-weight: normal; color: #565656; }
+ table.borderless { padding: 0.08rem 0.33rem 0rem 0.33rem; border-style: none; border-collapse: collapse; }
+ table.borderless th { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #565656; padding: 0.08rem 0.33rem 0rem 0.33rem; border-style: none; border-collapse: collapse; }
+ table.borderless td { padding: 0.08rem 0.33rem 0rem 0.33rem; border-style: none; border-collapse: collapse; }
+ table.borderless tr:nth-child(odd) { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #565656; padding: 0.08rem 0.33rem 0rem 0.33rem; border-style: none; border-collapse: collapse; }
+ table.borderless tr:nth-child(even) { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #565656; padding: 0.08rem 0.33rem 0rem 0.33rem; border-style: none; border-collapse: collapse; }
+ table.tabledefault { padding: 0.08rem 0.17rem 0.13rem 0.17rem; border-style: solid; border-width: 0.02rem; border-color: #0076ce; border-collapse: collapse; }
+ table.tabledefault th { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #fafafa; background-color: #0076ce; padding: 0.08rem 0.17rem 0.13rem 0.17rem; border-style: solid; border-width: 0.02rem; border-color: #0076ce; border-collapse: collapse; }
+ table.tabledefault td { padding: 0.08rem 0.17rem 0.13rem 0.17rem; border-style: solid; border-width: 0.02rem; border-color: #0076ce; border-collapse: collapse; }
+ table.tabledefault tr:nth-child(odd) { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #565656; padding: 0.08rem 0.17rem 0.13rem 0.17rem; border-style: solid; border-width: 0.02rem; border-color: #0076ce; border-collapse: collapse; }
+ table.tabledefault tr:nth-child(even) { font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #565656; padding: 0.08rem 0.17rem 0.13rem 0.17rem; border-style: solid; border-width: 0.02rem; border-color: #0076ce; border-collapse: collapse; }
+</style></head><body>
+<div class="portrait"><div class="Normal" style="padding-top: 5.92rem; padding-left: 5.92rem; padding-bottom: 5.92rem; padding-right: 5.92rem;">
+
+<div style="min-height: 247mm" ><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><div class="Title">Dell EMC VxRail As Built Report</div><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="borderless"><tbody>
+<tr><th>Author:</th><td>Tim Carman</td></tr>
+<tr><th>Date:</th><td>Friday, 8 July 2022</td></tr>
+<tr><th>Version:</th><td>1.0</td></tr>
+</tbody></table>
+<br /></div>
+</div></div></div><div class="portrait"><div class="Normal" style="padding-top: 5.92rem; padding-left: 5.92rem; padding-bottom: 5.92rem; padding-right: 5.92rem;">
+<div style="min-height: 247mm" ><div><div class="Header">Dell EMC VxRail As Built Report - v1.0</div><br /></div><h1 class="TOC">Table of Contents</h1><table>
+<tr><td>1</td><td><a href="#f3952e16-687d-4004-a108-2ac40b20e698" style="text-decoration: none;">VxRail Manager - 10.200.10.10</a></td></tr>
+<tr><td>1.1</td><td>&nbsp;&nbsp;&nbsp;<a href="#e1e2241f-f0f6-4176-b00d-43e62f3bee67" style="text-decoration: none;">VxRail Cluster</a></td></tr>
+<tr><td>1.1.1</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#07af9723-55b7-4787-9da8-7707a2d2d021" style="text-decoration: none;">ESXi Hosts</a></td></tr>
+<tr><td>1.1.2</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#83af954c-5bdc-4e56-a956-63d313bc9fbf" style="text-decoration: none;">Virtual Machines</a></td></tr>
+<tr><td>1.1.3</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#7760cc2c-174d-4f9a-aabf-dddc2f0c0f19" style="text-decoration: none;">Installed Components</a></td></tr>
+<tr><td>1.2</td><td>&nbsp;&nbsp;&nbsp;<a href="#5643cdc1-0df2-4c5a-96d4-64f81ccf7cc0" style="text-decoration: none;">VxRail Appliances</a></td></tr>
+<tr><td>1.2.1</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#7b214793-21a4-4175-922d-481faeccc68f" style="text-decoration: none;">m1-esx01.vcflab.local</a></td></tr>
+<tr><td>1.2.1.1</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#484cb4e2-7e6a-4ee8-9c14-0962001efec4" style="text-decoration: none;">Hardware</a></td></tr>
+<tr><td>1.2.1.2</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#114e2eef-1352-439a-bf9f-add005ccf415" style="text-decoration: none;">ESXi</a></td></tr>
+<tr><td>1.2.1.3</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#74ed0dee-0203-4088-a6be-90aaa742c36a" style="text-decoration: none;">Firmware</a></td></tr>
+<tr><td>1.2.1.4</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#b8e587b7-47b2-437f-a9f1-803ae4ddc794" style="text-decoration: none;">Components</a></td></tr>
+<tr><td>1.2.1.5</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#b4e8dce1-b590-4b92-b7ad-f794e33a1b79" style="text-decoration: none;">Boot Devices</a></td></tr>
+<tr><td>1.2.1.6</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#1b709316-0566-4111-b811-0f77f8262740" style="text-decoration: none;">Disks</a></td></tr>
+<tr><td>1.2.1.7</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#1d82e2aa-d191-479a-b416-b88240264041" style="text-decoration: none;">NICs</a></td></tr>
+<tr><td>1.2.1.8</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#be7fd706-9b68-4534-8aa4-a2751fdff2f7" style="text-decoration: none;">PSUs</a></td></tr>
+<tr><td>1.2.1.9</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#601a452c-4278-4e68-9933-7034fbc51a51" style="text-decoration: none;">iDRAC</a></td></tr>
+<tr><td>1.2.2</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#85e7410a-47fa-4db6-8157-956478b66e8c" style="text-decoration: none;">m1-esx02.vcflab.local</a></td></tr>
+<tr><td>1.2.2.1</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#6eacd96b-2381-4096-9d51-83a3efb8b4ed" style="text-decoration: none;">Hardware</a></td></tr>
+<tr><td>1.2.2.2</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#c8433b9e-7219-4292-881e-8127b1e3f862" style="text-decoration: none;">ESXi</a></td></tr>
+<tr><td>1.2.2.3</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#464ea4e3-5fd2-4d50-be76-c71cae749c6b" style="text-decoration: none;">Firmware</a></td></tr>
+<tr><td>1.2.2.4</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#0d7304ff-44e6-4493-ad5a-9884b53bc5b2" style="text-decoration: none;">Components</a></td></tr>
+<tr><td>1.2.2.5</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#abcea6cb-9175-44ab-bbbc-46d9bc4af9f3" style="text-decoration: none;">Boot Devices</a></td></tr>
+<tr><td>1.2.2.6</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#75d7a7dc-5f8d-45ac-b812-8ecd26f72d0c" style="text-decoration: none;">Disks</a></td></tr>
+<tr><td>1.2.2.7</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#f2ca42b7-bdfc-434f-8667-56641082409e" style="text-decoration: none;">NICs</a></td></tr>
+<tr><td>1.2.2.8</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#7cc7d88a-6812-4963-ad0d-90c7ba7028a3" style="text-decoration: none;">PSUs</a></td></tr>
+<tr><td>1.2.2.9</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#513feade-702e-4b4d-bea4-1708b3e01885" style="text-decoration: none;">iDRAC</a></td></tr>
+<tr><td>1.2.3</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#e83f9edb-9206-4e57-a65c-e55ec5abbc35" style="text-decoration: none;">m1-esx03.vcflab.local</a></td></tr>
+<tr><td>1.2.3.1</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#804f3ea5-f9d0-483a-b9cd-f87f8a44be38" style="text-decoration: none;">Hardware</a></td></tr>
+<tr><td>1.2.3.2</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#1e0e1c8f-94f2-44bd-840b-e61a1bf9ee97" style="text-decoration: none;">ESXi</a></td></tr>
+<tr><td>1.2.3.3</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#203292c5-4b6b-45f9-b628-6905330d50b7" style="text-decoration: none;">Firmware</a></td></tr>
+<tr><td>1.2.3.4</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#55645871-332c-4b24-9a04-ba965c6f103b" style="text-decoration: none;">Components</a></td></tr>
+<tr><td>1.2.3.5</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#08629331-b22f-4382-a4ec-7c37ebb37802" style="text-decoration: none;">Boot Devices</a></td></tr>
+<tr><td>1.2.3.6</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#62cf9e34-4993-4e72-aece-db97803a2382" style="text-decoration: none;">Disks</a></td></tr>
+<tr><td>1.2.3.7</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#7f8e3f9c-dc25-4daf-a51a-0345b9505cb0" style="text-decoration: none;">NICs</a></td></tr>
+<tr><td>1.2.3.8</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#0f5be3a2-cf0e-470a-b8c8-bcf4424bae19" style="text-decoration: none;">PSUs</a></td></tr>
+<tr><td>1.2.3.9</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#aaa55abc-789e-4cf5-b169-36cf15244d41" style="text-decoration: none;">iDRAC</a></td></tr>
+<tr><td>1.2.4</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#39401242-9c33-4c69-abc9-ea19b44b596d" style="text-decoration: none;">m1-esx04.vcflab.local</a></td></tr>
+<tr><td>1.2.4.1</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#02d1a9c7-9def-45e1-b2d9-faaac3d2e106" style="text-decoration: none;">Hardware</a></td></tr>
+<tr><td>1.2.4.2</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#3437ea99-dc29-4cb5-b79c-76baf5359ced" style="text-decoration: none;">ESXi</a></td></tr>
+<tr><td>1.2.4.3</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#cceb9df0-4123-4d0f-b6a7-b3378b324003" style="text-decoration: none;">Firmware</a></td></tr>
+<tr><td>1.2.4.4</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a902cb2a-9185-49da-b19b-6c4913f760ef" style="text-decoration: none;">Components</a></td></tr>
+<tr><td>1.2.4.5</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#f0919c88-0683-40b5-a568-65e16dd50476" style="text-decoration: none;">Boot Devices</a></td></tr>
+<tr><td>1.2.4.6</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4a9b3d2c-2210-4cfa-a63c-aebc83f6eece" style="text-decoration: none;">Disks</a></td></tr>
+<tr><td>1.2.4.7</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#7f560702-e0a4-408b-b67d-023cf7498165" style="text-decoration: none;">NICs</a></td></tr>
+<tr><td>1.2.4.8</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#5388e492-e417-4dfe-9a7f-9c0f4ab056c0" style="text-decoration: none;">PSUs</a></td></tr>
+<tr><td>1.2.4.9</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#f53de4bb-8796-426e-bb5e-b49899e96d7c" style="text-decoration: none;">iDRAC</a></td></tr>
+<tr><td>1.3</td><td>&nbsp;&nbsp;&nbsp;<a href="#1ba32b89-8c73-4cdd-a82b-a05dac43c6b3" style="text-decoration: none;">VxRail Network</a></td></tr>
+<tr><td>1.3.1</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#f9e18d71-7fe7-4fb1-ac04-cfdc20b1de70" style="text-decoration: none;">General</a></td></tr>
+</table>
+</div><div><br /><div class="Footer">Page 2</div></div></div></div><div class="portrait"><div class="Normal" style="padding-top: 5.92rem; padding-left: 5.92rem; padding-bottom: 5.92rem; padding-right: 5.92rem;">
+<div style="min-height: 247mm" ><div><div class="Header">Dell EMC VxRail As Built Report - v1.0</div><br /></div><a name="f3952e16-687d-4004-a108-2ac40b20e698"><h1 class="Heading1">1 VxRail Manager - 10.200.10.10</h1></a><div>The following sections detail the VxRail cluster configuration managed by VxRail Manager 10.200.10.10.</div><br /><a name="e1e2241f-f0f6-4176-b00d-43e62f3bee67"><h2 class="Heading2">1.1 VxRail Cluster</h2></a><div>The following section provides a configuration summary of the VxRail cluster, ESXi hosts and virtual machines.</div><br /><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>VxRail Manager</th><td>10.200.10.10</td></tr>
+<tr><th>VxRail Version</th><td>7.0.320-27377804</td></tr>
+<tr><th>Cluster Type</th><td>Normal</td></tr>
+<tr><th>Number of Hosts</th><td>4</td></tr>
+<tr><th>Health Status</th><td>Healthy</td></tr>
+<tr><th>vCenter Server</th><td>m1-vc01.vcflab.local</td></tr>
+<tr><th>vCenter Version</th><td>7.0.3-19234570</td></tr>
+<tr><th>vCenter Server Mode</th><td>External</td></tr>
+<tr><th>PSC Mode</th><td>Embedded</td></tr>
+<tr><th>vCenter Server Connected</th><td>Yes</td></tr>
+<tr><th>External vCenter Server</th><td>Yes</td></tr>
+<tr><th>Installation Date</th><td>03/09/2022 16:21:47</td></tr>
+</tbody></table>
+<div class="Caption">Table 1 - VxRail Cluster Specifications - 10.200.10.10</div><br /></div>
+<a name="07af9723-55b7-4787-9da8-7707a2d2d021"><h3 class="Heading4">1.1.1 ESXi Hosts</h3></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:15%; min-width:15%; width:15%" /><col style="max-width:20%; min-width:20%; width:20%" /><col style="max-width:20%; min-width:20%; width:20%" /><col style="max-width:20%; min-width:20%; width:20%" /><col style="max-width:25%; min-width:25%; width:25%" /></colgroup>
+<thead><tr><th>Service Tag</th><th>Appliance ID</th><th>Model</th><th>ESXi Host Management IP</th><th>Hostname</th></tr></thead><tbody>
+<tr><td>2JGW033</td><td>DE700200600031</td><td>VxRail E560F</td><td>10.200.10.21</td><td>m1-esx01.vcflab.local</td></tr>
+<tr><td>2JPS033</td><td>DE700200600032</td><td>VxRail E560F</td><td>10.200.10.22</td><td>m1-esx02.vcflab.local</td></tr>
+<tr><td>2JPV033</td><td>DE700200600033</td><td>VxRail E560F</td><td>10.200.10.23</td><td>m1-esx03.vcflab.local</td></tr>
+<tr><td>2JPW033</td><td>DE700200600034</td><td>VxRail E560F</td><td>10.200.10.24</td><td>m1-esx04.vcflab.local</td></tr>
+</tbody></table>
+<div class="Caption">Table 2 - ESXi Host Specifications - 10.200.10.10</div><br /></div>
+<a name="83af954c-5bdc-4e56-a956-63d313bc9fbf"><h3 class="Heading3">1.1.2 Virtual Machines</h3></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:33%; min-width:33%; width:33%" /><col style="max-width:34%; min-width:34%; width:34%" /><col style="max-width:33%; min-width:33%; width:33%" /></colgroup>
+<thead><tr><th>Virtual Machine</th><th>ESXi Host</th><th>Status</th></tr></thead><tbody>
+<tr><td>VxRail Manager</td><td>m1-esx01.vcflab.local</td><td>Powered On</td></tr>
+</tbody></table>
+<div class="Caption">Table 3 - Virtual Machines - 10.200.10.10</div><br /></div>
+<a name="7760cc2c-174d-4f9a-aabf-dddc2f0c0f19"><h3 class="Heading3">1.1.3 Installed Components</h3></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:25%; min-width:25%; width:25%" /><col style="max-width:25%; min-width:25%; width:25%" /><col style="max-width:25%; min-width:25%; width:25%" /><col style="max-width:25%; min-width:25%; width:25%" /></colgroup>
+<thead><tr><th>Name</th><th>Description</th><th>Version</th><th>Available Updates</th></tr></thead><tbody>
+<tr><td>VMware ESXi</td><td>VMware ESXi is a thin hypervisor integrated into server hardware. The compact, hardware embedded architecture of VMware ESXi raises the bar for security and reliability and lays the foundation for a dynamic, automated datacenter.</td><td>7.0.3-19193900</td><td>No Update Available</td></tr>
+<tr><td>VMware vCenter Server Appliance</td><td>Centralized visibility, proactive management and
+extensibility for VMware vSphere from a single console VMware vCenter
+Server provides a centralized platform for managing your VMware vSphere
+environments, so you can automate and deliver a virtual infrastructure
+with confidence.</td><td>7.0.3-19234570</td><td>No Update Available</td></tr>
+<tr><td>VxRail Manager</td><td>The management component that orchestrates the
+deployment and management of VxRail system.</td><td>7.0.320-27377804</td><td>No Update Available</td></tr>
+<tr><td>VxRail Manager VIB</td><td>VxRail Manager agent installed on ESXi.</td><td>7.0.320-19220338</td><td>No Update Available</td></tr>
+</tbody></table>
+<div class="Caption">Table 4 - Installed Components - 10.200.10.10</div><br /></div>
+<a name="5643cdc1-0df2-4c5a-96d4-64f81ccf7cc0"><h2 class="Heading2">1.2 VxRail Appliances</h2></a><div>The following sections detail the configuration of VxRail Appliances managed by VxRail Manager 10.200.10.10.</div><a name="7b214793-21a4-4175-922d-481faeccc68f"><h3 class="Heading3">1.2.1 m1-esx01.vcflab.local</h3></a><div>The following section details the hardware configuration for VxRail Appliance m1-esx01.vcflab.local.</div><a name="484cb4e2-7e6a-4ee8-9c14-0962001efec4"><h4 class="Heading4">1.2.1.1 Hardware</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Hostname</th><td>m1-esx01.vcflab.local</td></tr>
+<tr><th>Manufacturer</th><td>Dell Inc.</td></tr>
+<tr><th>Model</th><td>VxRail E560F</td></tr>
+<tr><th>Serial Number</th><td>2JGW033</td></tr>
+<tr><th>Appliance ID</th><td>DE700200600031</td></tr>
+<tr><th>Slot</th><td>1</td></tr>
+<tr><th>Power Status</th><td>On</td></tr>
+<tr><th>Connected</th><td>Yes</td></tr>
+<tr><th>TPM Present</th><td>No</td></tr>
+<tr><th>Health Status</th><td style="font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #000000; background-color: #fef3b5;">Warning</td></tr>
+<tr><th>Operation Status</th><td>Available</td></tr>
+</tbody></table>
+<div class="Caption">Table 5 - Hardware Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="114e2eef-1352-439a-bf9f-add005ccf415"><h4 class="Heading4">1.2.1.2 ESXi</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Management IP Address</th><td>10.200.10.21</td></tr>
+<tr><th>vMotion IP Address</th><td>10.200.20.21</td></tr>
+<tr><th>vSAN IP Address</th><td>10.200.30.21</td></tr>
+</tbody></table>
+<div class="Caption">Table 6 - ESXi Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="74ed0dee-0203-4088-a6be-90aaa742c36a"><h4 class="Heading4">1.2.1.3 Firmware</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>BIOS</th><td>2.12.2</td></tr>
+<tr><th>BMC</th><td>5.00.10.20</td></tr>
+<tr><th>HBA</th><td>--</td></tr>
+<tr><th>Expander Back Plane</th><td>2.52</td></tr>
+<tr><th>BOSS</th><td>2.5.13.3024</td></tr>
+<tr><th>CPLD Firmware</th><td>1.0.6</td></tr>
+<tr><th>IDSDM Firmware</th><td>1.9</td></tr>
+</tbody></table>
+<div class="Caption">Table 7 - Firmware Versions - m1-esx01.vcflab.local</div><br /></div>
+<a name="b8e587b7-47b2-437f-a9f1-803ae4ddc794"><h4 class="Heading4">1.2.1.4 Components</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Dell PtAgent</th><td>--</td></tr>
+<tr><th>HBA Driver</th><td>17.00.12.00-1vmw.703.0.20.19193900</td></tr>
+<tr><th>VMware ESXi</th><td>7.0.3-19193900</td></tr>
+<tr><th>VxRail VIB</th><td>7.0.320-19220338</td></tr>
+</tbody></table>
+<div class="Caption">Table 8 - Component Versions - m1-esx01.vcflab.local</div><br /></div>
+<a name="b4e8dce1-b590-4b92-b7ad-f794e33a1b79"><h4 class="Heading4">1.2.1.5 Boot Devices</h4></a><a name="c65ab2b8-8830-4e0d-b676-8ab8a45ad88a"><h1 class="Heading5">Boot Device 0</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Boot Device</th><td>0</td></tr>
+<tr><th>Device Type</th><td>M.2 Riser</td></tr>
+<tr><th>Serial Number</th><td>PHYH9420050M240J</td></tr>
+<tr><th>Model</th><td>SSDSCKKB240G8R</td></tr>
+<tr><th>SATA Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>223.57GB</td></tr>
+<tr><th>Health</th><td>100%</td></tr>
+<tr><th>Firmware</th><td>XC31DL6P</td></tr>
+</tbody></table>
+<div class="Caption">Table 9 - Boot Device 0 Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="4679c172-881e-449a-b0a2-326ea972c635"><h1 class="Heading5">Boot Device 1</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Boot Device</th><td>1</td></tr>
+<tr><th>Device Type</th><td>M.2 Riser</td></tr>
+<tr><th>Serial Number</th><td>PHYH942004WN240J</td></tr>
+<tr><th>Model</th><td>SSDSCKKB240G8R</td></tr>
+<tr><th>SATA Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>223.57GB</td></tr>
+<tr><th>Health</th><td>100%</td></tr>
+<tr><th>Firmware</th><td>XC31DL6P</td></tr>
+</tbody></table>
+<div class="Caption">Table 10 - Boot Device 1 Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="1b709316-0566-4111-b811-0f77f8262740"><h4 class="Heading4">1.2.1.6 Disks</h4></a><a name="c9021129-67dd-4c40-bf4e-8d1136bf5461"><h1 class="Heading5">Enclosure 0 Disk 0</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>0</td></tr>
+<tr><th>Serial Number</th><td>194624FD0240</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 11 - Enclosure 0 Disk 0 Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="a45a1efa-245e-4f72-875a-3d579479ca72"><h1 class="Heading5">Enclosure 0 Disk 1</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>1</td></tr>
+<tr><th>Serial Number</th><td>194624FD0279</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 12 - Enclosure 0 Disk 1 Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="0e20f8c7-d566-4fd4-88bb-84f18b48c497"><h1 class="Heading5">Enclosure 0 Disk 2</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>2</td></tr>
+<tr><th>Serial Number</th><td>194624FD0074</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 13 - Enclosure 0 Disk 2 Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="11a82949-c099-4360-b65b-56ef2b100b94"><h1 class="Heading5">Enclosure 0 Disk 4</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>4</td></tr>
+<tr><th>Serial Number</th><td>194624FD0241</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 14 - Enclosure 0 Disk 4 Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="f4c1da0b-17fa-452f-8e9a-72bc3d376c50"><h1 class="Heading5">Enclosure 0 Disk 5</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>5</td></tr>
+<tr><th>Serial Number</th><td>194624FD0300</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 15 - Enclosure 0 Disk 5 Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="540dc214-be1a-47bb-8210-0793502b4ec9"><h1 class="Heading5">Enclosure 0 Disk 6</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>6</td></tr>
+<tr><th>Serial Number</th><td>194624FD02EC</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 16 - Enclosure 0 Disk 6 Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="e6fc23ff-cb02-4386-8cc0-64d7221e5240"><h1 class="Heading5">Enclosure 0 Disk 8</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>8</td></tr>
+<tr><th>Serial Number</th><td>S4LFNA0N104720</td></tr>
+<tr><th>Manufacturer</th><td>SAMSUNG</td></tr>
+<tr><th>Model</th><td>MZILT800HAHQ0D3</td></tr>
+<tr><th>Firmware</th><td>DWF8</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>745.21GB</td></tr>
+<tr><th>Speed</th><td>12 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 17 - Enclosure 0 Disk 8 Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="5c79abc3-792f-4d8f-9bc8-20d35e430902"><h1 class="Heading5">Enclosure 0 Disk 9</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>9</td></tr>
+<tr><th>Serial Number</th><td>S4LFNA0N104721</td></tr>
+<tr><th>Manufacturer</th><td>SAMSUNG</td></tr>
+<tr><th>Model</th><td>MZILT800HAHQ0D3</td></tr>
+<tr><th>Firmware</th><td>DWF8</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>745.21GB</td></tr>
+<tr><th>Speed</th><td>12 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 18 - Enclosure 0 Disk 9 Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="1d82e2aa-d191-479a-b416-b88240264041"><h4 class="Heading4">1.2.1.7 NICs</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:15%; min-width:15%; width:15%" /><col style="max-width:25%; min-width:25%; width:25%" /><col style="max-width:20%; min-width:20%; width:20%" /><col style="max-width:20%; min-width:20%; width:20%" /><col style="max-width:20%; min-width:20%; width:20%" /></colgroup>
+<thead><tr><th>NIC</th><th>MAC Address</th><th>Link Speed</th><th>Link Status</th><th>Firmware</th></tr></thead><tbody>
+<tr><td>1</td><td>B0:26:28:48:53:90</td><td>25 Gbps</td><td>Up</td><td>21.85.21.91</td></tr>
+<tr><td>2</td><td>B0:26:28:48:53:91</td><td>25 Gbps</td><td>Up</td><td>21.85.21.91</td></tr>
+</tbody></table>
+<div class="Caption">Table 19 - NIC Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="be7fd706-9b68-4534-8aa4-a2751fdff2f7"><h4 class="Heading4">1.2.1.8 PSUs</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:8%; min-width:8%; width:8%" /><col style="max-width:18%; min-width:18%; width:18%" /><col style="max-width:24%; min-width:24%; width:24%" /><col style="max-width:22%; min-width:22%; width:22%" /><col style="max-width:14%; min-width:14%; width:14%" /><col style="max-width:14%; min-width:14%; width:14%" /></colgroup>
+<thead><tr><th>PSU</th><th>Manufacturer</th><th>Serial Number</th><th>Part Number</th><th>Health</th><th>Revision</th></tr></thead><tbody>
+<tr><td>1</td><td>DELL</td><td>CNDED009CP4T78</td><td>0Y26KXA02</td><td>Healthy</td><td>00.1D.7D</td></tr>
+<tr><td>2</td><td>DELL</td><td>CNDED009C34FT3</td><td>0Y26KXA02</td><td>Healthy</td><td>00.1D.7D</td></tr>
+</tbody></table>
+<div class="Caption">Table 20 - PSU Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="601a452c-4278-4e68-9933-7034fbc51a51"><h4 class="Heading4">1.2.1.9 iDRAC</h4></a><a name="facecaa2-9833-45fd-9d43-cee2eb10b58f"><h1 class="Heading5">IPv4 Settings</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>DHCP</th><td>Disabled</td></tr>
+<tr><th>IPv4 Address</th><td>10.200.10.31</td></tr>
+<tr><th>Subnet Mask</th><td>255.255.255.0</td></tr>
+<tr><th>Gateway</th><td>10.200.10.1</td></tr>
+</tbody></table>
+<div class="Caption">Table 21 - iDRAC IPv4 Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="92910af3-ecdc-4568-99a7-585b1b0fb866"><h1 class="Heading5">VLAN Settings</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>VLAN</th><td>Disabled</td></tr>
+<tr><th>VLAN ID</th><td>0</td></tr>
+<tr><th>VLAN Priority</th><td>0</td></tr>
+</tbody></table>
+<div class="Caption">Table 22 - iDRAC VLAN Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="eb180b49-4b55-4438-a964-91644a281e04"><h1 class="Heading5">Users</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:33%; min-width:33%; width:33%" /><col style="max-width:34%; min-width:34%; width:34%" /><col style="max-width:33%; min-width:33%; width:33%" /></colgroup>
+<thead><tr><th>ID</th><th>User Name</th><th>Privilege</th></tr></thead><tbody>
+<tr><td>2</td><td>root</td><td>Administrator</td></tr>
+<tr><td>15</td><td>vxpsvc</td><td>Administrator</td></tr>
+<tr><td>16</td><td>PTAdmin</td><td>Administrator</td></tr>
+</tbody></table>
+<div class="Caption">Table 23 - iDRAC User Specifications - m1-esx01.vcflab.local</div><br /></div>
+<a name="85e7410a-47fa-4db6-8157-956478b66e8c"><h3 class="Heading3">1.2.2 m1-esx02.vcflab.local</h3></a><div>The following section details the hardware configuration for VxRail Appliance m1-esx02.vcflab.local.</div><a name="6eacd96b-2381-4096-9d51-83a3efb8b4ed"><h4 class="Heading4">1.2.2.1 Hardware</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Hostname</th><td>m1-esx02.vcflab.local</td></tr>
+<tr><th>Manufacturer</th><td>Dell Inc.</td></tr>
+<tr><th>Model</th><td>VxRail E560F</td></tr>
+<tr><th>Serial Number</th><td>2JPS033</td></tr>
+<tr><th>Appliance ID</th><td>DE700200600032</td></tr>
+<tr><th>Slot</th><td>1</td></tr>
+<tr><th>Power Status</th><td>On</td></tr>
+<tr><th>Connected</th><td>Yes</td></tr>
+<tr><th>TPM Present</th><td>No</td></tr>
+<tr><th>Health Status</th><td style="font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #000000; background-color: #fef3b5;">Warning</td></tr>
+<tr><th>Operation Status</th><td>Available</td></tr>
+</tbody></table>
+<div class="Caption">Table 24 - Hardware Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="c8433b9e-7219-4292-881e-8127b1e3f862"><h4 class="Heading4">1.2.2.2 ESXi</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Management IP Address</th><td>10.200.10.22</td></tr>
+<tr><th>vMotion IP Address</th><td>10.200.20.22</td></tr>
+<tr><th>vSAN IP Address</th><td>10.200.30.22</td></tr>
+</tbody></table>
+<div class="Caption">Table 25 - ESXi Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="464ea4e3-5fd2-4d50-be76-c71cae749c6b"><h4 class="Heading4">1.2.2.3 Firmware</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>BIOS</th><td>2.12.2</td></tr>
+<tr><th>BMC</th><td>5.00.10.20</td></tr>
+<tr><th>HBA</th><td>--</td></tr>
+<tr><th>Expander Back Plane</th><td>2.52</td></tr>
+<tr><th>BOSS</th><td>2.5.13.3024</td></tr>
+<tr><th>CPLD Firmware</th><td>1.0.6</td></tr>
+<tr><th>IDSDM Firmware</th><td>1.9</td></tr>
+</tbody></table>
+<div class="Caption">Table 26 - Firmware Versions - m1-esx02.vcflab.local</div><br /></div>
+<a name="0d7304ff-44e6-4493-ad5a-9884b53bc5b2"><h4 class="Heading4">1.2.2.4 Components</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Dell PtAgent</th><td>--</td></tr>
+<tr><th>HBA Driver</th><td>17.00.12.00-1vmw.703.0.20.19193900</td></tr>
+<tr><th>VMware ESXi</th><td>7.0.3-19193900</td></tr>
+<tr><th>VxRail VIB</th><td>7.0.320-19220338</td></tr>
+</tbody></table>
+<div class="Caption">Table 27 - Component Versions - m1-esx02.vcflab.local</div><br /></div>
+<a name="abcea6cb-9175-44ab-bbbc-46d9bc4af9f3"><h4 class="Heading4">1.2.2.5 Boot Devices</h4></a><a name="05842afe-885b-447e-8d95-61550a292fe7"><h1 class="Heading5">Boot Device 0</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Boot Device</th><td>0</td></tr>
+<tr><th>Device Type</th><td>M.2 Riser</td></tr>
+<tr><th>Serial Number</th><td>PHYH942003S5240J</td></tr>
+<tr><th>Model</th><td>SSDSCKKB240G8R</td></tr>
+<tr><th>SATA Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>223.57GB</td></tr>
+<tr><th>Health</th><td>100%</td></tr>
+<tr><th>Firmware</th><td>XC31DL6P</td></tr>
+</tbody></table>
+<div class="Caption">Table 28 - Boot Device 0 Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="4ef0104c-396d-446e-8cb8-99a77d72134c"><h1 class="Heading5">Boot Device 1</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Boot Device</th><td>1</td></tr>
+<tr><th>Device Type</th><td>M.2 Riser</td></tr>
+<tr><th>Serial Number</th><td>PHYH942003MA240J</td></tr>
+<tr><th>Model</th><td>SSDSCKKB240G8R</td></tr>
+<tr><th>SATA Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>223.57GB</td></tr>
+<tr><th>Health</th><td>100%</td></tr>
+<tr><th>Firmware</th><td>XC31DL6P</td></tr>
+</tbody></table>
+<div class="Caption">Table 29 - Boot Device 1 Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="75d7a7dc-5f8d-45ac-b812-8ecd26f72d0c"><h4 class="Heading4">1.2.2.6 Disks</h4></a><a name="d74ae021-cad9-4989-997b-dedcde7b9c6f"><h1 class="Heading5">Enclosure 0 Disk 0</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>0</td></tr>
+<tr><th>Serial Number</th><td>194624FD03E2</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 30 - Enclosure 0 Disk 0 Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="18c81b9e-eddf-4004-baf3-066bdbb2a0ab"><h1 class="Heading5">Enclosure 0 Disk 1</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>1</td></tr>
+<tr><th>Serial Number</th><td>194624FD0466</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 31 - Enclosure 0 Disk 1 Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="c24fe7ba-4329-4f54-9a42-a0dd9c9fbe5b"><h1 class="Heading5">Enclosure 0 Disk 2</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>2</td></tr>
+<tr><th>Serial Number</th><td>194624FD03E3</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 32 - Enclosure 0 Disk 2 Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="0301517a-f403-4cc0-bce5-7c4009801f99"><h1 class="Heading5">Enclosure 0 Disk 4</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>4</td></tr>
+<tr><th>Serial Number</th><td>194624FD03F9</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 33 - Enclosure 0 Disk 4 Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="0a1e930e-eb99-4689-8aad-08199d428930"><h1 class="Heading5">Enclosure 0 Disk 5</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>5</td></tr>
+<tr><th>Serial Number</th><td>194624FD0329</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 34 - Enclosure 0 Disk 5 Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="f770204d-96e6-4b71-9458-672b75148532"><h1 class="Heading5">Enclosure 0 Disk 6</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>6</td></tr>
+<tr><th>Serial Number</th><td>194624FD0311</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 35 - Enclosure 0 Disk 6 Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="3f79c094-60b3-4cbf-8e5c-451ed6d38e33"><h1 class="Heading5">Enclosure 0 Disk 8</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>8</td></tr>
+<tr><th>Serial Number</th><td>S4LFNA0N104866</td></tr>
+<tr><th>Manufacturer</th><td>SAMSUNG</td></tr>
+<tr><th>Model</th><td>MZILT800HAHQ0D3</td></tr>
+<tr><th>Firmware</th><td>DWF8</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>745.21GB</td></tr>
+<tr><th>Speed</th><td>12 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 36 - Enclosure 0 Disk 8 Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="6f4f8c33-2740-469f-89b4-09e2e06ed8bc"><h1 class="Heading5">Enclosure 0 Disk 9</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>9</td></tr>
+<tr><th>Serial Number</th><td>S4LFNA0N104754</td></tr>
+<tr><th>Manufacturer</th><td>SAMSUNG</td></tr>
+<tr><th>Model</th><td>MZILT800HAHQ0D3</td></tr>
+<tr><th>Firmware</th><td>DWF8</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>745.21GB</td></tr>
+<tr><th>Speed</th><td>12 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 37 - Enclosure 0 Disk 9 Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="f2ca42b7-bdfc-434f-8667-56641082409e"><h4 class="Heading4">1.2.2.7 NICs</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:15%; min-width:15%; width:15%" /><col style="max-width:25%; min-width:25%; width:25%" /><col style="max-width:20%; min-width:20%; width:20%" /><col style="max-width:20%; min-width:20%; width:20%" /><col style="max-width:20%; min-width:20%; width:20%" /></colgroup>
+<thead><tr><th>NIC</th><th>MAC Address</th><th>Link Speed</th><th>Link Status</th><th>Firmware</th></tr></thead><tbody>
+<tr><td>1</td><td>B0:26:28:48:3B:40</td><td>25 Gbps</td><td>Up</td><td>21.85.21.91</td></tr>
+<tr><td>2</td><td>B0:26:28:48:3B:41</td><td>25 Gbps</td><td>Up</td><td>21.85.21.91</td></tr>
+</tbody></table>
+<div class="Caption">Table 38 - NIC Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="7cc7d88a-6812-4963-ad0d-90c7ba7028a3"><h4 class="Heading4">1.2.2.8 PSUs</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:8%; min-width:8%; width:8%" /><col style="max-width:18%; min-width:18%; width:18%" /><col style="max-width:24%; min-width:24%; width:24%" /><col style="max-width:22%; min-width:22%; width:22%" /><col style="max-width:14%; min-width:14%; width:14%" /><col style="max-width:14%; min-width:14%; width:14%" /></colgroup>
+<thead><tr><th>PSU</th><th>Manufacturer</th><th>Serial Number</th><th>Part Number</th><th>Health</th><th>Revision</th></tr></thead><tbody>
+<tr><td>1</td><td>DELL</td><td>CNLOD009BE2DDA</td><td>0CMPGMA02</td><td>Healthy</td><td>00.23.32</td></tr>
+<tr><td>2</td><td>DELL</td><td>CNLOD009BE2DC4</td><td>0CMPGMA02</td><td>Healthy</td><td>00.23.32</td></tr>
+</tbody></table>
+<div class="Caption">Table 39 - PSU Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="513feade-702e-4b4d-bea4-1708b3e01885"><h4 class="Heading4">1.2.2.9 iDRAC</h4></a><a name="744044db-a532-44c2-88a0-83d8f22a946c"><h1 class="Heading5">IPv4 Settings</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>DHCP</th><td>Disabled</td></tr>
+<tr><th>IPv4 Address</th><td>10.200.10.32</td></tr>
+<tr><th>Subnet Mask</th><td>255.255.255.0</td></tr>
+<tr><th>Gateway</th><td>10.200.10.1</td></tr>
+</tbody></table>
+<div class="Caption">Table 40 - iDRAC IPv4 Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="44a6b218-7388-4e3c-a478-338772ae4311"><h1 class="Heading5">VLAN Settings</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>VLAN</th><td>Disabled</td></tr>
+<tr><th>VLAN ID</th><td>0</td></tr>
+<tr><th>VLAN Priority</th><td>0</td></tr>
+</tbody></table>
+<div class="Caption">Table 41 - iDRAC VLAN Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="45d51828-6bcf-4450-9ee6-b48f01222a86"><h1 class="Heading5">Users</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:33%; min-width:33%; width:33%" /><col style="max-width:34%; min-width:34%; width:34%" /><col style="max-width:33%; min-width:33%; width:33%" /></colgroup>
+<thead><tr><th>ID</th><th>User Name</th><th>Privilege</th></tr></thead><tbody>
+<tr><td>2</td><td>root</td><td>Administrator</td></tr>
+<tr><td>15</td><td>vxpsvc</td><td>Administrator</td></tr>
+<tr><td>16</td><td>PTAdmin</td><td>Administrator</td></tr>
+</tbody></table>
+<div class="Caption">Table 42 - iDRAC User Specifications - m1-esx02.vcflab.local</div><br /></div>
+<a name="e83f9edb-9206-4e57-a65c-e55ec5abbc35"><h3 class="Heading3">1.2.3 m1-esx03.vcflab.local</h3></a><div>The following section details the hardware configuration for VxRail Appliance m1-esx03.vcflab.local.</div><a name="804f3ea5-f9d0-483a-b9cd-f87f8a44be38"><h4 class="Heading4">1.2.3.1 Hardware</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Hostname</th><td>m1-esx03.vcflab.local</td></tr>
+<tr><th>Manufacturer</th><td>Dell Inc.</td></tr>
+<tr><th>Model</th><td>VxRail E560F</td></tr>
+<tr><th>Serial Number</th><td>2JPV033</td></tr>
+<tr><th>Appliance ID</th><td>DE700200600033</td></tr>
+<tr><th>Slot</th><td>1</td></tr>
+<tr><th>Power Status</th><td>On</td></tr>
+<tr><th>Connected</th><td>Yes</td></tr>
+<tr><th>TPM Present</th><td>No</td></tr>
+<tr><th>Health Status</th><td style="font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #000000; background-color: #fef3b5;">Warning</td></tr>
+<tr><th>Operation Status</th><td>Available</td></tr>
+</tbody></table>
+<div class="Caption">Table 43 - Hardware Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="1e0e1c8f-94f2-44bd-840b-e61a1bf9ee97"><h4 class="Heading4">1.2.3.2 ESXi</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Management IP Address</th><td>10.200.10.23</td></tr>
+<tr><th>vMotion IP Address</th><td>10.200.20.23</td></tr>
+<tr><th>vSAN IP Address</th><td>10.200.30.23</td></tr>
+</tbody></table>
+<div class="Caption">Table 44 - ESXi Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="203292c5-4b6b-45f9-b628-6905330d50b7"><h4 class="Heading4">1.2.3.3 Firmware</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>BIOS</th><td>2.12.2</td></tr>
+<tr><th>BMC</th><td>5.00.10.20</td></tr>
+<tr><th>HBA</th><td>--</td></tr>
+<tr><th>Expander Back Plane</th><td>2.52</td></tr>
+<tr><th>BOSS</th><td>2.5.13.3024</td></tr>
+<tr><th>CPLD Firmware</th><td>1.0.6</td></tr>
+<tr><th>IDSDM Firmware</th><td>1.9</td></tr>
+</tbody></table>
+<div class="Caption">Table 45 - Firmware Versions - m1-esx03.vcflab.local</div><br /></div>
+<a name="55645871-332c-4b24-9a04-ba965c6f103b"><h4 class="Heading4">1.2.3.4 Components</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Dell PtAgent</th><td>--</td></tr>
+<tr><th>HBA Driver</th><td>17.00.12.00-1vmw.703.0.20.19193900</td></tr>
+<tr><th>VMware ESXi</th><td>7.0.3-19193900</td></tr>
+<tr><th>VxRail VIB</th><td>7.0.320-19220338</td></tr>
+</tbody></table>
+<div class="Caption">Table 46 - Component Versions - m1-esx03.vcflab.local</div><br /></div>
+<a name="08629331-b22f-4382-a4ec-7c37ebb37802"><h4 class="Heading4">1.2.3.5 Boot Devices</h4></a><a name="eb6150a7-5bed-419f-8594-b79659547e72"><h1 class="Heading5">Boot Device 0</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Boot Device</th><td>0</td></tr>
+<tr><th>Device Type</th><td>M.2 Riser</td></tr>
+<tr><th>Serial Number</th><td>PHYH942004ML240J</td></tr>
+<tr><th>Model</th><td>SSDSCKKB240G8R</td></tr>
+<tr><th>SATA Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>223.57GB</td></tr>
+<tr><th>Health</th><td>100%</td></tr>
+<tr><th>Firmware</th><td>XC31DL6P</td></tr>
+</tbody></table>
+<div class="Caption">Table 47 - Boot Device 0 Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="bef6d828-1f09-4ef0-a319-3075f501c506"><h1 class="Heading5">Boot Device 1</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Boot Device</th><td>1</td></tr>
+<tr><th>Device Type</th><td>M.2 Riser</td></tr>
+<tr><th>Serial Number</th><td>PHYH94200404240J</td></tr>
+<tr><th>Model</th><td>SSDSCKKB240G8R</td></tr>
+<tr><th>SATA Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>223.57GB</td></tr>
+<tr><th>Health</th><td>100%</td></tr>
+<tr><th>Firmware</th><td>XC31DL6P</td></tr>
+</tbody></table>
+<div class="Caption">Table 48 - Boot Device 1 Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="62cf9e34-4993-4e72-aece-db97803a2382"><h4 class="Heading4">1.2.3.6 Disks</h4></a><a name="530d679d-e8e5-47bb-b140-8adac8c263c8"><h1 class="Heading5">Enclosure 0 Disk 0</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>0</td></tr>
+<tr><th>Serial Number</th><td>194624FD034D</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 49 - Enclosure 0 Disk 0 Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="b5bee22b-38a5-4db9-8728-7240e58539f2"><h1 class="Heading5">Enclosure 0 Disk 1</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>1</td></tr>
+<tr><th>Serial Number</th><td>PHYF032305581P9DGN</td></tr>
+<tr><th>Manufacturer</th><td>INTEL</td></tr>
+<tr><th>Model</th><td>SSDSC2KB019T8R</td></tr>
+<tr><th>Firmware</th><td>XCV1DL67</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 50 - Enclosure 0 Disk 1 Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="3415835d-402c-4028-b7d6-ab665611c8a1"><h1 class="Heading5">Enclosure 0 Disk 2</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>2</td></tr>
+<tr><th>Serial Number</th><td>194624FCF79F</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 51 - Enclosure 0 Disk 2 Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="f029fe57-3311-41e4-b378-c8aa2e145c08"><h1 class="Heading5">Enclosure 0 Disk 4</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>4</td></tr>
+<tr><th>Serial Number</th><td>194624FCF78E</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 52 - Enclosure 0 Disk 4 Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="d35fe151-3828-4348-a285-568f0271cf2b"><h1 class="Heading5">Enclosure 0 Disk 5</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>5</td></tr>
+<tr><th>Serial Number</th><td>194624FCF795</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 53 - Enclosure 0 Disk 5 Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="4fed82c6-beb7-452d-8caa-3cc26bb6b5be"><h1 class="Heading5">Enclosure 0 Disk 6</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>6</td></tr>
+<tr><th>Serial Number</th><td>194624FD0355</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 54 - Enclosure 0 Disk 6 Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="b8b06be7-7c7e-486d-b8a8-dd3b22c16d5e"><h1 class="Heading5">Enclosure 0 Disk 8</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>8</td></tr>
+<tr><th>Serial Number</th><td>S4LFNA0N104760</td></tr>
+<tr><th>Manufacturer</th><td>SAMSUNG</td></tr>
+<tr><th>Model</th><td>MZILT800HAHQ0D3</td></tr>
+<tr><th>Firmware</th><td>DWF8</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>745.21GB</td></tr>
+<tr><th>Speed</th><td>12 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 55 - Enclosure 0 Disk 8 Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="1c3dfb6d-b729-47df-895f-a198f0e4465b"><h1 class="Heading5">Enclosure 0 Disk 9</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>9</td></tr>
+<tr><th>Serial Number</th><td>S4LFNA0N104757</td></tr>
+<tr><th>Manufacturer</th><td>SAMSUNG</td></tr>
+<tr><th>Model</th><td>MZILT800HAHQ0D3</td></tr>
+<tr><th>Firmware</th><td>DWF8</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>745.21GB</td></tr>
+<tr><th>Speed</th><td>12 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 56 - Enclosure 0 Disk 9 Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="7f8e3f9c-dc25-4daf-a51a-0345b9505cb0"><h4 class="Heading4">1.2.3.7 NICs</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:15%; min-width:15%; width:15%" /><col style="max-width:25%; min-width:25%; width:25%" /><col style="max-width:20%; min-width:20%; width:20%" /><col style="max-width:20%; min-width:20%; width:20%" /><col style="max-width:20%; min-width:20%; width:20%" /></colgroup>
+<thead><tr><th>NIC</th><th>MAC Address</th><th>Link Speed</th><th>Link Status</th><th>Firmware</th></tr></thead><tbody>
+<tr><td>1</td><td>B0:26:28:48:09:00</td><td>25 Gbps</td><td>Up</td><td>21.85.21.91</td></tr>
+<tr><td>2</td><td>B0:26:28:48:09:01</td><td>25 Gbps</td><td>Up</td><td>21.85.21.91</td></tr>
+</tbody></table>
+<div class="Caption">Table 57 - NIC Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="0f5be3a2-cf0e-470a-b8c8-bcf4424bae19"><h4 class="Heading4">1.2.3.8 PSUs</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:8%; min-width:8%; width:8%" /><col style="max-width:18%; min-width:18%; width:18%" /><col style="max-width:24%; min-width:24%; width:24%" /><col style="max-width:22%; min-width:22%; width:22%" /><col style="max-width:14%; min-width:14%; width:14%" /><col style="max-width:14%; min-width:14%; width:14%" /></colgroup>
+<thead><tr><th>PSU</th><th>Manufacturer</th><th>Serial Number</th><th>Part Number</th><th>Health</th><th>Revision</th></tr></thead><tbody>
+<tr><td>1</td><td>DELL</td><td>CNLOD009BE3DC3</td><td>0CMPGMA02</td><td>Healthy</td><td>00.23.32</td></tr>
+<tr><td>2</td><td>DELL</td><td>CNLOD009BE3DCF</td><td>0CMPGMA02</td><td>Healthy</td><td>00.23.32</td></tr>
+</tbody></table>
+<div class="Caption">Table 58 - PSU Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="aaa55abc-789e-4cf5-b169-36cf15244d41"><h4 class="Heading4">1.2.3.9 iDRAC</h4></a><a name="b6aa49b2-a33d-4881-9fde-fc6e2aa2e667"><h1 class="Heading5">IPv4 Settings</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>DHCP</th><td>Disabled</td></tr>
+<tr><th>IPv4 Address</th><td>10.200.10.33</td></tr>
+<tr><th>Subnet Mask</th><td>255.255.255.0</td></tr>
+<tr><th>Gateway</th><td>10.200.10.1</td></tr>
+</tbody></table>
+<div class="Caption">Table 59 - iDRAC IPv4 Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="edd8f302-fda6-4aa1-8876-11987e589ce6"><h1 class="Heading5">VLAN Settings</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>VLAN</th><td>Disabled</td></tr>
+<tr><th>VLAN ID</th><td>0</td></tr>
+<tr><th>VLAN Priority</th><td>0</td></tr>
+</tbody></table>
+<div class="Caption">Table 60 - iDRAC VLAN Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="23e3d309-94ee-46bb-a46f-e02317b4c74d"><h1 class="Heading5">Users</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:33%; min-width:33%; width:33%" /><col style="max-width:34%; min-width:34%; width:34%" /><col style="max-width:33%; min-width:33%; width:33%" /></colgroup>
+<thead><tr><th>ID</th><th>User Name</th><th>Privilege</th></tr></thead><tbody>
+<tr><td>2</td><td>root</td><td>Administrator</td></tr>
+<tr><td>15</td><td>vxpsvc</td><td>Administrator</td></tr>
+<tr><td>16</td><td>PTAdmin</td><td>Administrator</td></tr>
+</tbody></table>
+<div class="Caption">Table 61 - iDRAC User Specifications - m1-esx03.vcflab.local</div><br /></div>
+<a name="39401242-9c33-4c69-abc9-ea19b44b596d"><h3 class="Heading3">1.2.4 m1-esx04.vcflab.local</h3></a><div>The following section details the hardware configuration for VxRail Appliance m1-esx04.vcflab.local.</div><a name="02d1a9c7-9def-45e1-b2d9-faaac3d2e106"><h4 class="Heading4">1.2.4.1 Hardware</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Hostname</th><td>m1-esx04.vcflab.local</td></tr>
+<tr><th>Manufacturer</th><td>Dell Inc.</td></tr>
+<tr><th>Model</th><td>VxRail E560F</td></tr>
+<tr><th>Serial Number</th><td>2JPW033</td></tr>
+<tr><th>Appliance ID</th><td>DE700200600034</td></tr>
+<tr><th>Slot</th><td>1</td></tr>
+<tr><th>Power Status</th><td>On</td></tr>
+<tr><th>Connected</th><td>Yes</td></tr>
+<tr><th>TPM Present</th><td>No</td></tr>
+<tr><th>Health Status</th><td style="font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #000000; background-color: #fef3b5;">Warning</td></tr>
+<tr><th>Operation Status</th><td>Available</td></tr>
+</tbody></table>
+<div class="Caption">Table 62 - Hardware Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="3437ea99-dc29-4cb5-b79c-76baf5359ced"><h4 class="Heading4">1.2.4.2 ESXi</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Management IP Address</th><td>10.200.10.24</td></tr>
+<tr><th>vMotion IP Address</th><td>10.200.20.24</td></tr>
+<tr><th>vSAN IP Address</th><td>10.200.30.24</td></tr>
+</tbody></table>
+<div class="Caption">Table 63 - ESXi Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="cceb9df0-4123-4d0f-b6a7-b3378b324003"><h4 class="Heading4">1.2.4.3 Firmware</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>BIOS</th><td>2.12.2</td></tr>
+<tr><th>BMC</th><td>5.00.10.20</td></tr>
+<tr><th>HBA</th><td>--</td></tr>
+<tr><th>Expander Back Plane</th><td>2.52</td></tr>
+<tr><th>BOSS</th><td>2.5.13.3024</td></tr>
+<tr><th>CPLD Firmware</th><td>1.0.6</td></tr>
+<tr><th>IDSDM Firmware</th><td>1.9</td></tr>
+</tbody></table>
+<div class="Caption">Table 64 - Firmware Versions - m1-esx04.vcflab.local</div><br /></div>
+<a name="a902cb2a-9185-49da-b19b-6c4913f760ef"><h4 class="Heading4">1.2.4.4 Components</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Dell PtAgent</th><td>--</td></tr>
+<tr><th>HBA Driver</th><td>17.00.12.00-1vmw.703.0.20.19193900</td></tr>
+<tr><th>VMware ESXi</th><td>7.0.3-19193900</td></tr>
+<tr><th>VxRail VIB</th><td>7.0.320-19220338</td></tr>
+</tbody></table>
+<div class="Caption">Table 65 - Component Versions - m1-esx04.vcflab.local</div><br /></div>
+<a name="f0919c88-0683-40b5-a568-65e16dd50476"><h4 class="Heading4">1.2.4.5 Boot Devices</h4></a><a name="c2e5cf7d-cc00-40a7-9305-312f9d421a7b"><h1 class="Heading5">Boot Device 0</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Boot Device</th><td>0</td></tr>
+<tr><th>Device Type</th><td>M.2 Riser</td></tr>
+<tr><th>Serial Number</th><td>PHYH942004WQ240J</td></tr>
+<tr><th>Model</th><td>SSDSCKKB240G8R</td></tr>
+<tr><th>SATA Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>223.57GB</td></tr>
+<tr><th>Health</th><td style="font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #000000; background-color: #fef3b5;">96%</td></tr>
+<tr><th>Firmware</th><td>XC31DL6P</td></tr>
+</tbody></table>
+<div class="Caption">Table 66 - Boot Device 0 Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="32ef06f6-8b84-4d6d-88b3-337058344b24"><h1 class="Heading5">Boot Device 1</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Boot Device</th><td>1</td></tr>
+<tr><th>Device Type</th><td>M.2 Riser</td></tr>
+<tr><th>Serial Number</th><td>PHYH9420056W240J</td></tr>
+<tr><th>Model</th><td>SSDSCKKB240G8R</td></tr>
+<tr><th>SATA Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>223.57GB</td></tr>
+<tr><th>Health</th><td style="font-family: 'Arial'; font-size: 0.83rem; text-align: left; font-weight: normal; color: #000000; background-color: #fef3b5;">96%</td></tr>
+<tr><th>Firmware</th><td>XC31DL6P</td></tr>
+</tbody></table>
+<div class="Caption">Table 67 - Boot Device 1 Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="4a9b3d2c-2210-4cfa-a63c-aebc83f6eece"><h4 class="Heading4">1.2.4.6 Disks</h4></a><a name="9b385744-3a73-4f08-938a-9a9b58567798"><h1 class="Heading5">Enclosure 0 Disk 0</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>0</td></tr>
+<tr><th>Serial Number</th><td>194624FCF6F2</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 68 - Enclosure 0 Disk 0 Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="f3ce398e-a90b-4464-b086-8f9bf14b6fad"><h1 class="Heading5">Enclosure 0 Disk 1</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>1</td></tr>
+<tr><th>Serial Number</th><td>194624FCF6EF</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 69 - Enclosure 0 Disk 1 Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="34acd172-2ae9-4752-9408-83ab4f80d966"><h1 class="Heading5">Enclosure 0 Disk 2</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>2</td></tr>
+<tr><th>Serial Number</th><td>194624FCF6D9</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 70 - Enclosure 0 Disk 2 Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="3aa6fda4-87b0-440f-8cfe-f2442ab16fab"><h1 class="Heading5">Enclosure 0 Disk 4</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>4</td></tr>
+<tr><th>Serial Number</th><td>194624FCF719</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 71 - Enclosure 0 Disk 4 Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="6ee35ccc-ff93-4da5-8a44-f48c939187c4"><h1 class="Heading5">Enclosure 0 Disk 5</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>5</td></tr>
+<tr><th>Serial Number</th><td>194624FCF6DB</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 72 - Enclosure 0 Disk 5 Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="855f97e4-de60-41f2-b0c8-bc6468a4086d"><h1 class="Heading5">Enclosure 0 Disk 6</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>6</td></tr>
+<tr><th>Serial Number</th><td>194624FCF69F</td></tr>
+<tr><th>Manufacturer</th><td>MICRON</td></tr>
+<tr><th>Model</th><td>MTFDDAK1T9TDD</td></tr>
+<tr><th>Firmware</th><td>D1DF003</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>1.75TB</td></tr>
+<tr><th>Speed</th><td>6 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 73 - Enclosure 0 Disk 6 Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="14f6f12b-7c7a-49d0-b671-a6cd22d50193"><h1 class="Heading5">Enclosure 0 Disk 8</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>8</td></tr>
+<tr><th>Serial Number</th><td>S4LFNA0N104753</td></tr>
+<tr><th>Manufacturer</th><td>SAMSUNG</td></tr>
+<tr><th>Model</th><td>MZILT800HAHQ0D3</td></tr>
+<tr><th>Firmware</th><td>DWF8</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>745.21GB</td></tr>
+<tr><th>Speed</th><td>12 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 74 - Enclosure 0 Disk 8 Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="7c9f5683-f8de-419c-9638-f20f9382544d"><h1 class="Heading5">Enclosure 0 Disk 9</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Enclosure</th><td>0</td></tr>
+<tr><th>Slot</th><td>9</td></tr>
+<tr><th>Serial Number</th><td>S4LFNA0N104759</td></tr>
+<tr><th>Manufacturer</th><td>SAMSUNG</td></tr>
+<tr><th>Model</th><td>MZILT800HAHQ0D3</td></tr>
+<tr><th>Firmware</th><td>DWF8</td></tr>
+<tr><th>Disk Type</th><td>SSD</td></tr>
+<tr><th>Capacity</th><td>745.21GB</td></tr>
+<tr><th>Speed</th><td>12 Gb/s</td></tr>
+<tr><th>Status</th><td>OK</td></tr>
+</tbody></table>
+<div class="Caption">Table 75 - Enclosure 0 Disk 9 Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="7f560702-e0a4-408b-b67d-023cf7498165"><h4 class="Heading4">1.2.4.7 NICs</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:15%; min-width:15%; width:15%" /><col style="max-width:25%; min-width:25%; width:25%" /><col style="max-width:20%; min-width:20%; width:20%" /><col style="max-width:20%; min-width:20%; width:20%" /><col style="max-width:20%; min-width:20%; width:20%" /></colgroup>
+<thead><tr><th>NIC</th><th>MAC Address</th><th>Link Speed</th><th>Link Status</th><th>Firmware</th></tr></thead><tbody>
+<tr><td>1</td><td>B0:26:28:41:EE:E0</td><td>25 Gbps</td><td>Up</td><td>21.85.21.91</td></tr>
+<tr><td>2</td><td>B0:26:28:41:EE:E1</td><td>25 Gbps</td><td>Up</td><td>21.85.21.91</td></tr>
+</tbody></table>
+<div class="Caption">Table 76 - NIC Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="5388e492-e417-4dfe-9a7f-9c0f4ab056c0"><h4 class="Heading4">1.2.4.8 PSUs</h4></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:8%; min-width:8%; width:8%" /><col style="max-width:18%; min-width:18%; width:18%" /><col style="max-width:24%; min-width:24%; width:24%" /><col style="max-width:22%; min-width:22%; width:22%" /><col style="max-width:14%; min-width:14%; width:14%" /><col style="max-width:14%; min-width:14%; width:14%" /></colgroup>
+<thead><tr><th>PSU</th><th>Manufacturer</th><th>Serial Number</th><th>Part Number</th><th>Health</th><th>Revision</th></tr></thead><tbody>
+<tr><td>1</td><td>DELL</td><td>CNLOD009BE3E46</td><td>0CMPGMA02</td><td>Healthy</td><td>00.23.32</td></tr>
+<tr><td>2</td><td>DELL</td><td>CNLOD009BE3DEA</td><td>0CMPGMA02</td><td>Healthy</td><td>00.23.32</td></tr>
+</tbody></table>
+<div class="Caption">Table 77 - PSU Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="f53de4bb-8796-426e-bb5e-b49899e96d7c"><h4 class="Heading4">1.2.4.9 iDRAC</h4></a><a name="f2357150-e4a2-482f-a9fb-04ac4dafd3f2"><h1 class="Heading5">IPv4 Settings</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>DHCP</th><td>Disabled</td></tr>
+<tr><th>IPv4 Address</th><td>10.200.10.34</td></tr>
+<tr><th>Subnet Mask</th><td>255.255.255.0</td></tr>
+<tr><th>Gateway</th><td>10.200.10.1</td></tr>
+</tbody></table>
+<div class="Caption">Table 78 - iDRAC IPv4 Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="e14010dd-1518-477b-b19b-3489e7b74c9d"><h1 class="Heading5">VLAN Settings</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>VLAN</th><td>Disabled</td></tr>
+<tr><th>VLAN ID</th><td>0</td></tr>
+<tr><th>VLAN Priority</th><td>0</td></tr>
+</tbody></table>
+<div class="Caption">Table 79 - iDRAC VLAN Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="43d0843b-f921-4d9d-a87d-339351817ac7"><h1 class="Heading5">Users</h1></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:33%; min-width:33%; width:33%" /><col style="max-width:34%; min-width:34%; width:34%" /><col style="max-width:33%; min-width:33%; width:33%" /></colgroup>
+<thead><tr><th>ID</th><th>User Name</th><th>Privilege</th></tr></thead><tbody>
+<tr><td>2</td><td>root</td><td>Administrator</td></tr>
+<tr><td>15</td><td>vxpsvc</td><td>Administrator</td></tr>
+<tr><td>16</td><td>PTAdmin</td><td>Administrator</td></tr>
+</tbody></table>
+<div class="Caption">Table 80 - iDRAC User Specifications - m1-esx04.vcflab.local</div><br /></div>
+<a name="1ba32b89-8c73-4cdd-a82b-a05dac43c6b3"><h2 class="Heading2">1.3 VxRail Network</h2></a><div>The following section details the VxRail Manager general network settings for 10.200.10.10.</div><br /><a name="f9e18d71-7fe7-4fb1-ac04-cfdc20b1de70"><h3 class="Heading3">1.3.1 General</h3></a><div style="word-break: break-word; overflow-wrap: anywhere; "><table class="tabledefault" style="width:100%; table-layout: fixed;"><colgroup><col style="max-width:50%; min-width:50%; width:50%" /><col style="max-width:50%; min-width:50%; width:50%" /></colgroup>
+<tbody>
+<tr><th>Internet Connection Status</th><td>Enabled</td></tr>
+<tr><th>Proxy Status</th><td>Disabled</td></tr>
+</tbody></table>
+<div class="Caption">Table 81 - General Network Specifications - 10.200.10.10</div><br /></div>
+</div>
+<div><br /><div class="Footer">Page 3</div></div></div></div></body>

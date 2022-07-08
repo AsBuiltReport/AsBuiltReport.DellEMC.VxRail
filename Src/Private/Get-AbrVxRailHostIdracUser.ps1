@@ -28,7 +28,7 @@ function Get-AbrVxRailHostIdracUser {
     process {
         $VxrHostiDRACUsers = Get-VxRailApi -Version 1 -Uri ('/hosts/' + $VxrHost.Sn + '/idrac/users')
         if ($VxrHostiDRACUsers) {
-            Section -Style Heading5 'Users' {
+            Section -Style Heading5 -ExcludeFromTOC 'Users' {
                 $VxrHostiDRACUserInfo = foreach ($VxrHostiDRACUser in $VxrHostiDRACUsers) {
                     [PSCustomObject]@{
                         'ID' = $VxrHostiDRACUser.id

@@ -48,7 +48,7 @@ function Get-AbrVxRailHostDisk {
                 }
                 if ($InfoLevel.Appliance -ge 2) {
                     foreach ($VxrHostDisk in $VxrHostDiskInfo) {
-                        Section -Style Heading5 "Enclosure $($VxrHostDisk.Enclosure) Disk $($VxrHostDisk.Slot)" {
+                        Section -Style Heading5 -ExcludeFromTOC "Enclosure $($VxrHostDisk.Enclosure) Disk $($VxrHostDisk.Slot)" {
                             $TableParams = @{
                                 Name = "Enclosure $($VxrHostDisk.Enclosure) Disk $($VxrHostDisk.Slot) Specifications - $($VxrHost.hostname)"
                                 List = $true

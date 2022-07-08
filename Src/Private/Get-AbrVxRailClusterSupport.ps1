@@ -23,16 +23,18 @@ function Get-AbrVxRailClusterSupport {
     }
 
     process {
-        Write-PScriboMessage "Performing API reference call to path /callhome/mode"
+        Write-PScriboMessage "Performing API reference call to path /callhome/mode."
         $VxrCallHomeMode = Get-VxRailApi -Version 1 -Uri  '/callhome/mode'
-        Write-PScriboMessage "Performing API reference call to path /callhome/info"
+        Write-PScriboMessage "Performing API reference call to path /callhome/info."
         $VxrCallHomeInfo = Get-VxRailApi -Version 1 -Uri '/callhome/info'
-        Write-PScriboMessage "Performing API reference call to path /support/account"
+        Write-PScriboMessage "Performing API reference call to path /support/account."
         $VxrSupportAccount = Get-VxRailApi -Version 1 -Uri '/support/account'
-        Write-PScriboMessage "Performing API reference call to path /support/contact"
+        Write-PScriboMessage "Performing API reference call to path /support/contact."
         $VxrSupportContact = Get-VxRailApi -Version 1 -Uri '/support/contact'
 
         Section -Style Heading2 'Support' {
+            Paragraph "The following section details the VxRail Manager support settings for $($VxRailMgrHostName)."
+            BlankLine
             if ($VxrSupportAccount.Username) {
                 Section -Style Heading3 'Dell EMC Support Account' {
                     $SupportAcct = [PSCustomObject]@{

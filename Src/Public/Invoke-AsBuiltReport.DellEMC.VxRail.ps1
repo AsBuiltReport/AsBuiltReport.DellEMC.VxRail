@@ -46,11 +46,15 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
         $VxrClusterHosts = Get-VxRailApi -Version 1 -Uri '/system/cluster-hosts'
 
         #region VxRail Section
-        Section -Style Heading1 $($VxRailMgrHostName) {
+        Section -Style Heading1 "VxRail Manager - $($VxRailMgrHostName)" {
+            Paragraph "The following sections detail the VxRail cluster configuration managed by VxRail Manager $($VxRailMgrHostName)."
+            BlankLine
             #region Cluster Section
             Write-PScriboMessage "Cluster InfoLevel set at $($InfoLevel.Cluster)."
             if ($InfoLevel.Cluster -gt 0) {
                 Section -Style Heading2 'VxRail Cluster' {
+                    Paragraph "The following section provides a configuration summary of the VxRail cluster, ESXi hosts and virtual machines."
+                    BlankLine
                     # VxRail Cluster
                     Get-AbrVxRailCluster
 
@@ -75,12 +79,14 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
             Write-PScriboMessage "Appliance InfoLevel set at $($InfoLevel.Appliance)."
             if ($InfoLevel.Appliance -gt 0) {
                 Section -Style Heading2 'VxRail Appliances' {
+                    Paragraph "The following sections detail the configuration of VxRail Appliances managed by VxRail Manager $($VxRailMgrHostName)."
                     foreach ($VxrHost in ($VxrHosts | Sort-Object hostname)) {
                         $VxrClusterHost = $VxrClusterHosts | Where-Object { $_.host_name -eq $VxrHost.hostname }
                         $VxrHostChassis = $VxrChassis | Where-Object { $_.sn -eq $VxrHost.sn }
                         $VMHost = Get-VMHost -Name $VxrHost.hostname -Server $vCenter
                         $esxcli = Get-EsxCLI -VMHost $VMHost -V2 -Server $vCenter
                         Section -Style Heading3 "$($VxrHost.hostname)" {
+                            Paragraph "The following section details the hardware configuration for VxRail Appliance $($VxrHost.hostname)."
                             # Hardware
                             Get-AbrVxRailHostHardware -VxrHost $VxrHost
 

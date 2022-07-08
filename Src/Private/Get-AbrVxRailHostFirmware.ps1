@@ -31,13 +31,34 @@ function Get-AbrVxRailHostFirmware {
         if ($VxrHostFw) {
             Section -Style Heading4 "Firmware" {
                 $VxrHostFWInfo = [PSCustomObject]@{
-                    'BIOS' = $VxrHostFw.bios_revision
-                    'BMC' = $VxrHostFw.bmc_revision
-                    'HBA' = $VxrHostFw.hba_version
-                    'Expander Back Plane' = $VxrHostFw.expander_bpf_version
-                    'BOSS' = $VxrHostFw.boss_version
-                    'CPLD Firmware' = $VxrHostFw.cpld_version
-                    'IDSDM Firmware' = $VxrHostFw.idsdm_version
+                    'BIOS' = Switch ($VxrHostFw.bios_revision) {
+                        $null { '--' }
+                        default { $VxrHostFw.bios_revision }
+                    }
+                    'BMC' = Switch ($VxrHostFw.bmc_revision) {
+                        $null { '--' }
+                        default { $VxrHostFw.bmc_revision }
+                    }
+                    'HBA' = Switch ($VxrHostFw.hba_version) {
+                        $null { '--' }
+                        default { $VxrHostFw.hba_revision }
+                    }
+                    'Expander Back Plane' = Switch ($VxrHostFw.expander_bpf_version) {
+                        $null { '--' }
+                        default { $VxrHostFw.expander_bpf_version }
+                    }
+                    'BOSS' = Switch ($VxrHostFw.boss_version) {
+                        $null { '--' }
+                        default { $VxrHostFw.boss_version }
+                    }
+                    'CPLD Firmware' = Switch ($VxrHostFw.cpld_version) {
+                        $null { '--' }
+                        default { $VxrHostFw.cpld_version }
+                    }
+                    'IDSDM Firmware' = Switch ($VxrHostFw.idsdm_version) {
+                        $null { '--' }
+                        default { $VxrHostFw.idsdm_version }
+                    }
                 }
                 $TableParams = @{
                     Name = "Firmware Versions - $($VxrHost.hostname)"

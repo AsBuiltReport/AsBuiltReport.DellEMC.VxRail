@@ -48,7 +48,7 @@ function Get-AbrVxRailHostBootDevice {
                 }
                 if ($InfoLevel.Appliance -ge 2) {
                     foreach ($VxrHostBootDevice in $VxrHostBootDeviceInfo) {
-                        Section -Style Heading5 "Boot Device $($VxrHostBootDevice.'Boot Device')" {
+                        Section -Style Heading5 -ExcludeFromTOC "Boot Device $($VxrHostBootDevice.'Boot Device')" {
                             $TableParams = @{
                                 Name = "Boot Device $($VxrHostBootDevice.'Boot Device') Specifications - $($VxrHost.hostname)"
                                 List = $true

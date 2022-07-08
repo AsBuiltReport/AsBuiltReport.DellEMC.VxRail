@@ -35,7 +35,13 @@ Dell EMC VxRail As Built Report is a PowerShell module which works in conjunctio
 
 The Dell EMC VxRail As Built Report module is used to generate as built documentation for Dell EMC VxRail hyperconverged infrastructure.
 
-Please refer to the AsBuiltReport [website](https://www.asbuiltreport.com) for more detailed information about this project.
+## :books: Sample Reports
+### Sample Report - Default Style
+Sample Dell EMC VxRail As Built Report with health checks, using default report style.
+
+![Sample Dell EMC VxRail As Built Report](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/blob/master/Samples/Sample%20Dell%20EMC%20VxRail%20As%20Built%20Report.jpg "Sample Dell EMC VxRail As Built Report")
+
+Sample Dell EMC VxRail As Built Report HTML file: [Sample Dell EMC VxRail As Built Report.html](https://htmlpreview.github.io/?https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/blob/master/Samples/Sample%20Dell%20EMC%20VxRail%20As%20Built%20Report.html "Sample Dell EMC VxRail As Built Report")
 
 # :beginner: Getting Started
 Below are the instructions on how to install, configure and generate a Dell EMC VxRail As Built Report.
@@ -54,7 +60,7 @@ This report is compatible with the following PowerShell versions;
 ## :wrench: System Requirements
 PowerShell 5.1 or PowerShell 7, and the following PowerShell modules are required for generating a Dell EMC VxRail As Built report.
 
-Each of these modules can be easily downloaded and installed via the PowerShell Gallery
+Install the following modules by following the [module installation](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail#package-module-installation) procedure.
 
 - [VMware PowerCLI Module](https://www.powershellgallery.com/packages/VMware.PowerCLI/)
 - [AsBuiltReport.DellEMC.VxRail Module](https://www.powershellgallery.com/packages/AsBuiltReport.DellEMC.VxRail/)
