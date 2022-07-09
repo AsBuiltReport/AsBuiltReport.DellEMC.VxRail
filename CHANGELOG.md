@@ -1,23 +1,13 @@
 # :arrows_clockwise: Dell EMC VxRail As Built Report Changelog
 
-## [[0.4.0](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.4.0)] - 2022-07-09
+## [[0.4.1](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.4.1)] - 2022-07-09
 ### Added
+- Added sample Dell EMC VxRail As Built Report JPEG & HTML files
 - Added support for reporting of multiple VxRail clusters within the same vCenter Server
-### Fixed
-- Fixed VxRail Appliance HBA driver information
-## [[0.3.1.1](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.3.1.1)] - 2022-07-08
-### Added
-- Added VxRail Appliance NIC driver information
-### Fixed
-- Fixed VxRail Appliance HBA firmware information
-
-## [[0.3.1](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.3.1)] - 2022-07-08
-### Added
-- Added sample Dell EMC VxRail As Built Report
 ### Fixed
 - Fixed GitHub Release workflow
 ### Changed
-- Improved report formatting
+- Improved report formatting by excluding some headings from TOC
 
 ## [[0.3.0](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.3.0)] - 2021-09-10
 ### Added
