@@ -2,8 +2,9 @@
 
 ## [[0.4.0](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.4.0)] - 2022-07-09
 ### Added
-- Added support for reporting of multiple VxRail clusters within the same vCenter Server (Fixes [#5](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/issues/5))
-
+- Added support for reporting of multiple VxRail clusters within the same vCenter Server
+### Fixed
+- Fixed VxRail Appliance HBA driver information
 ## [[0.3.1.1](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.3.1.1)] - 2022-07-08
 ### Added
 - Added VxRail Appliance NIC driver information
