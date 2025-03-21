@@ -46,6 +46,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
 
     # Import Report Configuration
     $Report = $ReportConfig.Report
+    $Filter = $ReportConfig.Filter
     $InfoLevel = $ReportConfig.InfoLevel
     $Options = $ReportConfig.Options
 
@@ -66,6 +67,18 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
             $global:vCenterServer = (Get-AdvancedSetting -Entity $vCenter | Where-Object { $_.name -eq 'VirtualCenter.FQDN' }).Value
 
             $VxRailClusters = Get-Cluster -Server $vCenter | Where-Object {$_.CustomFields['VxRail-IP']}
+
+            # Filter VxRail Clusters
+            if ($Filter.Cluster -ne "*") {
+                $VxRailClusters = foreach ($VxRailCluster in $Filter.Cluster) {
+                    Try {
+                        Get-Cluster -Name $VxRailCluster -Server $vCenter | Where-Object {$_.CustomFields['VxRail-IP']}
+                    } Catch {
+                        Write-PScriboMessage -IsWarning "Unable to find VxRail Cluster '$($VxRailCluster)'."
+                    }
+                }
+            }
+
             foreach ($VxRailCluster in $VxRailClusters) {
                 $VxRailIP = $VxRailCluster.CustomFields['VxRail-IP']
                 # Resolve DNS name for VxRail Manager

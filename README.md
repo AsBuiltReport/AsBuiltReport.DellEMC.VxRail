@@ -124,6 +124,27 @@ The **Report** schema provides configuration of the VxRail Manager report inform
 ### Options
 The **Options** schema allows certain options within the report to be toggled on or off.
 
+### Filter
+The **Filter** schema allows report content to be filtered to specific VxRail cluster within a tenant.
+
+| Sub-Schema   | Setting      | Default | Description                                                                                                                                                                  |
+|--------------|--------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Cluster | User defined | *       | Filters report content to specific VxRail cluster names. <br>Specifying an asterisk (*) will generate a report for all VxRail clusters managed by the VxRail Manager. |
+
+#### Example 1: Generate a report for all VxRail clusters managed by VxRail Manager.
+```json
+"Filter": {
+    "Cluster": ["*"]
+},
+```
+
+#### Example 2: Filter report content to specific VxRail cluster(s) managed by VxRail Manager.
+```json
+"Filter": {
+    "Cluster": ["VxRail-Virtual-SAN-Cluster-b3d39ba7-1905-44c0-8cf3-117683856659","VxRail-Virtual-SAN-Cluster-7d894d1f-44a7-47eb-b939-3abb90cad88b"]
+},
+```
+
 ### InfoLevel
 The **InfoLevel** schema allows configuration of each section of the report at a granular level.
 
