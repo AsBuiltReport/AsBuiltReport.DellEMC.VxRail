@@ -66,17 +66,17 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
             Write-PScriboMessage "Collecting VxRail Manager Information."
             $global:vCenterServer = (Get-AdvancedSetting -Entity $vCenter | Where-Object { $_.name -eq 'VirtualCenter.FQDN' }).Value
 
-            $VxRailClusters = Get-Cluster -Server $vCenter | Where-Object {$_.CustomFields['VxRail-IP']}
-
-            # Filter VxRail Clusters
-            if ($Filter.Cluster -ne "*") {
-                $VxRailClusters = foreach ($VxRailCluster in $Filter.Cluster) {
+            # Get VxRail Clusters
+            if ($Filter.VxRailCluster -ne "*") {
+                $VxRailClusters = foreach ($VxRailCluster in $Filter.VxRailCluster) {
                     Try {
                         Get-Cluster -Name $VxRailCluster -Server $vCenter | Where-Object {$_.CustomFields['VxRail-IP']}
                     } Catch {
                         Write-PScriboMessage -IsWarning "Unable to find VxRail Cluster '$($VxRailCluster)'."
                     }
                 }
+            } else {
+                $VxRailClusters = Get-Cluster -Server $vCenter | Where-Object {$_.CustomFields['VxRail-IP']}
             }
 
             foreach ($VxRailCluster in $VxRailClusters) {

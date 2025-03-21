@@ -12,7 +12,7 @@
 
     },
     "Filter": {
-        "Cluster": ["VxRail-Virtual-SAN-Cluster-f770a7ec-afb0-4f18-bcb3-0f3e46ee1212"]
+        "VxRailCluster": ["*"]
     },
     "InfoLevel": {
         "_comment_": "0 = Disabled, 1 = Enabled / Summary, 2 = Detailed",

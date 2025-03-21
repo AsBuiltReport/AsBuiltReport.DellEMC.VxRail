@@ -129,19 +129,19 @@ The **Filter** schema allows report content to be filtered to specific VxRail cl
 
 | Sub-Schema   | Setting      | Default | Description                                                                                                                                                                  |
 |--------------|--------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Cluster | User defined | *       | Filters report content to specific VxRail cluster names. <br>Specifying an asterisk (*) will generate a report for all VxRail clusters managed by the VxRail Manager. |
+| VxRailCluster | User defined | *       | Filters report content to specific VxRail cluster names. <br>Specifying an asterisk (*) will generate a report for all VxRail clusters managed by the VxRail Manager. |
 
 #### Example 1: Generate a report for all VxRail clusters managed by VxRail Manager.
 ```json
 "Filter": {
-    "Cluster": ["*"]
+    "VxRailCluster": ["*"]
 },
 ```
 
 #### Example 2: Filter report content to specific VxRail cluster(s) managed by VxRail Manager.
 ```json
 "Filter": {
-    "Cluster": ["VxRail-Virtual-SAN-Cluster-b3d39ba7-1905-44c0-8cf3-117683856659","VxRail-Virtual-SAN-Cluster-7d894d1f-44a7-47eb-b939-3abb90cad88b"]
+    "VxRailCluster": ["VxRail-Virtual-SAN-Cluster-b3d39ba7-1905-44c0-8cf3-117683856659","VxRail-Virtual-SAN-Cluster-7d894d1f-44a7-47eb-b939-3abb90cad88b"]
 },
 ```
 
@@ -214,9 +214,9 @@ PS C:\> New-AsBuiltReport -Report -Report DellEMC.VxRail -Target 'vcenter-01.cor
 PS C:\> $Creds = Get-Credential # Store vCenter Server credentials
 PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local' -Credential $Creds -Format Html,Text -OutputFolderPath 'C:\Users\Tim\Documents' -EnableHealthCheck
 
-# Generate a single VxRail As Built Report for VxRail clusters 'vxrail-01.corp.local' and 'vxrail-02.corp.local'. The VxRail clusters are managed by two individual vCenter Servers 'vcenter-01.corp.local' and 'vcenter-02.corp.local'. Report exports to WORD format by default. Apply custom style to the report. Reports are saved to the user profile folder by default.
+# Generate a single VxRail As Built Report for VxRail clusters managed by different vCenter Servers,'vcenter-01.corp.local' and 'vcenter-02.corp.local'. Report exports to WORD format by default. Apply custom style to the report. Reports are saved to the user profile folder by default.
 PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local','vcenter-02.corp.local' -Username 'administrator@vsphere.local' -Password 'VMware1!' -StyleFilePath 'C:\Scripts\Styles\MyCustomStyle.ps1'
 
-# Generate a VxRail As Built Report for VxRail cluster 'vxrail-01.corp.local' using specified credentials. he VxRail cluster is managed by vCenter Server 'vcenter-01.corp.local'. Export report to HTML & DOCX formats. Use default report style. Reports are saved to the user profile folder by default. Attach and send reports via e-mail.
+# Generate a VxRail As Built Report for VxRail cluster 'vxrail-01.corp.local' using specified credentials. The VxRail cluster is managed by vCenter Server 'vcenter-01.corp.local'. Export report to HTML & DOCX formats. Use default report style. Reports are saved to the user profile folder by default. Attach and send reports via e-mail.
 PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local' -Username 'administrator@vsphere.local' -Password 'VMware1!' -Format Html,Word -OutputFolderPath 'C:\Users\Tim\Documents' -SendEmail
 ```
