@@ -5,7 +5,7 @@ function Get-AbrVxRailHostEsxi {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.2.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -26,23 +26,27 @@ function Get-AbrVxRailHostEsxi {
     }
 
     process {
-        if ($VxrClusterHost) {
-            Section -Style Heading4 'ESXi' {
-                $ESXiHost = [PSCustomObject]@{
-                    'Management IP Address' = ($VxrClusterHost.ip_set).management_ip
-                    'vMotion IP Address' = ($VxrClusterHost.ip_set).vmotion_ip
-                    'vSAN IP Address' = ($VxrClusterHost.ip_set).vsan_ip
+        Try {
+            if ($VxrClusterHost) {
+                Section -Style NOTOCHeading4 -ExcludeFromTOC 'ESXi' {
+                    $ESXiHost = [PSCustomObject]@{
+                        'Management IP Address' = ($VxrClusterHost.ip_set).management_ip
+                        'vMotion IP Address' = ($VxrClusterHost.ip_set).vmotion_ip
+                        'vSAN IP Address' = ($VxrClusterHost.ip_set).vsan_ip
+                    }
+                    $TableParams = @{
+                        Name = "ESXi Specifications - $($VxrClusterHost.host_name)"
+                        List = $true
+                        ColumnWidths = 40, 60
+                    }
+                    if ($Report.ShowTableCaptions) {
+                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                    }
+                    $ESXiHost | Table @TableParams
                 }
-                $TableParams = @{
-                    Name = "ESXi Specifications - $($VxrClusterHost.host_name)"
-                    List = $true
-                    ColumnWidths = 50, 50
-                }
-                if ($Report.ShowTableCaptions) {
-                    $TableParams['Caption'] = "- $($TableParams.Name)"
-                }
-                $ESXiHost | Table @TableParams
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning "VxRail Host ESXi Section: $($_.Exception.Message)"
         }
     }
 

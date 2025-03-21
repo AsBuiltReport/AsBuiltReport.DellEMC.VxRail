@@ -35,20 +35,21 @@ Dell EMC VxRail As Built Report is a PowerShell module which works in conjunctio
 
 The Dell EMC VxRail As Built Report module is used to generate as built documentation for Dell EMC VxRail hyperconverged infrastructure.
 
+<!--
 ## :books: Sample Reports
 ### Sample Report - Default Style
 Sample Dell EMC VxRail As Built Report with health checks, using default report style.
 
 ![Sample Dell EMC VxRail As Built Report](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/blob/master/Samples/Sample%20Dell%20EMC%20VxRail%20As%20Built%20Report.jpg "Sample Dell EMC VxRail As Built Report")
-
-Sample Dell EMC VxRail As Built Report HTML file: [Sample Dell EMC VxRail As Built Report.html](https://htmlpreview.github.io/?https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/blob/master/Samples/Sample%20Dell%20EMC%20VxRail%20As%20Built%20Report.html "Sample Dell EMC VxRail As Built Report")
+-->
 
 # :beginner: Getting Started
 Below are the instructions on how to install, configure and generate a Dell EMC VxRail As Built Report.
 
 ## :floppy_disk: Supported Versions
 
-* VxRail 4.7 and higher
+* VxRail 7.x
+* VxRail 8.x
 
 ### PowerShell
 This report is compatible with the following PowerShell versions;
@@ -65,13 +66,6 @@ Install the following modules by following the [module installation](https://git
 - [VMware PowerCLI Module](https://www.powershellgallery.com/packages/VMware.PowerCLI/)
 - [AsBuiltReport.DellEMC.VxRail Module](https://www.powershellgallery.com/packages/AsBuiltReport.DellEMC.VxRail/)
 
-### Linux & macOS
-* .NET Core is required for cover page image support on Linux and macOS operating systems.
-    * [Installing .NET Core for macOS](https://docs.microsoft.com/en-us/dotnet/core/install/macos)
-    * [Installing .NET Core for Linux](https://docs.microsoft.com/en-us/dotnet/core/install/linux)
-
-❗ If you are unable to install .NET Core, you must set `ShowCoverPageImage` to `False` in the report JSON configuration file.
-
 ### :closed_lock_with_key: Required Privileges
 * A VMware vSphere user account with administrator privileges is required to generate a Dell EMC VxRail As Built Report.
 
@@ -81,10 +75,10 @@ Install the following modules by following the [module installation](https://git
 
 Open a PowerShell terminal window and install the required module.
 
-:warning: VMware PowerCLI 12.3 or higher is required. Please ensure older PowerCLI versions have been uninstalled.
+:warning: VMware PowerCLI 13.0 or higher is required. Please ensure older PowerCLI versions have been uninstalled.
 
 ```powershell
-install-module VMware.PowerCLI -MinimumVersion 12.3 -AllowClobber
+install-module VMware.PowerCLI -MinimumVersion 13.0 -AllowClobber
 install-module AsBuiltReport.DellEMC.VxRail
 ```
 ### GitHub

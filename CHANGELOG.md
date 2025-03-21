@@ -1,18 +1,29 @@
 # :arrows_clockwise: Dell EMC VxRail As Built Report Changelog
 
-## [[0.4.1](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.4.1)] - 2022-07-09
+## [0.4.5] - Unreleased
 ### Added
-- Added sample Dell EMC VxRail As Built Report JPEG & HTML files
-- Added support for reporting of multiple VxRail clusters within the same vCenter Server
+- Add VxRail Manager IP information
+- Add VxRail Cluster name information
+- Add support for reporting of multiple VxRail clusters within the same vCenter Server (Fix [#5](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/issues/5))
+
 ### Fixed
-- Fixed GitHub Release workflow
+- Fix time & date outputs showing incorrect date format
+- Fix GitHub Release workflow
+
 ### Changed
-- Improved report formatting by excluding some headings from TOC
+- Update Required Modules to AsBuiltReport.Core v1.4.3
+- Update VMware PowerCLI requirements to version 13.3
+- Improve section heading & TOC structure
+- Change list tables to 40/60 column widths
+- Update GitHub bug and change request templates
+
+### Removed
+- Removed support for VxRail 4.7
 
 ## [[0.3.0](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/releases/tag/v0.3.0)] - 2021-09-10
 ### Added
-* PowerShell 7 compatibility
-* Support Account & Contact information
+- PowerShell 7 compatibility
+- Support Account & Contact information
 - Include release and issue links in `CHANGELOG.md`
 - Release GitHub Action workflow
 

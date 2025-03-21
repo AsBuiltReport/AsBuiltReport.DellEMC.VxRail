@@ -5,7 +5,7 @@ function Get-AbrVxRailHostPsu {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.2.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -26,31 +26,35 @@ function Get-AbrVxRailHostPsu {
     }
 
     process {
-        $VxrHostPSUs = $VxrHostChassis.power_supplies | Sort-Object slot
-        if ($VxrHostPSUs) {
-            Section -Style Heading4 "PSUs" {
-                $VxrHostPsuInfo = foreach ($VxrHostPSU in $VxrHostPSUs) {
-                    [PSCustomObject]@{
-                        'PSU' = $VxrHostPSU.slot
-                        'Manufacturer' = $VxrHostPSU.manufacturer
-                        'Serial Number' = $VxrHostPSU.sn
-                        'Part Number' = $VxrHostPSU.part_number
-                        'Health' = $VxrHostPSU.health
-                        'Revision' = $VxrHostPSU.revision_number
+        Try {
+            $VxrHostPSUs = $VxrHostChassis.power_supplies | Sort-Object slot
+            if ($VxrHostPSUs) {
+                Section -Style NOTOCHeading4 -ExcludeFromTOC "PSUs" {
+                    $VxrHostPsuInfo = foreach ($VxrHostPSU in $VxrHostPSUs) {
+                        [PSCustomObject]@{
+                            'PSU' = $VxrHostPSU.slot
+                            'Manufacturer' = $VxrHostPSU.manufacturer
+                            'Serial Number' = $VxrHostPSU.sn
+                            'Part Number' = $VxrHostPSU.part_number
+                            'Health' = $VxrHostPSU.health
+                            'Revision' = $VxrHostPSU.revision_number
+                        }
                     }
+                    if ($Healthcheck.Appliance.PowerSupply) {
+                        $VxrHostPsuInfo | Where-Object { $_.'Health' -ne 'Healthy' } | Set-Style -Style Critical -Property 'Health'
+                    }
+                    $TableParams = @{
+                        Name = "PSU Specifications - $($VxrHost.hostname)"
+                        ColumnWidths = 8, 18, 24, 22, 14, 14
+                    }
+                    if ($Report.ShowTableCaptions) {
+                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                    }
+                    $VxrHostPsuInfo | Table @TableParams
                 }
-                if ($Healthcheck.Appliance.PowerSupply) {
-                    $VxrHostPsuInfo | Where-Object { $_.'Health' -ne 'Healthy' } | Set-Style -Style Critical -Property 'Health'
-                }
-                $TableParams = @{
-                    Name = "PSU Specifications - $($VxrHost.hostname)"
-                    ColumnWidths = 8, 18, 24, 22, 14, 14
-                }
-                if ($Report.ShowTableCaptions) {
-                    $TableParams['Caption'] = "- $($TableParams.Name)"
-                }
-                $VxrHostPsuInfo | Table @TableParams
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning "VxRail Host PSU Section: $($_.Exception.Message)"
         }
     }
 

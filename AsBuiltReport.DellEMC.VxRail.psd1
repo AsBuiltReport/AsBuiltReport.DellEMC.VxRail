@@ -12,7 +12,7 @@
     RootModule = 'AsBuiltReport.DellEMC.VxRail.psm1'
 
     # Version number of this module.
-    ModuleVersion = '0.4.1'
+    ModuleVersion = '0.4.5'
 
     # Supported PSEditions
     # CompatiblePSEditions = 'Desktop'
@@ -27,7 +27,7 @@
     # CompanyName = 'Unknown'
 
     # Copyright statement for this module
-    Copyright = '(c) 2020 Tim Carman. All rights reserved.'
+    Copyright = '(c) 2025 Tim Carman. All rights reserved.'
 
     # Description of the functionality provided by this module
     Description = 'A PowerShell module to generate an as built report on the configuration of Dell EMC VxRail Manager.'
@@ -54,7 +54,7 @@
     RequiredModules = @(
         @{
             ModuleName = 'AsBuiltReport.Core';
-            ModuleVersion = '1.2.0'
+            ModuleVersion = '1.4.3'
         }
     )
 
