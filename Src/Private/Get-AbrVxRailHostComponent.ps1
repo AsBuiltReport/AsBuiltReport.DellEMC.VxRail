@@ -6,7 +6,7 @@ function Get-AbrVxRailHostComponent {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.2.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -27,46 +27,49 @@ function Get-AbrVxRailHostComponent {
     }
 
     process {
-        if ($esxcli) {
-            Section -Style Heading4 "Components" {
-                $DellPtAgent = $esxcli.software.vib.get.invoke() | Where-Object {$_.name -eq 'dellptagent'}
-                $HbaDevice = $esxcli.hardware.pci.list.invoke() | Where-object {$_.modulename -match 'lsi_msgpt3'}
-                $HbaDriver = $esxcli.system.module.get.invoke(@{module = $HbaDevice.modulename})
-                #$NicDevice = $esxcli.hardware.pci.list.invoke() | Where-Object {$_.VMkernelName -eq 'vmnic0'}
-                #$NicDriver = $esxcli.system.module.get.invoke(@{module = $NicDevice.modulename})
-                $VxRailVib = $esxcli.software.vib.get.invoke() | Where-Object {$_.name -eq 'platform-service'}
-                $VMwareEsxi = $esxcli.system.version.get.invoke()
-                $VxrHostComponent = [PSCustomObject]@{
-                    'Dell PtAgent' = Switch ($DellPtAgent.version) {
-                        $null { '--' }
-                        default { ($DellPtAgent.version) }
+        Try {
+            if ($esxcli) {
+                Section -Style NOTOCHeading4 -ExcludeFromToC "Components" {
+                    $DellPtAgent = $esxcli.software.vib.get.invoke() | Where-Object {$_.name -eq 'dellptagent'}
+                    $HbaDevice = $esxcli.hardware.pci.list.invoke() | Where-object {($_.modulename -match 'lsi_msgpt3') -or ($_.modulename -match 'nmlx5_core')} | Select-Object -First 1
+                    $HbaDriver = $esxcli.system.module.get.invoke(@{module = $HbaDevice.modulename})
+                    #$NicDevice = $esxcli.hardware.pci.list.invoke() | Where-Object {($_.ConfiguredOwner -eq 'VMkernel') -and ($_.DeviceClassName -eq 'Ethernet controller') } | Select-Object -First 1
+                    #$NicDriver = $esxcli.system.module.get.invoke(@{module = $NicDevice.modulename})
+                    $VxRailVib = $esxcli.software.vib.get.invoke() | Where-Object {$_.name -eq 'platform-service'}
+                    $VMwareEsxi = $esxcli.system.version.get.invoke()
+                    $VxrHostComponent = [PSCustomObject]@{
+                        'VMware ESXi' = "$($VMwareEsxi.version)-$((($VMwareESXi.build).Split('-')[1]))"
+                        'VxRail VIB' = $VxRailVib.version
                     }
-                    'HBA Driver' = Switch ($HbaDriver.version) {
-                        $null { '--' }
-                        default { ($HbaDriver.version) }
+                    $MemberProps = @{
+                        'InputObject' = $VxrHostComponent
+                        'MemberType' = 'NoteProperty'
+                    }
+                    if ($DellPtAgent.version) {
+                        Add-Member @MemberProps -Name 'Dell PtAgent' -Value $DellPtAgent.version
+                    }
+                    if ($HbaDriver.version) {
+                        Add-Member @MemberProps -Name 'HBsA Driver' -Value $HbaDriver.version
                     }
                     <#
-                    'NIC Driver' = Switch ($NicDriver.version) {
-                        $null { '--' }
-                        default { ($NicDriver.version) }
+                    if ($NicDriver.version) {
+                        Add-Member @MemberProps -Name 'NIC Driver' -Value $NicDriver.version
                     }
                     #>
-                    'VMware ESXi' = "$($VMwareEsxi.version)-$((($VMwareESXi.build).Split('-')[1]))"
-                    'VxRail VIB' = Switch ($VxRailVib.version) {
-                        $null { '--' }
-                        default { ($VxRailVib.version) }
+
+                    $TableParams = @{
+                        Name = "Component Versions - $($VxrHost.hostname)"
+                        List = $true
+                        ColumnWidths = 40, 60
                     }
+                    if ($Report.ShowTableCaptions) {
+                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                    }
+                    $VxrHostComponent | Table @TableParams
                 }
-                $TableParams = @{
-                    Name = "Component Versions - $($VxrHost.hostname)"
-                    List = $true
-                    ColumnWidths = 50, 50
-                }
-                if ($Report.ShowTableCaptions) {
-                    $TableParams['Caption'] = "- $($TableParams.Name)"
-                }
-                $VxrHostComponent | Table @TableParams
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning "VxRail Host Component Section: $($_.Exception.Message)"
         }
     }
 

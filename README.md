@@ -35,20 +35,21 @@ Dell EMC VxRail As Built Report is a PowerShell module which works in conjunctio
 
 The Dell EMC VxRail As Built Report module is used to generate as built documentation for Dell EMC VxRail hyperconverged infrastructure.
 
+<!--
 ## :books: Sample Reports
 ### Sample Report - Default Style
 Sample Dell EMC VxRail As Built Report with health checks, using default report style.
 
 ![Sample Dell EMC VxRail As Built Report](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/blob/master/Samples/Sample%20Dell%20EMC%20VxRail%20As%20Built%20Report.jpg "Sample Dell EMC VxRail As Built Report")
-
-Sample Dell EMC VxRail As Built Report HTML file: [Sample Dell EMC VxRail As Built Report.html](https://htmlpreview.github.io/?https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/blob/master/Samples/Sample%20Dell%20EMC%20VxRail%20As%20Built%20Report.html "Sample Dell EMC VxRail As Built Report")
+-->
 
 # :beginner: Getting Started
 Below are the instructions on how to install, configure and generate a Dell EMC VxRail As Built Report.
 
 ## :floppy_disk: Supported Versions
 
-* VxRail 4.7 and higher
+* VxRail 7.x
+* VxRail 8.x
 
 ### PowerShell
 This report is compatible with the following PowerShell versions;
@@ -65,13 +66,6 @@ Install the following modules by following the [module installation](https://git
 - [VMware PowerCLI Module](https://www.powershellgallery.com/packages/VMware.PowerCLI/)
 - [AsBuiltReport.DellEMC.VxRail Module](https://www.powershellgallery.com/packages/AsBuiltReport.DellEMC.VxRail/)
 
-### Linux & macOS
-* .NET Core is required for cover page image support on Linux and macOS operating systems.
-    * [Installing .NET Core for macOS](https://docs.microsoft.com/en-us/dotnet/core/install/macos)
-    * [Installing .NET Core for Linux](https://docs.microsoft.com/en-us/dotnet/core/install/linux)
-
-❗ If you are unable to install .NET Core, you must set `ShowCoverPageImage` to `False` in the report JSON configuration file.
-
 ### :closed_lock_with_key: Required Privileges
 * A VMware vSphere user account with administrator privileges is required to generate a Dell EMC VxRail As Built Report.
 
@@ -81,10 +75,10 @@ Install the following modules by following the [module installation](https://git
 
 Open a PowerShell terminal window and install the required module.
 
-:warning: VMware PowerCLI 12.3 or higher is required. Please ensure older PowerCLI versions have been uninstalled.
+:warning: VMware PowerCLI 13.0 or higher is required. Please ensure older PowerCLI versions have been uninstalled.
 
 ```powershell
-install-module VMware.PowerCLI -MinimumVersion 12.3 -AllowClobber
+install-module VMware.PowerCLI -MinimumVersion 13.0 -AllowClobber
 install-module AsBuiltReport.DellEMC.VxRail
 ```
 ### GitHub
@@ -129,6 +123,27 @@ The **Report** schema provides configuration of the VxRail Manager report inform
 
 ### Options
 The **Options** schema allows certain options within the report to be toggled on or off.
+
+### Filter
+The **Filter** schema allows report content to be filtered to specific VxRail cluster within a tenant.
+
+| Sub-Schema   | Setting      | Default | Description                                                                                                                                                                  |
+|--------------|--------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| VxRailCluster | User defined | *       | Filters report content to specific VxRail cluster names. <br>Specifying an asterisk (*) will generate a report for all VxRail clusters managed by the VxRail Manager. |
+
+#### Example 1: Generate a report for all VxRail clusters managed by VxRail Manager.
+```json
+"Filter": {
+    "VxRailCluster": ["*"]
+},
+```
+
+#### Example 2: Filter report content to specific VxRail cluster(s) managed by VxRail Manager.
+```json
+"Filter": {
+    "VxRailCluster": ["VxRail-Virtual-SAN-Cluster-b3d39ba7-1905-44c0-8cf3-117683856659","VxRail-Virtual-SAN-Cluster-7d894d1f-44a7-47eb-b939-3abb90cad88b"]
+},
+```
 
 ### InfoLevel
 The **InfoLevel** schema allows configuration of each section of the report at a granular level.
@@ -199,9 +214,9 @@ PS C:\> New-AsBuiltReport -Report -Report DellEMC.VxRail -Target 'vcenter-01.cor
 PS C:\> $Creds = Get-Credential # Store vCenter Server credentials
 PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local' -Credential $Creds -Format Html,Text -OutputFolderPath 'C:\Users\Tim\Documents' -EnableHealthCheck
 
-# Generate a single VxRail As Built Report for VxRail clusters 'vxrail-01.corp.local' and 'vxrail-02.corp.local'. The VxRail clusters are managed by two individual vCenter Servers 'vcenter-01.corp.local' and 'vcenter-02.corp.local'. Report exports to WORD format by default. Apply custom style to the report. Reports are saved to the user profile folder by default.
+# Generate a single VxRail As Built Report for VxRail clusters managed by different vCenter Servers,'vcenter-01.corp.local' and 'vcenter-02.corp.local'. Report exports to WORD format by default. Apply custom style to the report. Reports are saved to the user profile folder by default.
 PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local','vcenter-02.corp.local' -Username 'administrator@vsphere.local' -Password 'VMware1!' -StyleFilePath 'C:\Scripts\Styles\MyCustomStyle.ps1'
 
-# Generate a VxRail As Built Report for VxRail cluster 'vxrail-01.corp.local' using specified credentials. he VxRail cluster is managed by vCenter Server 'vcenter-01.corp.local'. Export report to HTML & DOCX formats. Use default report style. Reports are saved to the user profile folder by default. Attach and send reports via e-mail.
+# Generate a VxRail As Built Report for VxRail cluster 'vxrail-01.corp.local' using specified credentials. The VxRail cluster is managed by vCenter Server 'vcenter-01.corp.local'. Export report to HTML & DOCX formats. Use default report style. Reports are saved to the user profile folder by default. Attach and send reports via e-mail.
 PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local' -Username 'administrator@vsphere.local' -Password 'VMware1!' -Format Html,Word -OutputFolderPath 'C:\Users\Tim\Documents' -SendEmail
 ```

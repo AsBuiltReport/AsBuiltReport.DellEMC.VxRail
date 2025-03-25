@@ -5,7 +5,7 @@ function Get-AbrVxRailHostNic {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.2.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -26,30 +26,34 @@ function Get-AbrVxRailHostNic {
     }
 
     process {
-        $VxrHostNics = $VxrHost.nics | Sort-Object slot
-        if ($VxrHostNics) {
-            Section -Style Heading4 "NICs" {
-                $VxrHostNicInfo = foreach ($VxrHostNic in $VxrHostNics) {
-                    [PSCustomObject]@{
-                        'NIC' = $VxrHostNic.slot
-                        'MAC Address' = $VxrHostNic.mac
-                        'Link Speed' = $VxrHostNic.link_speed
-                        'Link Status' = $VxrHostNic.link_status
-                        'Firmware' = $VxrHostNic.firmware_family_version
+        Try {
+            $VxrHostNics = $VxrHost.nics | Sort-Object slot
+            if ($VxrHostNics) {
+                Section -Style NOTOCHeading4 -ExcludeFromTOC "NICs" {
+                    $VxrHostNicInfo = foreach ($VxrHostNic in $VxrHostNics) {
+                        [PSCustomObject]@{
+                            'NIC' = $VxrHostNic.slot
+                            'MAC Address' = $VxrHostNic.mac
+                            'Link Speed' = $VxrHostNic.link_speed
+                            'Link Status' = $VxrHostNic.link_status
+                            'Firmware' = $VxrHostNic.firmware_family_version
+                        }
                     }
+                    if ($Healthcheck.Appliance.NetworkLinkStatus) {
+                        $VxrHostNicInfo | Where-Object { $_.'Link Status' -ne 'Up' } | Set-Style -Style Critical -Property 'Link Status'
+                    }
+                    $TableParams = @{
+                        Name = "NIC Specifications - $($VxrHost.hostname)"
+                        ColumnWidths = 15, 25, 20, 20, 20
+                    }
+                    if ($Report.ShowTableCaptions) {
+                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                    }
+                    $VxrHostNicInfo | Table @TableParams
                 }
-                if ($Healthcheck.Appliance.NetworkLinkStatus) {
-                    $VxrHostNicInfo | Where-Object { $_.'Link Status' -ne 'Up' } | Set-Style -Style Critical -Property 'Link Status'
-                }
-                $TableParams = @{
-                    Name = "NIC Specifications - $($VxrHost.hostname)"
-                    ColumnWidths = 15, 25, 20, 20, 20
-                }
-                if ($Report.ShowTableCaptions) {
-                    $TableParams['Caption'] = "- $($TableParams.Name)"
-                }
-                $VxrHostNicInfo | Table @TableParams
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning "VxRail Host NIC Section: $($_.Exception.Message)"
         }
     }
 

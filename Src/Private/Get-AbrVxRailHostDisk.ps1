@@ -5,7 +5,7 @@ function Get-AbrVxRailHostDisk {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.2.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -26,53 +26,57 @@ function Get-AbrVxRailHostDisk {
     }
 
     process {
-        $VxrHostDisks = $VxrHost.disks | Sort-Object enclosure, slot
-        if ($VxrHostDisks) {
-            Section -Style Heading4 "Disks" {
-                $VxrHostDiskInfo = foreach ($VxrHostDisk in $VxrHostDisks) {
-                    [PSCustomObject]@{
-                        'Enclosure' = $VxrHostDisk.Enclosure
-                        'Slot' = $VxrHostDisk.Slot
-                        'Serial Number' = $VxrHostDisk.sn
-                        'Manufacturer' = $VxrHostDisk.manufacturer
-                        'Model' = $VxrHostDisk.model
-                        'Firmware' = $VxrHostDisk.firmware_revision
-                        'Disk Type' = $VxrHostDisk.disk_type
-                        'Capacity' = $VxrHostDisk.capacity
-                        'Speed' = $VxrHostDisk.max_capable_speed
-                        'Status' = $VxrHostDisk.disk_state
-                    }
-                }
-                if ($Healthcheck.Appliance.DiskStatus) {
-                    $VxrHostDiskInfo | Where-Object { $_.'Status' -ne 'OK' } | Set-Style -Style Critical
-                }
-                if ($InfoLevel.Appliance -ge 2) {
-                    foreach ($VxrHostDisk in $VxrHostDiskInfo) {
-                        Section -Style Heading5 -ExcludeFromTOC "Enclosure $($VxrHostDisk.Enclosure) Disk $($VxrHostDisk.Slot)" {
-                            $TableParams = @{
-                                Name = "Enclosure $($VxrHostDisk.Enclosure) Disk $($VxrHostDisk.Slot) Specifications - $($VxrHost.hostname)"
-                                List = $true
-                                ColumnWidths = 50, 50
-                            }
-                            if ($Report.ShowTableCaptions) {
-                                $TableParams['Caption'] = "- $($TableParams.Name)"
-                            }
-                            $VxrHostDisk | Table @TableParams
+        Try {
+            $VxrHostDisks = $VxrHost.disks | Sort-Object enclosure, slot
+            if ($VxrHostDisks) {
+                Section -Style NOTOCHeading4 -ExcludeFromToC "Disks" {
+                    $VxrHostDiskInfo = foreach ($VxrHostDisk in $VxrHostDisks) {
+                        [PSCustomObject]@{
+                            'Enclosure' = $VxrHostDisk.Enclosure
+                            'Slot' = $VxrHostDisk.Slot
+                            'Serial Number' = $VxrHostDisk.sn
+                            'Manufacturer' = $VxrHostDisk.manufacturer
+                            'Model' = $VxrHostDisk.model
+                            'Firmware' = $VxrHostDisk.firmware_revision
+                            'Disk Type' = $VxrHostDisk.disk_type
+                            'Capacity' = $VxrHostDisk.capacity
+                            'Speed' = $VxrHostDisk.max_capable_speed
+                            'Status' = $VxrHostDisk.disk_state
                         }
                     }
-                } else {
-                    $TableParams = @{
-                        Name = "Disk Specifications - $($VxrHost.hostname)"
-                        Headers = 'Encl', 'Slot', 'Serial Number', 'Type', 'Capacity', 'Speed', 'Status', 'Firmware'
-                        Columns = 'Enclosure', 'Slot', 'Serial Number', 'Disk Type', 'Capacity', 'Speed', 'Status', 'Firmware'
-                        ColumnWidths = 9, 9, 22, 10, 14, 12, 12, 12
+                    if ($Healthcheck.Appliance.DiskStatus) {
+                        $VxrHostDiskInfo | Where-Object { $_.'Status' -ne 'OK' } | Set-Style -Style Critical
                     }
-                    if ($Report.ShowTableCaptions) {
-                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                    if ($InfoLevel.Appliance -ge 2) {
+                        foreach ($VxrHostDisk in $VxrHostDiskInfo) {
+                            Section -Style NOTOCHeading5 -ExcludeFromTOC "Enclosure $($VxrHostDisk.Enclosure) Disk $($VxrHostDisk.Slot)" {
+                                $TableParams = @{
+                                    Name = "Enclosure $($VxrHostDisk.Enclosure) Disk $($VxrHostDisk.Slot) Specifications - $($VxrHost.hostname)"
+                                    List = $true
+                                    ColumnWidths = 40, 60
+                                }
+                                if ($Report.ShowTableCaptions) {
+                                    $TableParams['Caption'] = "- $($TableParams.Name)"
+                                }
+                                $VxrHostDisk | Table @TableParams
+                            }
+                        }
+                    } else {
+                        $TableParams = @{
+                            Name = "Disk Specifications - $($VxrHost.hostname)"
+                            Headers = 'Encl', 'Slot', 'Serial Number', 'Type', 'Capacity', 'Speed', 'Status', 'Firmware'
+                            Columns = 'Enclosure', 'Slot', 'Serial Number', 'Disk Type', 'Capacity', 'Speed', 'Status', 'Firmware'
+                            ColumnWidths = 9, 9, 22, 10, 14, 12, 12, 12
+                        }
+                        if ($Report.ShowTableCaptions) {
+                            $TableParams['Caption'] = "- $($TableParams.Name)"
+                        }
+                        $VxrHostDiskInfo | Table @TableParams
                     }
-                    $VxrHostDiskInfo | Table @TableParams
                 }
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning "VxRail Host Disk Section: $($_.Exception.Message)"
         }
     }
 
