@@ -5,7 +5,7 @@ function Get-AbrVxRailHostIdracVlan {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.2.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -26,27 +26,31 @@ function Get-AbrVxRailHostIdracVlan {
     }
 
     process {
-        $VxrHostiDRACNetwork = Get-VxRailApi -Version 1 -Uri ('/hosts/' + $VxrHost.sn + '/idrac/network')
-        if ($VxrHostiDRACNetwork) {
-            Section -Style Heading5 -ExcludeFromTOC 'VLAN Settings' {
-                $VxrHostiDRACVlan = [PSCustomObject]@{
-                    'VLAN' = Switch ($VxrHostiDRACNetwork.vlan.vlan_id -eq '0') {
-                        $true { 'Disabled' }
-                        $false { 'Enabled' }
+        Try {
+            $VxrHostiDRACNetwork = Get-VxRailApi -Version 1 -Uri ('/hosts/' + $VxrHost.sn + '/idrac/network')
+            if ($VxrHostiDRACNetwork) {
+                Section -Style NOTOCHeading5 -ExcludeFromTOC 'VLAN Settings' {
+                    $VxrHostiDRACVlan = [PSCustomObject]@{
+                        'VLAN' = Switch ($VxrHostiDRACNetwork.vlan.vlan_id -eq '0') {
+                            $true { 'Disabled' }
+                            $false { 'Enabled' }
+                        }
+                        'VLAN ID' = $VxrHostiDRACNetwork.vlan.vlan_id
+                        'VLAN Priority' = $VxrHostiDRACNetwork.vlan.vlan_priority
                     }
-                    'VLAN ID' = $VxrHostiDRACNetwork.vlan.vlan_id
-                    'VLAN Priority' = $VxrHostiDRACNetwork.vlan.vlan_priority
+                    $TableParams = @{
+                        Name = "iDRAC VLAN Specifications - $($VxrHost.hostname)"
+                        List = $true
+                        ColumnWidths = 40, 60
+                    }
+                    if ($Report.ShowTableCaptions) {
+                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                    }
+                    $VxrHostiDRACVlan | Table @TableParams
                 }
-                $TableParams = @{
-                    Name = "iDRAC VLAN Specifications - $($VxrHost.hostname)"
-                    List = $true
-                    ColumnWidths = 50, 50
-                }
-                if ($Report.ShowTableCaptions) {
-                    $TableParams['Caption'] = "- $($TableParams.Name)"
-                }
-                $VxrHostiDRACVlan | Table @TableParams
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning "VxRail Host iDRAC VLAN Section: $($_.Exception.Message)"
         }
     }
 

@@ -5,7 +5,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
     .DESCRIPTION
         Documents the configuration of Dell EMC VxRail Manager in Word/HTML/Text formats using PScribo.
     .NOTES
-        Version:        0.4.0
+        Version:        0.4.5
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -20,11 +20,33 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
         [PSCredential] $Credential
     )
 
+    Write-PScriboMessage -Plugin "Module" -IsWarning "Please refer to https://www.asbuiltreport.com for more detailed information about this project."
+    Write-PScriboMessage -Plugin "Module" -IsWarning "Do not forget to update your report configuration file after each new version release."
+    Write-PScriboMessage -Plugin "Module" -IsWarning "Documentation: https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail"
+    Write-PScriboMessage -Plugin "Module" -IsWarning "Issues or bug reporting: https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/issues"
+
+    # Check the current AsBuiltReport.DellEMC.VxRail module
+    Try {
+        $InstalledVersion = Get-Module -ListAvailable -Name AsBuiltReport.DellEMC.VxRail -ErrorAction SilentlyContinue | Sort-Object -Property Version -Descending | Select-Object -First 1 -ExpandProperty Version
+
+        if ($InstalledVersion) {
+            Write-PScriboMessage -Plugin "Module" -IsWarning "AsBuiltReport.DellEMC.VxRail $($InstalledVersion.ToString()) is currently installed."
+            $LatestVersion = Find-Module -Name AsBuiltReport.DellEMC.VxRail -Repository PSGallery -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Version
+            if ($LatestVersion -gt $InstalledVersion) {
+                Write-PScriboMessage -Plugin "Module" -IsWarning "AsBuiltReport.DellEMC.VxRail $($LatestVersion.ToString()) is available."
+                Write-PScriboMessage -Plugin "Module" -IsWarning "Run 'Update-Module -Name AsBuiltReport.DellEMC.VxRail -Force' to install the latest version."
+            }
+        }
+    } Catch {
+        Write-PScriboMessage -Plugin "Module" -IsWarning $_.Exception.Message
+    }
+
     # Check if the required version of VMware PowerCLI is installed
-    Get-AbrVxRailRequiredModule -Name 'VMware.PowerCLI' -Version '12.3'
+    Get-RequiredModule -Name 'VMware.PowerCLI' -Version '13.0'
 
     # Import Report Configuration
     $Report = $ReportConfig.Report
+    $Filter = $ReportConfig.Filter
     $InfoLevel = $ReportConfig.InfoLevel
     $Options = $ReportConfig.Options
 
@@ -33,9 +55,6 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
 
     #region foreach loop
     foreach ($VIServer in $Target) {
-
-        # Get VxRail Manager information
-        #Get-AbrVxRailManager
         try {
             Write-PScriboMessage "Connecting to vCenter Server '$($VIServer)'."
             $global:vCenter = Connect-VIServer $VIServer -Credential $Credential -ErrorAction Stop
@@ -43,10 +62,23 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
             throw
         }
         if ($vCenter) {
+            # Get VxRail Manager information
             Write-PScriboMessage "Collecting VxRail Manager Information."
             $global:vCenterServer = (Get-AdvancedSetting -Entity $vCenter | Where-Object { $_.name -eq 'VirtualCenter.FQDN' }).Value
 
-            $VxRailClusters = Get-Cluster -Server $vCenter | Where-Object {$_.CustomFields['VxRail-IP']}
+            # Get VxRail Clusters
+            if ($Filter.VxRailCluster -ne "*") {
+                $VxRailClusters = foreach ($VxRailCluster in $Filter.VxRailCluster) {
+                    Try {
+                        Get-Cluster -Name $VxRailCluster -Server $vCenter | Where-Object {$_.CustomFields['VxRail-IP']}
+                    } Catch {
+                        Write-PScriboMessage -IsWarning "Unable to find VxRail Cluster '$($VxRailCluster)'."
+                    }
+                }
+            } else {
+                $VxRailClusters = Get-Cluster -Server $vCenter | Where-Object {$_.CustomFields['VxRail-IP']}
+            }
+
             foreach ($VxRailCluster in $VxRailClusters) {
                 $VxRailIP = $VxRailCluster.CustomFields['VxRail-IP']
                 # Resolve DNS name for VxRail Manager
@@ -66,7 +98,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                 $VxrClusterHosts = Get-VxRailApi -Version 1 -Uri '/system/cluster-hosts'
 
                 #region VxRail Section
-                Section -Style Heading1 "VxRail Manager - $($VxRailMgrHostName)" {
+                Section -Style Heading1 $($VxRailMgrHostName) {
                     Paragraph "The following sections detail the VxRail cluster configuration managed by VxRail Manager $($VxRailMgrHostName)."
                     BlankLine
                     #region Cluster Section
@@ -133,7 +165,7 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
 
                                     #region iDRAC
                                     if ($VMHost.ConnectionState -eq 'Connected') {
-                                        Section -Style Heading4 'iDRAC' {
+                                        Section -Style NOTOCHeading4 -ExcludeFromTOC 'iDRAC' {
                                             # iDRAC Network
                                             Get-AbrVxRailHostIdracIpv4 -VxrHost $VxrHost
 
@@ -166,6 +198,8 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                 #endregion VxRail Section
             }
             $null = Disconnect-VIServer -Server $VIServer -Confirm:$false -ErrorAction SilentlyContinue
+        } else {
+            Write-PScriboMessage -IsWarning "Unable to connect to vCenter Server '$($VIServer)'."
         }
     }
     #endregion foreach loop

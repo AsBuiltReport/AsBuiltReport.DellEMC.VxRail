@@ -1,4 +1,3 @@
-
 function Get-AbrVxRailHostFirmware {
     <#
     .SYNOPSIS
@@ -6,74 +5,76 @@ function Get-AbrVxRailHostFirmware {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.2.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
     .EXAMPLE
 
     .LINK
-
     #>
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         [Object]$VxrHost
     )
 
     begin {
-        Write-PscriboMessage "Collecting $($VxrHost.hostname) firmware information."
+        Write-PScriboMessage "Collecting $($VxrHost.hostname) firmware information."
     }
 
     process {
-        $VxrHostFw = $VxrHost.FirmwareInfo
-        if ($VxrHostFw) {
-            Section -Style Heading4 "Firmware" {
-                $VxrHostFWInfo = [PSCustomObject]@{
-                    'BIOS' = Switch ($VxrHostFw.bios_revision) {
-                        $null { '--' }
-                        default { $VxrHostFw.bios_revision }
+        Try {
+            $VxrHostFw = $VxrHost.FirmwareInfo
+            if ($VxrHostFw) {
+                Section -Style NOTOCHeading4 -ExcludeFromTOC "Firmware" {
+                    $VxrHostFWInfo = [PSCustomObject]@{
+                        'BIOS' = $VxrHostFw.bios_revision
+                        'BMC' = $VxrHostFw.bmc_revision
+                        'CPLD Firmware' = $VxrHostFw.cpld_version
                     }
-                    'BMC' = Switch ($VxrHostFw.bmc_revision) {
-                        $null { '--' }
-                        default { $VxrHostFw.bmc_revision }
+                    $MemberProps = @{
+                        'InputObject' = $VxrHostFWInfo
+                        'MemberType' = 'NoteProperty'
                     }
-                    'HBA' = Switch ($VxrHostFw.hba_version) {
-                        $null { '--' }
-                        default { $VxrHostFw.hba_version }
+                    if ($VxrHostFw.hba_version) {
+                        Add-Member @MemberProps -Name 'HBA' -Value $VxrHostFw.hba_version
                     }
-                    'Expander Back Plane' = Switch ($VxrHostFw.expander_bpf_version) {
-                        $null { '--' }
-                        default { $VxrHostFw.expander_bpf_version }
+                    if ($VxrHostFw.expander_bpf_version) {
+                        Add-Member @MemberProps -Name 'Expander Back Plane' -Value $VxrHostFw.expander_bpf_version
                     }
-                    'BOSS' = Switch ($VxrHostFw.boss_version) {
-                        $null { '--' }
-                        default { $VxrHostFw.boss_version }
+                    if ($VxrHostFw.nonexpander_bpf_version) {
+                        Add-Member @MemberProps -Name 'Non-Expander Back Plane' -Value $VxrHostFw.nonexpander_bpf_version
                     }
-                    'CPLD Firmware' = Switch ($VxrHostFw.cpld_version) {
-                        $null { '--' }
-                        default { $VxrHostFw.cpld_version }
+                    if ($VxrHostFw.boss_version) {
+                        Add-Member @MemberProps -Name 'BOSS' -Value $VxrHostFw.boss_version
                     }
-                    'IDSDM Firmware' = Switch ($VxrHostFw.idsdm_version) {
-                        $null { '--' }
-                        default { $VxrHostFw.idsdm_version }
+                    if ($VxrHostFw.idsdm_version) {
+                        Add-Member @MemberProps -Name 'IDSDM Firmware' -Value $VxrHostFw.idsdm_version
                     }
+                    if ($VxrHostFw.dcpm_version) {
+                        Add-Member @MemberProps -Name 'DCPM Firmware' -Value $VxrHostFw.dcpm_version
+                    }
+                    if ($VxrHostFw.perc_version) {
+                        Add-Member @MemberProps -Name 'PERC Firmware' -Value $VxrHostFw.perc_version
+                    }
+                    $TableParams = @{
+                        Name = "Firmware Versions - $($VxrHost.hostname)"
+                        List = $true
+                        ColumnWidths = 40, 60
+                    }
+                    if ($Report.ShowTableCaptions) {
+                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                    }
+                    $VxrHostFWInfo | Table @TableParams
                 }
-                $TableParams = @{
-                    Name = "Firmware Versions - $($VxrHost.hostname)"
-                    List = $true
-                    ColumnWidths = 50, 50
-                }
-                if ($Report.ShowTableCaptions) {
-                    $TableParams['Caption'] = "- $($TableParams.Name)"
-                }
-                $VxrHostFWInfo | Table @TableParams
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning "VxRail Host Firmware Section: $($_.Exception.Message)"
         }
     }
 
     end {
     }
-
 }

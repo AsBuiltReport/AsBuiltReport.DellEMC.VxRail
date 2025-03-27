@@ -5,7 +5,7 @@ function Get-AbrVxRailHostIdracUser {
     .DESCRIPTION
 
     .NOTES
-        Version:        0.1.0
+        Version:        0.2.0
         Author:         Tim Carman
         Twitter:        @tpcarman
         Github:         tpcarman
@@ -26,28 +26,32 @@ function Get-AbrVxRailHostIdracUser {
     }
 
     process {
-        $VxrHostiDRACUsers = Get-VxRailApi -Version 1 -Uri ('/hosts/' + $VxrHost.Sn + '/idrac/users')
-        if ($VxrHostiDRACUsers) {
-            Section -Style Heading5 -ExcludeFromTOC 'Users' {
-                $VxrHostiDRACUserInfo = foreach ($VxrHostiDRACUser in $VxrHostiDRACUsers) {
-                    [PSCustomObject]@{
-                        'ID' = $VxrHostiDRACUser.id
-                        'User Name' = $VxrHostiDRACUser.name
-                        'Privilege' = Switch ($VxrHostiDRACUser.privilege) {
-                            'ADMIN' { 'Administrator' }
-                            default { $VxrHostiDRACUser.privilege }
+        Try {
+            $VxrHostiDRACUsers = Get-VxRailApi -Version 1 -Uri ('/hosts/' + $VxrHost.Sn + '/idrac/users')
+            if ($VxrHostiDRACUsers) {
+                Section -Style NOTOCHeading5 -ExcludeFromTOC 'Users' {
+                    $VxrHostiDRACUserInfo = foreach ($VxrHostiDRACUser in $VxrHostiDRACUsers) {
+                        [PSCustomObject]@{
+                            'ID' = $VxrHostiDRACUser.id
+                            'User Name' = $VxrHostiDRACUser.name
+                            'Privilege' = Switch ($VxrHostiDRACUser.privilege) {
+                                'ADMIN' { 'Administrator' }
+                                default { $VxrHostiDRACUser.privilege }
+                            }
                         }
                     }
+                    $TableParams = @{
+                        Name = "iDRAC User Specifications - $($VxrHost.hostname)"
+                        ColumnWidths = 33, 34, 33
+                    }
+                    if ($Report.ShowTableCaptions) {
+                        $TableParams['Caption'] = "- $($TableParams.Name)"
+                    }
+                    $VxrHostiDRACUserInfo | Table @TableParams
                 }
-                $TableParams = @{
-                    Name = "iDRAC User Specifications - $($VxrHost.hostname)"
-                    ColumnWidths = 33, 34, 33
-                }
-                if ($Report.ShowTableCaptions) {
-                    $TableParams['Caption'] = "- $($TableParams.Name)"
-                }
-                $VxrHostiDRACUserInfo | Table @TableParams
             }
+        } Catch {
+            Write-PScriboMessage -IsWarning "VxRail Host iDRAC User Section: $($_.Exception.Message)"
         }
     }
 
