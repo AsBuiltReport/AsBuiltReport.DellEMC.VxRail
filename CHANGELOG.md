@@ -1,6 +1,6 @@
 # :arrows_clockwise: Dell EMC VxRail As Built Report Changelog
 
-## [0.4.5] - Unreleased
+## [0.4.5] - 2025-03-28
 ### Added
 - Add VxRail Manager IP information
 - Add VxRail Cluster name information
