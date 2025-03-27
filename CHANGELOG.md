@@ -5,7 +5,7 @@
 - Add VxRail Manager IP information
 - Add VxRail Cluster name information
 - Add support for VxRail 8.x (Fix [#12](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/issues/12))
-- Add support for reporting of multiple VxRail clusters within the same vCenter Server (Fix [#5](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/issues/5))
+- Add support for reporting of multiple VxRail clusters within the same vCenter Server (Fix [#13](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/issues/13))
 
 ### Fixed
 - Fix time & date outputs showing incorrect date format
