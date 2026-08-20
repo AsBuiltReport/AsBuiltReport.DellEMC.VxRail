@@ -1,13 +1,13 @@
 # :arrows_clockwise: Dell EMC VxRail As Built Report Changelog
 
-## [0.5.0] - [Unreleased]
+## [0.5.0] - 2026-08-21
 ### Added
 - Add `VCF.PowerCLI` to External Module Dependencies
 - Add `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` and `SECURITY.md`
 - Add `Stale` and `Dependabot` GitHub workflows
 - Add `Known Issues` section to README
 - Add working Sample Reports link to README
-- Add en-US and en-GB localization support, including a `Report.Language` configuration key
+- Add en-US, en-GB, es-ES, de-DE and fr-FR localization support, including a `Report.Language` configuration key
 - Add comment-based help to all private functions
 - Add `Tests` folder with Pester manifest/structure and localization test suites, plus a `Pester` GitHub workflow
 - Add VxRail trust store certificate reporting (`Get-AbrVxRailClusterCertificate`), with `Certificate` InfoLevel and HealthCheck settings for certificate status and upcoming expiry

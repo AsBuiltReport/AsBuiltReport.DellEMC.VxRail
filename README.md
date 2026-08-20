@@ -59,6 +59,18 @@ This report is compatible with the following PowerShell versions;
 |:----------------------:|:------------:|
 |   :white_check_mark:|  :white_check_mark:  |
 
+## 🌐 Language Support
+<!-- ********** Update supported languages ********** -->
+The Dell EMC VxRail As Built Report supports the following languages;
+
+| Language | Culture Code |
+|----------|--------------|
+| English (US) | en-US (Default) |
+| English (GB) | en-GB |
+| French | fr-FR |
+| German | de-DE |
+| Spanish | es-ES |
+
 ## :wrench: System Requirements
 PowerShell 5.1 or PowerShell 7, and the following PowerShell modules are required for generating a Dell EMC VxRail As Built report.
 
@@ -117,7 +129,7 @@ The **Report** schema provides configuration of the VxRail Manager report inform
 | Name                | User defined | Dell VxRail As Built Report | The name of the As Built Report                              |
 | Version             | User defined | 1.0                         | The report version                                           |
 | Status              | User defined | Released                    | The report release status                                    |
-| Language            | en-US / en-GB | en-US                      | The language used to generate the report                     |
+| Language            | User defined | en-US                       | The language used to generate the report                     |
 | ShowCoverPageImage  | true / false | true                        | Toggle to enable/disable the display of the cover page image |
 | ShowTableOfContents | true / false | true                        | Toggle to enable/disable table of contents                   |
 | ShowHeaderFooter    | true / false | true                        | Toggle to enable/disable document headers & footers          |
