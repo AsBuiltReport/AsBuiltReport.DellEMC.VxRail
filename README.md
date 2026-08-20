@@ -24,7 +24,7 @@
 </p>
 
 <p align="center">
-    <a href='https://ko-fi.com/B0B7DDGZ7' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+    <a href='https://ko-fi.com/B0B7DDGZ7' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://ko-fi.com/img/githubbutton_sm.svg' border='0' alt='Want to keep alive this project? Support me on Ko-fi' /></a>
 </p>
 
 # Dell EMC VxRail As Built Report
@@ -35,13 +35,11 @@ Dell EMC VxRail As Built Report is a PowerShell module which works in conjunctio
 
 The Dell EMC VxRail As Built Report module is used to generate as built documentation for Dell EMC VxRail hyperconverged infrastructure.
 
-<!--
 ## :books: Sample Reports
 ### Sample Report - Default Style
 Sample Dell EMC VxRail As Built Report with health checks, using default report style.
 
-![Sample Dell EMC VxRail As Built Report](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/blob/master/Samples/Sample%20Dell%20EMC%20VxRail%20As%20Built%20Report.jpg "Sample Dell EMC VxRail As Built Report")
--->
+- [Sample Dell EMC VxRail As Built Report (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/master/Samples/Sample%20Dell%20EMC%20VxRail%20As%20Built%20Report.html)
 
 # :beginner: Getting Started
 Below are the instructions on how to install, configure and generate a Dell EMC VxRail As Built Report.
@@ -63,7 +61,7 @@ PowerShell 5.1 or PowerShell 7, and the following PowerShell modules are require
 
 Install the following modules by following the [module installation](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail#package-module-installation) procedure.
 
-- [VMware PowerCLI Module](https://www.powershellgallery.com/packages/VMware.PowerCLI/)
+- [VCF PowerCLI Module](https://www.powershellgallery.com/packages/VCF.PowerCLI/)
 - [AsBuiltReport.DellEMC.VxRail Module](https://www.powershellgallery.com/packages/AsBuiltReport.DellEMC.VxRail/)
 
 ### :closed_lock_with_key: Required Privileges
@@ -75,10 +73,10 @@ Install the following modules by following the [module installation](https://git
 
 Open a PowerShell terminal window and install the required module.
 
-:warning: VMware PowerCLI 13.0 or higher is required. Please ensure older PowerCLI versions have been uninstalled.
+:warning: VCF PowerCLI 9.1 or higher is required. Please ensure older PowerCLI versions have been uninstalled.
 
 ```powershell
-install-module VMware.PowerCLI -MinimumVersion 13.0 -AllowClobber
+install-module VCF.PowerCLI -MinimumVersion 9.1 -AllowClobber
 install-module AsBuiltReport.DellEMC.VxRail
 ```
 ### GitHub
@@ -116,6 +114,7 @@ The **Report** schema provides configuration of the VxRail Manager report inform
 | Name                | User defined | Dell VxRail As Built Report | The name of the As Built Report                              |
 | Version             | User defined | 1.0                         | The report version                                           |
 | Status              | User defined | Released                    | The report release status                                    |
+| Language            | en-US / en-GB | en-US                      | The language used to generate the report                     |
 | ShowCoverPageImage  | true / false | true                        | Toggle to enable/disable the display of the cover page image |
 | ShowTableOfContents | true / false | true                        | Toggle to enable/disable table of contents                   |
 | ShowHeaderFooter    | true / false | true                        | Toggle to enable/disable document headers & footers          |
@@ -148,7 +147,7 @@ The **Filter** schema allows report content to be filtered to specific VxRail cl
 ### InfoLevel
 The **InfoLevel** schema allows configuration of each section of the report at a granular level.
 
-There are 2 levels (0-1) of detail granularity for each section as follows;
+There are 3 levels (0-2) of detail granularity for each section as follows;
 
 | Setting | InfoLevel         | Description                                                 |
 |:-------:|-------------------|-------------------------------------------------------------|
@@ -220,3 +219,6 @@ PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local'
 # Generate a VxRail As Built Report for VxRail cluster 'vxrail-01.corp.local' using specified credentials. The VxRail cluster is managed by vCenter Server 'vcenter-01.corp.local'. Export report to HTML & DOCX formats. Use default report style. Reports are saved to the user profile folder by default. Attach and send reports via e-mail.
 PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local' -Username 'administrator@vsphere.local' -Password 'VMware1!' -Format Html,Word -OutputFolderPath 'C:\Users\Tim\Documents' -SendEmail
 ```
+
+## :bug: Known Issues
+There are currently no known issues with this report. Refer to the [GitHub Issues](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/issues) page for any open bugs or feature requests.
