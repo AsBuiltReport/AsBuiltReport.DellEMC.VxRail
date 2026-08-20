@@ -40,8 +40,8 @@ function Get-AbrVxRailCluster {
                     $LocalizedData.HealthStatus = $VxrSystem.health
                     $LocalizedData.VCenterServer = $vCenterServer
                     $LocalizedData.VCenterVersion = "$($vCenter.version)-$($vCenter.build)"
-                    $LocalizedData.VCenterServerMode = $TextInfo.ToTitleCase($VxrVcMode.vc_mode.ToLower())
-                    $LocalizedData.PscMode = $TextInfo.ToTitleCase($VxrVcMode.psc_mode.ToLower())
+                    $LocalizedData.VCenterServerMode = if ($VxrVcMode.vc_mode) { $TextInfo.ToTitleCase($VxrVcMode.vc_mode.ToLower()) } else { $LocalizedData.NotAvailable }
+                    $LocalizedData.PscMode = if ($VxrVcMode.psc_mode) { $TextInfo.ToTitleCase($VxrVcMode.psc_mode.ToLower()) } else { $LocalizedData.NotAvailable }
                     $LocalizedData.VCenterServerConnected = Switch ($VxrSystem.vc_connected) {
                         $true { $LocalizedData.Yes }
                         $false { $LocalizedData.No }

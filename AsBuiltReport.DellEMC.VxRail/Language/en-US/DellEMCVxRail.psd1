@@ -50,6 +50,7 @@
         InstallationDate          = Installation Date
         Yes                       = Yes
         No                        = No
+        NotAvailable              = --
         ErrorMessage              = VxRail Cluster Section: {0}
 '@
 
