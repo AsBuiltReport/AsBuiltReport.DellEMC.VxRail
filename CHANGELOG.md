@@ -43,7 +43,7 @@
 - Fixed `Get-AbrVxRailHostEsxi` and `Get-AbrVxRailHostPsu` collection messages referencing an undefined `$VxrHost` variable
 - Fixed README `Report` schema table missing the `Language` configuration key
 - Fixed README InfoLevel description stating "2 levels (0-1)" when the table below it lists three settings (0-2)
-- Fixed README HealthCheck highlight swatches using the discontinued via.placeholder.com service; switched to placehold.co, matching AsBuiltReport.VMware.vSphere's README
+- Fixed README HealthCheck highlight swatches using the discontinued via.placeholder.com service; switched to placehold.co
 - Fixed `Get-AbrVxRailCluster` throwing and silently dropping the entire Cluster Specifications table when `/vc/mode` returns no data
 
 ## [0.4.5] - 2025-03-28
