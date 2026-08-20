@@ -42,6 +42,7 @@
 - Fixed `Get-AbrVxRailHostEsxi` and `Get-AbrVxRailHostPsu` collection messages referencing an undefined `$VxrHost` variable
 - Fixed README `Report` schema table missing the `Language` configuration key
 - Fixed README InfoLevel description stating "2 levels (0-1)" when the table below it lists three settings (0-2)
+- Fixed `Pester.yml` workflow failing to run (`Unrecognized named-value: 'matrix'`) — the `shell:` step key cannot reference the `matrix` context; simplified the matrix to drop the invalid `pwsh`/`powershell` shell dimension and set the shell via a job-level `defaults.run.shell: pwsh` instead
 - Fixed README HealthCheck highlight swatches using the discontinued via.placeholder.com service; switched to placehold.co, matching AsBuiltReport.VMware.vSphere's README
 - Fixed `Get-AbrVxRailCluster` throwing and silently dropping the entire Cluster Specifications table when `/vc/mode` returns no data
 

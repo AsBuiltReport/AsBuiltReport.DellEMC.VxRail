@@ -15,59 +15,48 @@ on:
 
 jobs:
   test:
-    name: Pester Tests - ${{ matrix.os }} - ${{ matrix.shell }}
+    name: Pester Tests - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
-        shell: [pwsh]
-        include:
-          - os: windows-latest
-            shell: powershell
-        exclude:
-          - os: ubuntu-latest
-            shell: powershell
-          - os: macos-latest
-            shell: powershell
+
+    defaults:
+      run:
+        shell: pwsh
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
 
       - name: Set up PowerShell Gallery
-        shell: ${{ matrix.shell }}
         run: |
           Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
       - name: Install Pester
-        shell: ${{ matrix.shell }}
         run: |
           Install-Module -Name Pester -MinimumVersion 5.0.0 -MaximumVersion 5.99.99 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
 
       - name: Install PScribo
-        shell: ${{ matrix.shell }}
         run: |
           Install-Module -Name PScribo -MinimumVersion 0.11.1 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
 
       - name: Install PSScriptAnalyzer
-        shell: ${{ matrix.shell }}
         run: |
           Install-Module -Name PSScriptAnalyzer -MinimumVersion 1.0.0 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
 
       - name: Install AsBuiltReport.Core
-        shell: ${{ matrix.shell }}
         run: |
           Install-Module -Name AsBuiltReport.Core -MinimumVersion 1.6.4 -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
 
       - name: Run Pester Tests
-        shell: ${{ matrix.shell }}
         run: |
           $CodeCoverageParam = @{}
           $OutputFormatParam = @{ OutputFormat = 'NUnitXml' }
 
-          # Only enable code coverage for Windows + pwsh
-          if ('${{ matrix.os }}' -eq 'windows-latest' -and '${{ matrix.shell }}' -eq 'pwsh') {
+          # Only enable code coverage for Windows
+          if ('${{ matrix.os }}' -eq 'windows-latest') {
             $CodeCoverageParam = @{ CodeCoverage = $true }
           }
 
@@ -75,18 +64,18 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: test-results-${{ matrix.os }}-${{ matrix.shell }}
+          name: test-results-${{ matrix.os }}
           path: Tests/testResults.xml
           retention-days: 30
 
       - name: Upload code coverage to Codecov
-        if: matrix.os == 'windows-latest' && matrix.shell == 'pwsh'
-        uses: codecov/codecov-action@v5
+        if: matrix.os == 'windows-latest'
+        uses: codecov/codecov-action@v7
         with:
           files: ./Tests/coverage.xml
           flags: unit
-          name: codecov-${{ matrix.os }}-${{ matrix.shell }}
+          name: codecov-${{ matrix.os }}
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: false
