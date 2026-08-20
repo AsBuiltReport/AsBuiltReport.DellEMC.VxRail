@@ -157,12 +157,14 @@ There are 3 levels (0-2) of detail granularity for each section as follows;
 
 The table below outlines the default and maximum **InfoLevel** settings for each section.
 
-| Sub-Schema | Default Setting | Maximum Setting |
-|------------|:---------------:|:---------------:|
-| Cluster    |        1        |        2        |
-| Appliance  |        1        |        2        |
-| Support    |        1        |        1        |
-| Network    |        1        |        1        |
+| Sub-Schema  | Default Setting | Maximum Setting |
+|-------------|:---------------:|:---------------:|
+| Cluster     |        1        |        2        |
+| Appliance   |        1        |        2        |
+| Support     |        1        |        1        |
+| Certificate |        1        |        2        |
+| Precheck    |        1        |        2        |
+| Network     |        1        |        1        |
 
 ### Healthcheck
 The **Healthcheck** schema is used to toggle health checks on or off.
@@ -196,6 +198,21 @@ The **Support** schema is used to configure health checks for the VxRail support
 |----------------|--------------|---------|-----------------------------------------------|----------------------------------------------------------------------------------------|
 | EsrsStatus     | true / false | true    | Highlights when ESRS is `Not Configured`      | ![Warning](https://placehold.co/15x15/FEF3B5/FEF3B5) ESRS is `Not Configured`      |
 | EsrsConnection | true / false | true    | Highlights when ESRS connection is `Disabled` | ![Warning](https://placehold.co/15x15/FEF3B5/FEF3B5) ESRS connection is `Disabled` |
+
+#### Certificate
+The **Certificate** schema is used to configure health checks for VxRail trust store certificates.
+
+| Sub-Schema   | Setting      | Default | Description                                                | Highlight                                                                                        |
+|--------------|--------------|---------|-------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| Status       | true / false | true    | Highlights certificates which are not `Valid`                | ![Critical](https://placehold.co/15x15/F5DBD9/F5DBD9) Certificate status is not `Valid`           |
+| ExpiringSoon | true / false | true    | Highlights certificates which will expire within 90 days     | ![Warning](https://placehold.co/15x15/FEF3B5/FEF3B5) Certificate expires within 90 days           |
+
+#### Precheck
+The **Precheck** schema is used to configure health checks for VxRail system precheck results.
+
+| Sub-Schema    | Setting      | Default | Description                                                     | Highlight                                                                                                                                                     |
+|---------------|--------------|---------|-------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| TotalSeverity | true / false | true    | Highlights precheck reports with a total severity of `Warn` or higher | ![Warning](https://placehold.co/15x15/FEF3B5/FEF3B5) Precheck total severity is `Warn`<br>![Critical](https://placehold.co/15x15/F5DBD9/F5DBD9) Precheck total severity is `Error` or `Critical` |
 
 ## :computer: Examples
 

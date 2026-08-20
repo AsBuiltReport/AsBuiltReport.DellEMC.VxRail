@@ -25,6 +25,8 @@
         ApplianceHostParagraph  = The following section details the hardware configuration for VxRail Appliance {0}.
         IdracHeading            = iDRAC
         SupportInfoLevel        = Support InfoLevel set at {0}.
+        CertificateInfoLevel    = Certificate InfoLevel set at {0}.
+        PrecheckInfoLevel       = Precheck InfoLevel set at {0}.
         NetworkInfoLevel        = Network InfoLevel set at {0}.
         ConnectionError         = Unable to connect to vCenter Server '{0}'.
 '@
@@ -33,6 +35,7 @@
         Collecting               = Collecting VxRail cluster information.
         ApiCallSystem             = Performing API reference call to path /system.
         ApiCallVcMode             = Performing API reference call to path /vc/mode.
+        ApiCallTelemetryTier      = Performing API reference call to path /telemetry/tier.
         TableName                 = VxRail Cluster Specifications - {0}
         VxRailManager             = VxRail Manager
         VxRailManagerIP           = VxRail Manager IP
@@ -47,6 +50,7 @@
         PscMode                   = PSC Mode
         VCenterServerConnected    = vCenter Server Connected
         ExternalVCenterServer     = External vCenter Server
+        TelemetryTier             = Telemetry Tier
         InstallationDate          = Installation Date
         Yes                       = Yes
         No                        = No
@@ -172,6 +176,45 @@
         NotAvailable           = --
         SupportContactTableName = Support Contact Information - {0}
         ErrorMessage           = VxRail Cluster Support Section: {0}
+'@
+
+    GetAbrVxRailClusterCertificate = ConvertFrom-StringData @'
+        Collecting          = Collecting VxRail certificate information.
+        ApiCall             = Performing API reference call to path /trust-store/certificates.
+        Heading             = Certificates
+        Paragraph           = The following section details the trust store certificates configured on VxRail Manager {0}.
+        Name                = Name
+        Status              = Status
+        IssuedBy            = Issued By
+        ExpirationDate      = Expiration Date
+        SignatureAlgorithm  = Signature Algorithm
+        Fingerprint         = Fingerprint
+        TableName           = Certificates - {0}
+        ErrorMessage        = VxRail Cluster Certificate Section: {0}
+'@
+
+    GetAbrVxRailClusterPrecheck = ConvertFrom-StringData @'
+        Collecting            = Collecting VxRail precheck information.
+        ApiCall               = Performing API reference call to path /system/prechecks/results.
+        Heading               = Precheck Results
+        Paragraph             = The following section details the system precheck (health check) results recorded on VxRail Manager {0}.
+        Profile               = Profile
+        Status                = Status
+        TotalSeverity         = Total Severity
+        ChecksPassed          = Checks Passed
+        ChecksWarning         = Checks Warning
+        ChecksError           = Checks Error
+        TotalChecks           = Total Checks
+        TableName             = Precheck Results - {0}
+        OutstandingHeading    = Outstanding Checks
+        OutstandingTableName  = Outstanding Precheck Checks - {0}
+        Source                = Source
+        Check                 = Check
+        MessageSeverity       = Severity
+        Symptom               = Symptom
+        Action                = Action
+        GeneralCheckSource    = Cluster
+        ErrorMessage          = VxRail Cluster Precheck Section: {0}
 '@
 
     GetAbrVxRailHostHardware = ConvertFrom-StringData @'

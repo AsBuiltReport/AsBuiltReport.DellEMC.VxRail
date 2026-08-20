@@ -29,6 +29,8 @@ function Get-AbrVxRailCluster {
             $VxrSystem = Get-VxRailApi -Version 1 -Uri '/system'
             Write-PScriboMessage $LocalizedData.ApiCallVcMode
             $VxrVcMode = Get-VxRailApi -Version 1 -Uri '/vc/mode'
+            Write-PScriboMessage $LocalizedData.ApiCallTelemetryTier
+            $VxrTelemetryTier = Get-VxRailApi -Version 1 -Uri '/telemetry/tier'
             if ($VxrSystem) {
                 $VxrCluster = [PSCustomObject]@{
                     $LocalizedData.VxRailManager = $VxRailMgrHostName
@@ -50,6 +52,7 @@ function Get-AbrVxRailCluster {
                         $true { $LocalizedData.Yes }
                         $false { $LocalizedData.No }
                     }
+                    $LocalizedData.TelemetryTier = if ($VxrTelemetryTier.level) { $TextInfo.ToTitleCase($VxrTelemetryTier.level.ToLower()) } else { $LocalizedData.NotAvailable }
                     $LocalizedData.InstallationDate = (ConvertFrom-Epoch $VxrSystem.installed_time).ToLocalTime().ToString()
                 }
                 if ($Healthcheck.Cluster.HealthStatus) {

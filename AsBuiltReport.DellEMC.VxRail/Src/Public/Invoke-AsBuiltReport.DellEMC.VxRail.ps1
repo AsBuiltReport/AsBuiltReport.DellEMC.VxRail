@@ -197,6 +197,18 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
                         Get-AbrVxRailClusterSupport
                     }
 
+                    # Trust Store Certificates
+                    Write-PScriboMessage ($LocalizedData.CertificateInfoLevel -f $InfoLevel.Certificate)
+                    if ($InfoLevel.Certificate -gt 0) {
+                        Get-AbrVxRailClusterCertificate
+                    }
+
+                    # Precheck Results
+                    Write-PScriboMessage ($LocalizedData.PrecheckInfoLevel -f $InfoLevel.Precheck)
+                    if ($InfoLevel.Precheck -gt 0) {
+                        Get-AbrVxRailClusterPrecheck
+                    }
+
                     # Networking Section
                     Write-PScriboMessage ($LocalizedData.NetworkInfoLevel -f $InfoLevel.Network)
                     if ($InfoLevel.Network -gt 0) {

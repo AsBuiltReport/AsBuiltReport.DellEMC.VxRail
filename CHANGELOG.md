@@ -10,6 +10,9 @@
 - Add en-US and en-GB localization support, including a `Report.Language` configuration key
 - Add comment-based help to all private functions
 - Add `Tests` folder with Pester manifest/structure and localization test suites, plus a `Pester` GitHub workflow
+- Add VxRail trust store certificate reporting (`Get-AbrVxRailClusterCertificate`), with `Certificate` InfoLevel and HealthCheck settings for certificate status and upcoming expiry
+- Add Telemetry Tier to the VxRail Cluster Specifications table
+- Add VxRail system precheck (health check) results reporting (`Get-AbrVxRailClusterPrecheck`), with `Precheck` InfoLevel and HealthCheck settings; InfoLevel 2 surfaces individual outstanding (non-OK) checks
 
 ### Changed
 - Update Required Modules to AsBuiltReport.Core v1.6.4

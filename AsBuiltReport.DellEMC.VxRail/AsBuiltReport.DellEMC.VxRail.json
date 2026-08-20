@@ -20,6 +20,8 @@
         "Cluster": 1,
         "Appliance": 1,
         "Support": 1,
+        "Certificate": 1,
+        "Precheck": 1,
         "Network": 1
     },
     "HealthCheck": {
@@ -38,6 +40,13 @@
         "Support": {
             "EsrsStatus": true,
             "EsrsConnection": true
+        },
+        "Certificate": {
+            "Status": true,
+            "ExpiringSoon": true
+        },
+        "Precheck": {
+            "TotalSeverity": true
         }
     }
 }
