@@ -13,6 +13,7 @@
 - Add VxRail trust store certificate reporting (`Get-AbrVxRailClusterCertificate`), with `Certificate` InfoLevel and HealthCheck settings for certificate status and upcoming expiry
 - Add Telemetry Tier to the VxRail Cluster Specifications table
 - Add VxRail system precheck (health check) results reporting (`Get-AbrVxRailClusterPrecheck`), with `Precheck` InfoLevel and HealthCheck settings; InfoLevel 2 surfaces individual outstanding (non-OK) checks
+- Add Codecov and Pester Tests status badges to README
 
 ### Changed
 - Update Required Modules to AsBuiltReport.Core v1.6.4

@@ -19,6 +19,13 @@
         <img src="https://img.shields.io/github/contributors/AsBuiltReport/AsBuiltReport.DellEMC.VxRail.svg"/></a>
 </p>
 <p align="center">
+    <a href="https://codecov.io/gh/AsBuiltReport/AsBuiltReport.DellEMC.VxRail" >
+    <img src="https://codecov.io/gh/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/graph/badge.svg?token=VGABX486CM"/>
+    </a>
+    <a href="https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/actions/workflows/Pester.yml" alt="Pester Tests">
+        <img src="https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/workflows/Pester%20Tests/badge.svg" /></a>
+</p>
+<p align="center">
     <a href="https://twitter.com/AsBuiltReport" alt="Twitter">
             <img src="https://img.shields.io/twitter/follow/AsBuiltReport.svg?style=social"/></a>
 </p>
