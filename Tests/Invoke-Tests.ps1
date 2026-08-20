@@ -53,8 +53,12 @@ if ($PSVersion.Major -lt 7) {
     Write-Warning "PowerShell 7 or higher is recommended for optimal test execution"
 }
 
-# Import Pester
-Import-Module Pester -MinimumVersion 5.0.0 -Force
+# Remove any pre-loaded Pester module (Windows PowerShell 5.1 ships with old Pester 3.4.0,
+# which can otherwise shadow-conflict with the version installed above)
+Get-Module Pester | Remove-Module -Force -ErrorAction SilentlyContinue
+
+# Import Pester with explicit minimum version
+Import-Module Pester -MinimumVersion 5.0.0 -Force -ErrorAction Stop
 
 # Configure Pester
 $PesterConfiguration = New-PesterConfiguration
@@ -88,9 +92,9 @@ if ($CodeCoverage) {
 
     # Include all PowerShell files in the module
     $CoverageFiles = @(
-        "$ModulePath\*.psm1"
-        "$ModulePath\Src\Public\*.ps1"
-        "$ModulePath\Src\Private\*.ps1"
+        (Join-Path -Path $ModulePath -ChildPath '*.psm1')
+        (Join-Path -Path $ModulePath -ChildPath 'Src' | Join-Path -ChildPath 'Public' | Join-Path -ChildPath '*.ps1')
+        (Join-Path -Path $ModulePath -ChildPath 'Src' | Join-Path -ChildPath 'Private' | Join-Path -ChildPath '*.ps1')
     )
 
     $PesterConfiguration.CodeCoverage.Path = $CoverageFiles
@@ -133,12 +137,15 @@ if ($CodeCoverage -and $TestResults.CodeCoverage) {
     Write-Host "Code Coverage Summary" -ForegroundColor Yellow
     Write-Host "======================================" -ForegroundColor Cyan
 
+    # Pester 5's CodeCoverage result exposes CommandsAnalyzedCount / CommandsExecutedCount /
+    # CommandsMissedCount and a pre-computed CoveragePercent - not the Number-Of-* names this
+    # used previously, which don't exist on the object and silently returned $null.
     $Coverage = $TestResults.CodeCoverage
-    $CoveragePercent = [math]::Round(($Coverage.NumberOfCommandsExecuted / $Coverage.NumberOfCommandsAnalyzed) * 100, 2)
+    $CoveragePercent = [math]::Round($Coverage.CoveragePercent, 2)
 
-    Write-Host "Commands Analyzed: $($Coverage.NumberOfCommandsAnalyzed)" -ForegroundColor White
-    Write-Host "Commands Executed: $($Coverage.NumberOfCommandsExecuted)" -ForegroundColor White
-    Write-Host "Commands Missed: $($Coverage.NumberOfCommandsMissed)" -ForegroundColor White
+    Write-Host "Commands Analyzed: $($Coverage.CommandsAnalyzedCount)" -ForegroundColor White
+    Write-Host "Commands Executed: $($Coverage.CommandsExecutedCount)" -ForegroundColor White
+    Write-Host "Commands Missed: $($Coverage.CommandsMissedCount)" -ForegroundColor White
     Write-Host "Coverage: $CoveragePercent%" -ForegroundColor $(if ($CoveragePercent -ge 80) { 'Green' } elseif ($CoveragePercent -ge 60) { 'Yellow' } else { 'Red' })
 }
 
