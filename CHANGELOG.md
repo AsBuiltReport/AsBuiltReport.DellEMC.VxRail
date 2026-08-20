@@ -24,6 +24,7 @@
 - Rename `ConvertFrom-epoch` to `ConvertFrom-Epoch` and add comment-based help
 - Rename `Get-AbrVxRailHostIdracIpv4.ps1` to `Get-AbrVxRailHostIdracIPv4.ps1` to match its function name
 - Update CONTRIBUTING.md example AsBuiltReport.Core version reference to v1.6.4
+- Update module startup banner (project info, version check) to use AsBuiltReport.Core's `Write-ReportModuleInfo`
 
 ### Removed
 - Removed tweet action from GitHub release workflow

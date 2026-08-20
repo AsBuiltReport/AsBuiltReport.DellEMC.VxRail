@@ -28,29 +28,11 @@ function Invoke-AsBuiltReport.DellEMC.VxRail {
 
     $LocalizedData = $reportTranslate.InvokeAsBuiltReportDellEMCVxRail
 
-    Write-PScriboMessage -Plugin "Module" -IsWarning $LocalizedData.ProjectInfo
-    Write-PScriboMessage -Plugin "Module" -IsWarning $LocalizedData.ConfigReminder
-    Write-PScriboMessage -Plugin "Module" -IsWarning ($LocalizedData.DocumentationLink -f 'https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail')
-    Write-PScriboMessage -Plugin "Module" -IsWarning ($LocalizedData.IssuesLink -f 'https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/issues')
-
-    # Check the current AsBuiltReport.DellEMC.VxRail module
-    Try {
-        $InstalledVersion = Get-Module -ListAvailable -Name AsBuiltReport.DellEMC.VxRail -ErrorAction SilentlyContinue | Sort-Object -Property Version -Descending | Select-Object -First 1 -ExpandProperty Version
-
-        if ($InstalledVersion) {
-            Write-PScriboMessage -Plugin "Module" -IsWarning ($LocalizedData.InstalledVersion -f $InstalledVersion.ToString())
-            $LatestVersion = Find-Module -Name AsBuiltReport.DellEMC.VxRail -Repository PSGallery -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Version
-            if ($LatestVersion -gt $InstalledVersion) {
-                Write-PScriboMessage -Plugin "Module" -IsWarning ($LocalizedData.LatestVersionAvailable -f $LatestVersion.ToString())
-                Write-PScriboMessage -Plugin "Module" -IsWarning $LocalizedData.UpdateModule
-            }
-        }
-    } Catch {
-        Write-PScriboMessage -Plugin "Module" -IsWarning $_.Exception.Message
-    }
-
     # Check if the required version of VCF PowerCLI is installed
     Get-RequiredModule -Name 'VCF.PowerCLI' -Version '9.1'
+
+    # Display report module information using Core function
+    Write-ReportModuleInfo -ModuleName 'DellEMC.VxRail'
 
     # Import Report Configuration
     $Report = $ReportConfig.Report

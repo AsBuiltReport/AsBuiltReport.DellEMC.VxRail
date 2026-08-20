@@ -1,13 +1,6 @@
 # culture = 'en-US'
 @{
     InvokeAsBuiltReportDellEMCVxRail = ConvertFrom-StringData @'
-        ProjectInfo             = Please refer to https://www.asbuiltreport.com for more detailed information about this project.
-        ConfigReminder          = Do not forget to update your report configuration file after each new version release.
-        DocumentationLink       = Documentation: {0}
-        IssuesLink              = Issues or bug reporting: {0}
-        InstalledVersion        = AsBuiltReport.DellEMC.VxRail {0} is currently installed.
-        LatestVersionAvailable  = AsBuiltReport.DellEMC.VxRail {0} is available.
-        UpdateModule            = Run 'Update-Module -Name AsBuiltReport.DellEMC.VxRail -Force' to install the latest version.
         Connecting              = Connecting to vCenter Server '{0}'.
         CollectingVxRailInfo    = Collecting VxRail Manager Information.
         ClusterNotFound         = Unable to find VxRail Cluster '{0}'.
