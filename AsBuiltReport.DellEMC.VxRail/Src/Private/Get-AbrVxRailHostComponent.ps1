@@ -35,7 +35,8 @@ function Get-AbrVxRailHostComponent {
                     $HbaDriver = $esxcli.system.module.get.invoke(@{module = $HbaDevice.modulename})
                     #$NicDevice = $esxcli.hardware.pci.list.invoke() | Where-Object {($_.ConfiguredOwner -eq 'VMkernel') -and ($_.DeviceClassName -eq 'Ethernet controller') } | Select-Object -First 1
                     #$NicDriver = $esxcli.system.module.get.invoke(@{module = $NicDevice.modulename})
-                    $VxRailVib = $esxcli.software.vib.get.invoke() | Where-Object {$_.name -eq 'platform-service'}
+                    # VxRail's platform service VIB was renamed from 'platform-service' to 'platformsvc' on VxRail 8.0.322+
+                    $VxRailVib = $esxcli.software.vib.get.invoke() | Where-Object {$_.name -in @('platform-service', 'platformsvc')}
                     $VMwareEsxi = $esxcli.system.version.get.invoke()
                     $VxrHostComponent = [PSCustomObject]@{
                         $LocalizedData.VMwareEsxi = "$($VMwareEsxi.version)-$((($VMwareESXi.build).Split('-')[1]))"

@@ -15,24 +15,29 @@
 - Update Required Modules to AsBuiltReport.Core v1.6.4
 - Update module folder structure to nested module folder layout
 - Update `actions/checkout` to v7 in all GitHub workflows
-- Update PowerCLI version check from VMware.PowerCLI 13.0 to VCF.PowerCLI 9.1
 - Update README and bug report template references from VMware.PowerCLI to VCF.PowerCLI
 - Declare `PowerShellVersion` and `CompatiblePSEditions` explicitly in the module manifest
 - Update module script to build paths with `Join-Path` instead of string concatenation
 - Rename `ConvertFrom-epoch` to `ConvertFrom-Epoch` and add comment-based help
 - Rename `Get-AbrVxRailHostIdracIpv4.ps1` to `Get-AbrVxRailHostIdracIPv4.ps1` to match its function name
+- Update CONTRIBUTING.md example AsBuiltReport.Core version reference to v1.6.4
 
 ### Removed
 - Removed tweet action from GitHub release workflow
 - Removed `Get-RequiredModule` private function, now provided by AsBuiltReport.Core
 - Removed `Export-ModuleMember` calls for private functions; the module manifest's `FunctionsToExport` is now the sole export authority
 - Removed dead code from `ConvertFrom-Epoch`
+- Removed `AsBuiltReport.DellEMC.VxRail.Style.ps1` — redundant, unreferenced local PScribo style file superseded by AsBuiltReport.Core's default style
 
 ### Fixed
 - Fixed `Add-Type` failure in `Get-VxRailApi.ps1` on PowerShell 7 caused by the obsolete `ServicePointManager` API (Fix [#18](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/issues/18))
+- Fixed report generation failing with VCF PowerCLI installed by updating the PowerCLI version check from VMware.PowerCLI 13.0 to VCF.PowerCLI 9.1 (Fix [#17](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/issues/17))
+- Fixed missing VxRail VIB information in the Components section on VxRail 8.0.322+, where the platform service VIB was renamed from `platform-service` to `platformsvc` (Fix [#16](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/issues/16))
 - Fixed VxRail Cluster Support health checks never triggering due to a property name mismatch (`SRS Status`/`SRS Connection` vs. `ESRS Status`/`ESRS Connection`)
 - Fixed a typo in the VxRail Host Component table (`HBsA Driver` → `HBA Driver`)
 - Fixed `Get-AbrVxRailHostEsxi` and `Get-AbrVxRailHostPsu` collection messages referencing an undefined `$VxrHost` variable
+- Fixed README `Report` schema table missing the `Language` configuration key
+- Fixed README InfoLevel description stating "2 levels (0-1)" when the table below it lists three settings (0-2)
 
 ## [0.4.5] - 2025-03-28
 ### Added
