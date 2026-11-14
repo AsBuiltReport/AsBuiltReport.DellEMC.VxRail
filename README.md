@@ -1,14 +1,14 @@
 <p align="center">
-    <a href="https://www.asbuiltreport.com/" alt="AsBuiltReport"></a>
-            <img src='https://github.com/AsBuiltReport.png' width="8%" height="8%" /></a>
+    <a href="https://www.asbuiltreport.com/">
+        <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/repo-banners/AsBuiltReport.DellEMC.VxRail.png" alt="AsBuiltReport.DellEMC.VxRail" width="880"></a>
 </p>
 <p align="center">
     <a href="https://www.powershellgallery.com/packages/AsBuiltReport.DellEMC.VxRail/" alt="PowerShell Gallery Version">
-        <img src="https://img.shields.io/powershellgallery/v/AsBuiltReport.DellEMC.VxRail.svg" /></a>
+        <img src="https://img.shields.io/powershellgallery/v/AsBuiltReport.DellEMC.VxRail.svg?color=1F5FD0" /></a>
     <a href="https://www.powershellgallery.com/packages/AsBuiltReport.DellEMC.VxRail/" alt="PS Gallery Downloads">
-        <img src="https://img.shields.io/powershellgallery/dt/AsBuiltReport.DellEMC.VxRail.svg" /></a>
+        <img src="https://img.shields.io/powershellgallery/dt/AsBuiltReport.DellEMC.VxRail.svg?color=012456" /></a>
     <a href="https://www.powershellgallery.com/packages/AsBuiltReport.DellEMC.VxRail/" alt="PS Platform">
-        <img src="https://img.shields.io/powershellgallery/p/AsBuiltReport.DellEMC.VxRail.svg" /></a>
+        <img src="https://img.shields.io/powershellgallery/p/AsBuiltReport.DellEMC.VxRail.svg?color=FFD02B" /></a>
 </p>
 <p align="center">
     <a href="https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/graphs/commit-activity" alt="GitHub Last Commit">
@@ -16,7 +16,7 @@
     <a href="https://raw.githubusercontent.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/master/LICENSE" alt="GitHub License">
         <img src="https://img.shields.io/github/license/AsBuiltReport/AsBuiltReport.DellEMC.VxRail.svg" /></a>
     <a href="https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/graphs/contributors" alt="GitHub Contributors">
-        <img src="https://img.shields.io/github/contributors/AsBuiltReport/AsBuiltReport.DellEMC.VxRail.svg"/></a>
+        <img src="https://img.shields.io/github/contributors/AsBuiltReport/AsBuiltReport.DellEMC.VxRail.svg?color=012456"/></a>
 </p>
 <p align="center">
     <a href="https://codecov.io/gh/AsBuiltReport/AsBuiltReport.DellEMC.VxRail" >
@@ -30,24 +30,22 @@
     <a href='https://ko-fi.com/B0B7DDGZ7' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://ko-fi.com/img/githubbutton_sm.svg' border='0' alt='Want to keep alive this project? Support me on Ko-fi' /></a>
 </p>
 
-# Dell EMC VxRail As Built Report
-
 Dell EMC VxRail As Built Report is a PowerShell module which works in conjunction with [AsBuiltReport.Core](https://github.com/AsBuiltReport/AsBuiltReport.Core).
 
 [AsBuiltReport](https://github.com/AsBuiltReport/AsBuiltReport) is an open-sourced community project which utilises PowerShell to produce as-built documentation in multiple document formats for multiple vendors and technologies.
 
 The Dell EMC VxRail As Built Report module is used to generate as built documentation for Dell EMC VxRail hyperconverged infrastructure.
 
-## :books: Sample Reports
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/sample-reports.svg" alt="" width="24" height="24" align="top"> Sample Reports
 ### Sample Report - Default Style
 Sample Dell EMC VxRail As Built Report with health checks, using default report style.
 
 - [Sample Dell EMC VxRail As Built Report (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/master/Samples/Sample%20Dell%20EMC%20VxRail%20As%20Built%20Report.html)
 
-# :beginner: Getting Started
+# <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/getting-started.svg" alt="" width="28" height="28" align="top"> Getting Started
 Below are the instructions on how to install, configure and generate a Dell EMC VxRail As Built Report.
 
-## :floppy_disk: Supported Versions
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/supported-versions.svg" alt="" width="24" height="24" align="top"> Supported Versions
 
 * VxRail 7.x
 * VxRail 8.x
@@ -59,7 +57,7 @@ This report is compatible with the following PowerShell versions;
 |:----------------------:|:------------:|
 |   :white_check_mark:|  :white_check_mark:  |
 
-## 🌐 Language Support
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/language-support.svg" alt="" width="24" height="24" align="top"> Language Support
 <!-- ********** Update supported languages ********** -->
 The Dell EMC VxRail As Built Report supports the following languages;
 
@@ -71,7 +69,7 @@ The Dell EMC VxRail As Built Report supports the following languages;
 | German | de-DE |
 | Spanish | es-ES |
 
-## :wrench: System Requirements
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/system-requirements.svg" alt="" width="24" height="24" align="top"> System Requirements
 PowerShell 5.1 or PowerShell 7, and the following PowerShell modules are required for generating a Dell EMC VxRail As Built report.
 
 Install the following modules by following the [module installation](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail#package-module-installation) procedure.
@@ -79,10 +77,10 @@ Install the following modules by following the [module installation](https://git
 - [VCF PowerCLI Module](https://www.powershellgallery.com/packages/VCF.PowerCLI/)
 - [AsBuiltReport.DellEMC.VxRail Module](https://www.powershellgallery.com/packages/AsBuiltReport.DellEMC.VxRail/)
 
-### :closed_lock_with_key: Required Privileges
+### <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/required-privileges.svg" alt="" width="20" height="20" align="top"> Required Privileges
 * A VMware vSphere user account with administrator privileges is required to generate a Dell EMC VxRail As Built Report.
 
-## :package: Module Installation
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/module-installation.svg" alt="" width="24" height="24" align="top"> Module Installation
 
 ### PowerShell
 
@@ -107,7 +105,7 @@ If you are unable to use the PowerShell Gallery, you can still install the modul
 5. Close and reopen the PowerShell terminal window.
 
 _Note: You are not limited to installing the module to those example paths, you can add a new entry to the environment variable PSModulePath if you want to use another path._
-## :pencil2: Configuration
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/configuration.svg" alt="" width="24" height="24" align="top"> Configuration
 The Dell EMC VxRail As Built Report utilises a JSON file to allow configuration of report information, options, detail and healthchecks.
 
 A Dell EMC VxRail report configuration file can be generated by executing the following command;
@@ -189,8 +187,8 @@ The **Cluster** schema is used to configure health checks for VxRail clusters.
 
 | Sub-Schema    | Setting      | Default | Description                                         | Highlight                                                                                     |
 |---------------|--------------|---------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| HealthStatus  | true / false | true    | Highlights VxRail clusters which report an error    | ![Critical](https://placehold.co/15x15/F5DBD9/F5DBD9) VxRail cluster is in an error state |
-| VMPowerStatus | true / false | true    | Highlights VxRail cluster VMs which are powered off | ![Warning](https://placehold.co/15x15/FEF3B5/FEF3B5) VxRail cluster VM is powered off     |
+| HealthStatus  | true / false | true    | Highlights VxRail clusters which report an error    | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) VxRail cluster is in an error state |
+| VMPowerStatus | true / false | true    | Highlights VxRail cluster VMs which are powered off | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) VxRail cluster VM is powered off     |
 
 #### Appliance
 The **Appliance** schema is used to configure health checks for VxRail appliances.
@@ -198,12 +196,12 @@ The **Appliance** schema is used to configure health checks for VxRail appliance
 
 | Sub-Schema        | Setting      | Default | Description                                                              | Highlight                                                                                                                                                                                            |
 |-------------------|--------------|---------|--------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| HealthStatus      | true / false | true    | Highlights VxRail appliances which report an issue                       | ![Warning](https://placehold.co/15x15/FEF3B5/FEF3B5) VxRail appliance is reporting a warning<br>![Critical](https://placehold.co/15x15/F5DBD9/F5DBD9) VxRail appliance is reporting an error |
-| PowerStatus       | true / false | true    | Highlights VxRail appliances which are powered off                       | ![Critical](https://placehold.co/15x15/F5DBD9/F5DBD9) VxRail appliance is powered off                                                                                                            |
-| BootDevice        | true / false | true    | Highlights VxRail boot devices which report less than 100% health        | ![Warning](https://placehold.co/15x15/FEF3B5/FEF3B5) Boot device reports <100% health                                                                                                            |
-| NetworkLinkStatus | true / false | true    | Highlights VxRail network adpaters with a link status of `Down`          | ![Critical](https://placehold.co/15x15/F5DBD9/F5DBD9) Network adapter link status is `Down`                                                                                                      |
-| DiskStatus        | true / false | true    | Highlights VxRail disks which report a status which is not equal to `OK` | ![Critical](https://placehold.co/15x15/F5DBD9/F5DBD9) Disk status is not `OK`                                                                                                                    |
-| PowerSupply       | true / false | true    | Highlights VxRail power supplies which are not `Healthy`                 | ![Critical](https://placehold.co/15x15/F5DBD9/F5DBD9) Power supply is not `Healthy`                                                                                                              |
+| HealthStatus      | true / false | true    | Highlights VxRail appliances which report an issue                       | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) VxRail appliance is reporting a warning<br>![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) VxRail appliance is reporting an error |
+| PowerStatus       | true / false | true    | Highlights VxRail appliances which are powered off                       | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) VxRail appliance is powered off                                                                                                            |
+| BootDevice        | true / false | true    | Highlights VxRail boot devices which report less than 100% health        | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Boot device reports <100% health                                                                                                            |
+| NetworkLinkStatus | true / false | true    | Highlights VxRail network adpaters with a link status of `Down`          | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Network adapter link status is `Down`                                                                                                      |
+| DiskStatus        | true / false | true    | Highlights VxRail disks which report a status which is not equal to `OK` | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Disk status is not `OK`                                                                                                                    |
+| PowerSupply       | true / false | true    | Highlights VxRail power supplies which are not `Healthy`                 | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Power supply is not `Healthy`                                                                                                              |
 
 #### Support
 The **Support** schema is used to configure health checks for the VxRail support configuration.
@@ -211,25 +209,25 @@ The **Support** schema is used to configure health checks for the VxRail support
 
 | Sub-Schema     | Setting      | Default | Description                                   | Highlight                                                                              |
 |----------------|--------------|---------|-----------------------------------------------|----------------------------------------------------------------------------------------|
-| EsrsStatus     | true / false | true    | Highlights when ESRS is `Not Configured`      | ![Warning](https://placehold.co/15x15/FEF3B5/FEF3B5) ESRS is `Not Configured`      |
-| EsrsConnection | true / false | true    | Highlights when ESRS connection is `Disabled` | ![Warning](https://placehold.co/15x15/FEF3B5/FEF3B5) ESRS connection is `Disabled` |
+| EsrsStatus     | true / false | true    | Highlights when ESRS is `Not Configured`      | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) ESRS is `Not Configured`      |
+| EsrsConnection | true / false | true    | Highlights when ESRS connection is `Disabled` | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) ESRS connection is `Disabled` |
 
 #### Certificate
 The **Certificate** schema is used to configure health checks for VxRail trust store certificates.
 
 | Sub-Schema   | Setting      | Default | Description                                                | Highlight                                                                                        |
 |--------------|--------------|---------|-------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| Status       | true / false | true    | Highlights certificates which are not `Valid`                | ![Critical](https://placehold.co/15x15/F5DBD9/F5DBD9) Certificate status is not `Valid`           |
-| ExpiringSoon | true / false | true    | Highlights certificates which will expire within 90 days     | ![Warning](https://placehold.co/15x15/FEF3B5/FEF3B5) Certificate expires within 90 days           |
+| Status       | true / false | true    | Highlights certificates which are not `Valid`                | ![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Certificate status is not `Valid`           |
+| ExpiringSoon | true / false | true    | Highlights certificates which will expire within 90 days     | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Certificate expires within 90 days           |
 
 #### Precheck
 The **Precheck** schema is used to configure health checks for VxRail system precheck results.
 
 | Sub-Schema    | Setting      | Default | Description                                                     | Highlight                                                                                                                                                     |
 |---------------|--------------|---------|-------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| TotalSeverity | true / false | true    | Highlights precheck reports with a total severity of `Warn` or higher | ![Warning](https://placehold.co/15x15/FEF3B5/FEF3B5) Precheck total severity is `Warn`<br>![Critical](https://placehold.co/15x15/F5DBD9/F5DBD9) Precheck total severity is `Error` or `Critical` |
+| TotalSeverity | true / false | true    | Highlights precheck reports with a total severity of `Warn` or higher | ![Warning](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FFF4C7.svg) Precheck total severity is `Warn`<br>![Critical](https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/highlight-swatches/FEDDD7.svg) Precheck total severity is `Error` or `Critical` |
 
-## :computer: Examples
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/examples.svg" alt="" width="24" height="24" align="top"> Examples
 
 :exclamation: The `Target` parameter **MUST** specify the vCenter Server IP/FQDN which manages the VxRail cluster. The `Username`, `Password` and `Credential` parameters must also use relevant vCenter Server credentials.
 
@@ -252,5 +250,5 @@ PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local'
 PS C:\> New-AsBuiltReport -Report DellEMC.VxRail -Target 'vcenter-01.corp.local' -Username 'administrator@vsphere.local' -Password 'VMware1!' -Format Html,Word -OutputFolderPath 'C:\Users\Tim\Documents' -SendEmail
 ```
 
-## :bug: Known Issues
+## <img src="https://raw.githubusercontent.com/AsBuiltReport/.github/main/assets/section-icons/known-issues.svg" alt="" width="24" height="24" align="top"> Known Issues
 There are currently no known issues with this report. Refer to the [GitHub Issues](https://github.com/AsBuiltReport/AsBuiltReport.DellEMC.VxRail/issues) page for any open bugs or feature requests.
